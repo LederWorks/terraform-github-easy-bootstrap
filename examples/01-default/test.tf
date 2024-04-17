@@ -52,7 +52,7 @@ module "github_bootstrap" {
         provider = "azurerm"
         infix    = "easy"
         type     = "brick"
-        hive     = "azurerm-network"
+        hive     = "network"
         suffix   = "nsg"
       }
     }
@@ -64,7 +64,7 @@ module "github_bootstrap" {
         provider = "azurerm"
         infix    = "easy"
         type     = "brick"
-        hive     = "azurerm-compute"
+        hive     = "compute"
         suffix   = "nic"
       }
     }
