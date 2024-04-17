@@ -1,22 +1,17 @@
 <!-- BEGIN_TF_DOCS -->
 <!-- markdownlint-disable-file MD033 MD012 -->
-# terraform-provider-easy-brick-category-purpose
-LederWorks Easy Category Purpose Brick Module
+# terraform-github-easy-bootstrap
+LederWorks Easy Github Bootstrap Module
 
 This module were created by [LederWorks](https://lederworks.com) IaC enthusiasts.
 
 ## About This Module
-This module implements the [SECTION](https://lederworks.com/docs/microsoft-azure/bricks/compute/#section) reference Insight.
+This module has been mainly designed and developed to bootstrap terraform module repositories, however it can be used for any github repository.
 
 ## How to Use This Modul
-- Ensure Azure credentials are [in place](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure) (e.g. `az login` and `az account set --subscription="SUBSCRIPTION_ID"` on your workstation)
-- Owner role or equivalent is required!
-- Ensure pre-requisite resources are created.
+- Ensure Github credentials are [in place](https://registry.terraform.io/providers/integrations/github/latest/docs#authentication)
+- _Some_ role or equivalent is required!
 - Create a Terraform configuration that pulls in this module and specifies values for the required variables.
-
-## Disclaimer / Known Issues
-- Disclaimer
-- Known Issues
 
 ## Requirements
 
@@ -41,25 +36,76 @@ The following providers are used by this module:
 ### Example 1
 ```hcl
 # Module Test
-module "terratest-category-purpose" {
-  source = "../"
-
-  #Subscription
-  # subscription_id = data.azurerm_client_config.current.subscription_id
-
-  #Resource Group
-  # resource_group_object = azurerm_resource_group.RGRP
-
-  #Tags
-  # tags = local.tags
+module "github_bootstrap" {
+  source = "../.."
 
   ### Common Variables ###
+  owner = "Ledermayer"
 
   ### General Variables ###
 
   ### Global Variables ###
 
-  ### Local Variables ###
+  ### Set Variables ###
+  hives = {
+    #Azure Network Modules
+    azurerm-network = {
+      provider  = "azurerm"
+      hive      = "network"
+      members   = []
+      variables = {}
+      secrets   = {}
+      labels = {
+        azurerm-compute = {
+          name        = "azurerm-network"
+          color       = "blue"
+          description = "Azure Network Modules"
+        }
+      }
+    }
+
+    #Azure Compute Modules
+    azurerm-compute = {
+      provider  = "azurerm"
+      hive      = "compute"
+      members   = []
+      variables = {}
+      secrets   = {}
+      labels = {
+        azurerm-compute = {
+          name        = "azurerm-compute"
+          color       = "blue"
+          description = "Azure Compute Modules"
+        }
+      }
+    }
+  }
+
+  repos = {
+    #Azure Network NSG Module
+    azurerm-network-nsg = {
+      name = {
+        language = "terraform"
+        provider = "azurerm"
+        infix    = "bootstrap"
+        type     = "brick"
+        hive     = "azurerm-network"
+        suffix   = "nsg"
+      }
+    }
+
+    #Azure Compute NIC Module
+    azurerm-compute-nic = {
+      name = {
+        language = "terraform"
+        provider = "azurerm"
+        infix    = "bootstrap"
+        type     = "brick"
+        hive     = "azurerm-compute"
+        suffix   = "nic"
+      }
+    }
+  }
 
 }
 ```
@@ -72,41 +118,122 @@ The following resources are used by this module:
 
 The following input variables are required:
 
-### <a name="input_resource_group_object"></a> [resource\_group\_object](#input\_resource\_group\_object)
+### <a name="input_owner"></a> [owner](#input\_owner)
 
-Description: (Required) Resource Group Object
+Description: n/a
 
-Type: `any`
-
-### <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id)
-
-Description: (Required) ID of the Subscription
-
-Type: `any`
+Type: `string`
 
 ## Optional Inputs
 
 The following input variables are optional (have default values):
 
-### <a name="input_context"></a> [context](#input\_context)
+### <a name="input_hives"></a> [hives](#input\_hives)
 
-Description: Context Module
+Description: n/a
 
-Type: `any`
+Type:
 
-Default: `null`
+```hcl
+map(object({
+    provider  = string
+    hive      = string
+    members   = optional(set(string), [])
+    variables = optional(map(string), {})
+    secrets   = optional(map(string), {})
+    labels = optional(map(object({
+      name        = string
+      color       = string
+      description = optional(string)
+    })))
+  }))
+```
 
-### <a name="input_tags"></a> [tags](#input\_tags)
+Default: `{}`
 
-Description: (Optional) Your Azure tags, as a map(string)
+### <a name="input_labels"></a> [labels](#input\_labels)
+
+Description: n/a
+
+Type:
+
+```hcl
+map(object({
+    name        = string
+    color       = string
+    description = optional(string)
+  }))
+```
+
+Default: `{}`
+
+### <a name="input_repos"></a> [repos](#input\_repos)
+
+Description: n/a
+
+Type:
+
+```hcl
+map(object({
+    name = object({
+      language = optional(string, "terraform")
+      provider = optional(string)
+      infix    = optional(string) #easy
+      type     = optional(string)
+      hive     = optional(string)
+      suffix   = string
+    })
+    private          = optional(bool, false)
+    project_enabled  = optional(bool, false)
+    custom_teams     = optional(set(string), [])
+    custom_variables = optional(map(string), {})
+    custom_secrets   = optional(map(string), {})
+    custom_labels = optional(map(object({
+      name        = string
+      color       = string
+      description = optional(string)
+    })))
+
+  }))
+```
+
+Default: `{}`
+
+### <a name="input_secrets"></a> [secrets](#input\_secrets)
+
+Description: n/a
 
 Type: `map(string)`
 
+Default: `{}`
+
+### <a name="input_template_repo"></a> [template\_repo](#input\_template\_repo)
+
+Description: The template repository to use for creating new repos
+
+Type: `string`
+
 Default: `null`
+
+### <a name="input_variables"></a> [variables](#input\_variables)
+
+Description: n/a
+
+Type: `map(string)`
+
+Default: `{}`
 
 ## Outputs
 
-No outputs.
+The following outputs are exported:
+
+### <a name="output_hives"></a> [hives](#output\_hives)
+
+Description: Hives
+
+### <a name="output_repos"></a> [repos](#output\_repos)
+
+Description: Repositories
 
 <!-- markdownlint-disable-file MD033 MD012 -->
 ## Contributing
