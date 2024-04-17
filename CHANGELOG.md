@@ -1,16 +1,9 @@
 # Change Log
 
-## v0.3.1 [current]
+## v0.1.1 [current]
 BUG FIXES:
-- Updated copyright to 2024
+- BLA
 
-## v0.3.0
+## v0.1.0
 FEATURES:
-- Added pull request template
-
-ENHANCEMENTS:
-- Separated tests and examples
-- Updated default version constrains
-
-BUG FIXES:
-- Removed Azure DevOps pull request template
+- Initial version
