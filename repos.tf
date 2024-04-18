@@ -1,5 +1,6 @@
 resource "github_repository" "repo" {
   for_each = local.repos != {} ? local.repos : {}
+  provider = github
 
   #Common
   name         = each.value.name
