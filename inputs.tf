@@ -34,3 +34,4 @@ resource "github_issue_label" "labels" {
   description = each.value.label_value.description
   color       = each.value.label_value.color
 }
+
