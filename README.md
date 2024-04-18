@@ -19,17 +19,17 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.3.6)
 
-- <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (>= 1.0.0)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (>= 3.61.0)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (>= 3.60.0)
-
-- <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) (>= 2.11.0)
+- <a name="requirement_github"></a> [github](#requirement\_github) (>= 6.2.1)
 
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (>= 3.60.0)
+- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (>= 3.61.0)
+
+- <a name="provider_github"></a> [github](#provider\_github) (>= 6.2.1)
 
 ## Examples
 
@@ -114,6 +114,8 @@ module "github_bootstrap" {
 
 The following resources are used by this module:
 
+- [github_repository.repo](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository) (resource)
+
 ## Required Inputs
 
 The following input variables are required:
@@ -130,7 +132,7 @@ The following input variables are optional (have default values):
 
 ### <a name="input_hives"></a> [hives](#input\_hives)
 
-Description: n/a
+Description: Hives
 
 Type:
 
@@ -169,7 +171,7 @@ Default: `{}`
 
 ### <a name="input_repos"></a> [repos](#input\_repos)
 
-Description: n/a
+Description: Repositories
 
 Type:
 
