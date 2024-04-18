@@ -11,6 +11,7 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      GITHUB_TOKEN: ${{ secrets.LEDERWORKS_PAT }}
 
     steps:
     - name: Checkout repository
