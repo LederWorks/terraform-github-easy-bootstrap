@@ -8,7 +8,7 @@
 } */
 
 resource "github_actions_variable" "variable" {
-  for_each = { for variable in local.flattened_variables : "${variable.repo_name}_${variable.variable_name}" => variable }
+  for_each      = { for variable in local.flattened_variables : "${variable.repo_name}_${variable.variable_name}" => variable }
   repository    = each.value.repository
   variable_name = each.value.variable_name
   value         = each.value.value
