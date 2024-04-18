@@ -29,7 +29,7 @@ locals {
       private_enabled     = repo.private_enabled
       issues_enabled      = repo.issues_enabled
       discussions_enabled = repo.discussions_enabled
-      projects_enabled     = repo.projects_enabled
+      projects_enabled    = repo.projects_enabled
       wiki_enabled        = repo.wiki_enabled
       archive_enabled     = repo.archive_enabled
       #Custom Inputs

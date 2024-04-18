@@ -10,7 +10,7 @@ terraform {
     }
 
     github = {
-      source  = "integrations/github"
+      source = "integrations/github"
     }
   }
 }
