@@ -8,7 +8,7 @@ provider "azurerm" {
 }
 
 provider "github" {
-  organization = "LederWorks"
+  owner = "LederWorks"
 }
 
 #Versions
