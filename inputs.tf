@@ -13,7 +13,8 @@ resource "github_actions_secret" "secret" {
 
   repository      = github_repository.repo[each.key].id
   secret_name     = each.key
-  encrypted_value = each.value
+  # encrypted_value = each.value
+  plaintext_value = each.value
 }
 
 #Labels
