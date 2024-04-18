@@ -318,7 +318,7 @@ map(object({
       name        = string
       color       = string
       description = optional(string)
-    })))
+    })), {})
   }))
 ```
 
