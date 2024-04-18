@@ -39,24 +39,23 @@ module "github_bootstrap" {
 
   #### Common Variables
   terraform_provider = "azure"
-  members            = ["Wonka", "Ledermayer"]
+  members            = ["Ledermayer", "Wonka"]
   admins             = ["Ledermayer"]
   variables          = {}
   secrets            = {}
   labels             = {}
-
-
+  brand              = "ezpz"
 
   #### Set Variables
   hives = {
-    #Azure Network Modules
+    ### Azure Network Modules
     azure-network = {
       hive         = "network"
       approvers    = ["Ledermayer", "Wonka"]
       contributors = ["Ledermayer"]
     }
 
-    #Azure Compute Modules
+    ### Azure Compute Modules
     azure-compute = {
       hive         = "compute"
       approvers    = ["Ledermayer", "Wonka"]
@@ -65,28 +64,40 @@ module "github_bootstrap" {
   }
 
   repos = {
-    #Azure Network NSG Module
+    ### Azure Network NSG Module
     azurerm-network-nsg = {
+      #Common
       name = {
-        language = "terraform"
-        provider = "azurerm"
-        infix    = "baby"
-        type     = "brick"
-        hive     = "network"
-        suffix   = "nsg"
+        type   = "brick"
+        hive   = "network"
+        suffix = "nsg"
       }
+      description = "Azure Network NSG Module"
+      url         = null
+
+      #General
+      private_enabled     = false
+      issues_enabled      = true
+      discussions_enabled = false
+      projects_enabled    = false
+      wiki_enabled        = false
+      archive_enabled     = false
+
+      #Custom Inputs
+      custom_teams     = []
+      custom_variables = {}
+      custom_secrets   = {}
+      custom_labels    = {}
     }
 
-    #Azure Compute NIC Module
+    ### Azure Compute NIC Module
     azurerm-compute-nic = {
       name = {
-        language = "terraform"
-        provider = "azurerm"
-        infix    = "baby"
-        type     = "brick"
-        hive     = "compute"
-        suffix   = "nic"
+        type   = "brick"
+        hive   = "compute"
+        suffix = "nic"
       }
+      description = "Azure Compute NIC Module"
     }
   }
 
@@ -117,15 +128,28 @@ The following input variables are optional (have default values):
 
 ### <a name="input_admins"></a> [admins](#input\_admins)
 
-Description: Admins of the provider team.
+Description: (Optional) Admins of the provider team. Required when provider\_bootstrap\_enabled is set to true.
 
 Type: `set(string)`
 
 Default: `[]`
 
+### <a name="input_brand"></a> [brand](#input\_brand)
+
+Description: (Optional) The brand name to be used in the nomenclature. This appears as an infix in the repository name.
+
+Type: `string`
+
+Default: `null`
+
 ### <a name="input_hives"></a> [hives](#input\_hives)
 
-Description: Hives
+Description:   A map of competency hives to be created.  
+  Each hive is a collection of repositories that share a common theme.
+
+  hive - The name of the hive.  
+  approvers - A list of usernames that are approvers for the hive.  
+  contributors - A list of usernames that are contributors for the hive.
 
 Type:
 
@@ -141,7 +165,7 @@ Default: `{}`
 
 ### <a name="input_labels"></a> [labels](#input\_labels)
 
-Description: value
+Description: (Optional) value
 
 Type:
 
@@ -157,11 +181,35 @@ Default: `{}`
 
 ### <a name="input_members"></a> [members](#input\_members)
 
-Description: Members of the provider team.
+Description: (Optional) Members of the provider team. Required when provider\_bootstrap\_enabled is set to true.
 
 Type: `set(string)`
 
 Default: `[]`
+
+### <a name="input_provider_admin_team_id"></a> [provider\_admin\_team\_id](#input\_provider\_admin\_team\_id)
+
+Description: (Optional) The ID of the already existing provider admin team. Mutually exclusive with provider\_bootstrap\_enabled.
+
+Type: `string`
+
+Default: `null`
+
+### <a name="input_provider_bootstrap_enabled"></a> [provider\_bootstrap\_enabled](#input\_provider\_bootstrap\_enabled)
+
+Description: (Optional) Enable provider bootstrap, which creates the provider teams and sets up team members and admins.
+
+Type: `bool`
+
+Default: `false`
+
+### <a name="input_provider_team_id"></a> [provider\_team\_id](#input\_provider\_team\_id)
+
+Description: (Optional) The ID of the already existing provider team. Mutually exclusive with provider\_bootstrap\_enabled.
+
+Type: `string`
+
+Default: `null`
 
 ### <a name="input_repos"></a> [repos](#input\_repos)
 
@@ -174,7 +222,6 @@ map(object({
     #Common
     name = object({
       language = optional(string, "terraform")
-      infix    = optional(string) #easy
       type     = optional(string)
       hive     = optional(string)
       suffix   = string
@@ -204,7 +251,7 @@ Default: `{}`
 
 ### <a name="input_secrets"></a> [secrets](#input\_secrets)
 
-Description: value
+Description: (Optional) value
 
 Type: `map(string)`
 
@@ -212,7 +259,7 @@ Default: `{}`
 
 ### <a name="input_terraform_provider"></a> [terraform\_provider](#input\_terraform\_provider)
 
-Description: The terraform provider to be bootstrapped.
+Description: (Optional) The terraform provider to be bootstrapped. Defaults to 'oci'.
 
 Type: `string`
 
@@ -220,7 +267,7 @@ Default: `"oci"`
 
 ### <a name="input_variables"></a> [variables](#input\_variables)
 
-Description: value
+Description: (Optional) value
 
 Type: `map(string)`
 
