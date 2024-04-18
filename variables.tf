@@ -1,24 +1,46 @@
-variable "template_repo" {
-  description = "The template repository to use for creating new repos"
+#  $$$$$$\                                                            
+# $$  __$$\                                                           
+# $$ /  \__| $$$$$$\  $$$$$$\$$$$\  $$$$$$\$$$$\   $$$$$$\  $$$$$$$\  
+# $$ |      $$  __$$\ $$  _$$  _$$\ $$  _$$  _$$\ $$  __$$\ $$  __$$\ 
+# $$ |      $$ /  $$ |$$ / $$ / $$ |$$ / $$ / $$ |$$ /  $$ |$$ |  $$ |
+# $$ |  $$\ $$ |  $$ |$$ | $$ | $$ |$$ | $$ | $$ |$$ |  $$ |$$ |  $$ |
+# \$$$$$$  |\$$$$$$  |$$ | $$ | $$ |$$ | $$ | $$ |\$$$$$$  |$$ |  $$ |
+#  \______/  \______/ \__| \__| \__|\__| \__| \__| \______/ \__|  \__|
+
+#Provider
+variable "provider" {
   type        = string
-  default     = null
+  default     = "oci"
+  description = "The cloud provider to be bootstrapped."
 }
 
-variable "owner" {
-  type = string
+#Members
+variable "members" {
+  type        = set(string)
+  default     = []
+  description = "Members of the provider team."
+}
+#Admins
+variable "admins" {
+  type        = set(string)
+  default     = []
+  description = "Admins of the provider team."
 }
 
+#Variables
 variable "variables" {
   type    = map(string)
   default = {}
 }
 
+#Secrets
 variable "secrets" {
   type      = map(string)
   default   = {}
   sensitive = true
 }
 
+#Labels
 variable "labels" {
   type = map(object({
     name        = string
@@ -41,17 +63,9 @@ variable "labels" {
 #Hives
 variable "hives" {
   type = map(object({
-    provider    = string
-    hive        = string
-    description = optional(string)
-    members     = optional(set(string), [])
-    variables   = optional(map(string), {})
-    secrets     = optional(map(string), {})
-    labels = optional(map(object({
-      name        = string
-      color       = string
-      description = optional(string)
-    })))
+    hive         = string
+    approvers    = optional(set(string), [])
+    contributors = optional(set(string), [])
   }))
   default = {}
 }

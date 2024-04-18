@@ -3,7 +3,7 @@ module "github_bootstrap" {
   source = "../.."
 
   ### Common Variables ###
-  owner = "Ledermayer"
+  # owner = "Ledermayer"
 
   ### General Variables ###
 
