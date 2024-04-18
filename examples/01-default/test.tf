@@ -13,7 +13,7 @@ module "github_bootstrap" {
   hives = {
     #Azure Network Modules
     azurerm-network = {
-      provider  = "azurerm"
+      provider  = "azure"
       hive      = "network"
       members   = []
       variables = {}
@@ -29,7 +29,7 @@ module "github_bootstrap" {
 
     #Azure Compute Modules
     azurerm-compute = {
-      provider  = "azurerm"
+      provider  = "azure"
       hive      = "compute"
       members   = []
       variables = {}
