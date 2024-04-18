@@ -9,9 +9,9 @@
 
 resource "github_actions_variable" "variable" {
   for_each      = { for variable in local.flattened_variables : "${variable.repo_name}_${variable.variable_name}" => variable }
-  repository    = each.value.repository
+  repository    = each.value.repository_id
   variable_name = each.value.variable_name
-  value         = each.value.value
+  value         = each.value.variable_value
 }
 
 #Secrets
@@ -24,8 +24,7 @@ resource "github_actions_variable" "variable" {
 } */
 
 resource "github_actions_secret" "secret" {
-  for_each = { for secret in local.flattened_secrets : "${secret.repo_name}_${secret.secret_name}" => secret }
-
+  for_each        = { for secret in local.flattened_secrets : "${secret.repo_name}_${secret.secret_name}" => secret }
   repository      = each.value.repository_id
   secret_name     = each.value.secret_name
   plaintext_value = each.value.secret_value
