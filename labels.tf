@@ -12,8 +12,8 @@ locals {
       for label_name, label in labels : {
         repo_name          = repo_key
         label_name        = label_name
-        label_color       = label_color
-        label_description = label_description
+        label_color       = label.color
+        label_description = label.description
         repository_id = github_repository.repo[repo_key].id
       }
     ]
