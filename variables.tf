@@ -57,7 +57,7 @@ variable "variables" {
 variable "secrets" {
   type        = map(string)
   default     = {}
-  sensitive   = true
+  #sensitive   = true
   description = "(Optional) value"
 }
 
