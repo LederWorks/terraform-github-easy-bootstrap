@@ -1,4 +1,4 @@
-#Variables
+/* #Variables
 resource "github_actions_variable" "variable" {
   for_each = local.variables
 
@@ -33,4 +33,4 @@ resource "github_issue_label" "labels" {
   name        = each.value.label_value.name
   description = each.value.label_value.description
   color       = each.value.label_value.color
-}
+} */
