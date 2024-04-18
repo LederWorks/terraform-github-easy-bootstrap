@@ -353,9 +353,17 @@ Description: Repositories
 
 Description: n/a
 
+### <a name="output_secrets2"></a> [secrets2](#output\_secrets2)
+
+Description: n/a
+
 ### <a name="output_variables"></a> [variables](#output\_variables)
 
 Description: Inputs
+
+### <a name="output_variables2"></a> [variables2](#output\_variables2)
+
+Description: n/a
 
 <!-- markdownlint-disable-file MD033 MD012 -->
 ## Contributing
