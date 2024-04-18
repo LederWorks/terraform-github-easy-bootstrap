@@ -188,10 +188,8 @@ Default: `null`
 Description:   A map of competency hives to be created.  
   Each hive is a collection of repositories that share a common theme.
 
-  hive - (Required) The name of the hive.
-
-  approvers - (Required) A list of usernames that are approvers for the hive.
-
+  hive         - (Required) The name of the hive.  
+  approvers    - (Required) A list of usernames that are approvers for the hive.  
   contributors - (Required) A list of usernames that are contributors for the hive.
 
 Type:
@@ -261,34 +259,26 @@ Description:   A map of repositories and associated configurations to be created
   name - (Required) The name of the repository. The name object supports the following:
 
     language - (Optional) The language of the repository. Defaults to 'terraform'.  
-    type - (Optional) The type of the repository.  
-    hive - (Optional) The hive of the repository.  
-    suffix - (Required) The suffix of the repository.
+    type     - (Optional) The type of the repository.  
+    hive     - (Optional) The hive of the repository.  
+    suffix   - (Required) The suffix of the repository.
 
-  description - (Optional) The description of the repository.
+  description - (Optional) The description of the repository.  
+  url         - (Optional) The URL of the repository.
 
-  url - (Optional) The URL of the repository.
+  private\_enabled     - (Optional) Whether the repository is private. Defaults to false.  
+  issues\_enabled      - (Optional) Whether issues are enabled. Defaults to true.  
+  discussions\_enabled - (Optional) Whether discussions are enabled. Defaults to false.  
+  projects\_enabled    - (Optional) Whether projects are enabled. Defaults to false.  
+  wiki\_enabled        - (Optional) Whether the wiki is enabled. Defaults to false.  
+  archive\_enabled     - (Optional) Whether the repository is archived. Defaults to false.
 
-  private\_enabled - (Optional) Whether the repository is private. Defaults to false.
+  custom\_variables - (Optional) A map of custom variables to be added to the repository.  
+  custom\_secrets   - (Optional) A map of custom secrets to be added to the repository.  
+  custom\_labels    - (Optional) A map of custom labels to be added to the repository. The custom\_labels object supports the following:
 
-  issues\_enabled - (Optional) Whether issues are enabled. Defaults to true.
-
-  discussions\_enabled - (Optional) Whether discussions are enabled. Defaults to false.
-
-  projects\_enabled - (Optional) Whether projects are enabled. Defaults to false.
-
-  wiki\_enabled - (Optional) Whether the wiki is enabled. Defaults to false.
-
-  archive\_enabled - (Optional) Whether the repository is archived. Defaults to false.
-
-  custom\_variables - (Optional) A map of custom variables to be added to the repository.
-
-  custom\_secrets - (Optional) A map of custom secrets to be added to the repository.
-
-  custom\_labels - (Optional) A map of custom labels to be added to the repository. The custom\_labels object supports the following:
-
-    name - (Required) The name of the label.  
-    color - (Required) The color of the label.  
+    name        - (Required) The name of the label.  
+    color       - (Required) The color of the label.  
     description - (Optional) The description of the label.
 
 Type:
