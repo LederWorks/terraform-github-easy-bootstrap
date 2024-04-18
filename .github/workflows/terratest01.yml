@@ -1,4 +1,4 @@
-name: Terratest - terraform-provider-easy-brick-category-purpose
+name: Terratest - terraform-github-easy-bootstrap
 
 on:
   - pull_request

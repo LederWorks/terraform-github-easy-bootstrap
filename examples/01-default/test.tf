@@ -48,8 +48,10 @@ module "github_bootstrap" {
       wiki_enabled        = false
       archive_enabled     = false
 
+      #Contributors
+      contributors = []
+
       #Custom Inputs
-      custom_teams     = []
       custom_variables = {}
       custom_secrets   = {}
       custom_labels    = {}
