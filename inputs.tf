@@ -20,8 +20,9 @@ resource "github_actions_secret" "secret" {
 #Labels
 resource "github_issue_label" "labels" {
   for_each = {
-    for repo_name, repo in var.repos : repo_name => {
-      for label_name, label in repo.custom_labels : label_name => label
+    for repo_key, repo in var.repos : repo_key => {
+      for label_key, label in (repo.custom_labels != null ? repo.custom_labels : {}) :
+      label_key => label
     }
   }
 
