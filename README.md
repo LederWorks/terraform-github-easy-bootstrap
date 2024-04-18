@@ -37,47 +37,30 @@ The following providers are used by this module:
 module "github_bootstrap" {
   source = "../.."
 
-  ### Common Variables ###
-  # owner = "Ledermayer"
+  #### Common Variables
+  terraform_provider = "azure"
+  members            = ["Wonka", "Ledermayer"]
+  admins             = ["Ledermayer"]
+  variables          = {}
+  secrets            = {}
+  labels             = {}
 
-  ### General Variables ###
 
-  ### Global Variables ###
 
-  ### Set Variables ###
+  #### Set Variables
   hives = {
     #Azure Network Modules
     azure-network = {
-      provider  = "azure"
-      hive      = "network"
-      description = "Azure Network Terraform Team"
-      members   = []
-      variables = {}
-      secrets   = {}
-      labels = {
-        azurerm-compute = {
-          name        = "azurerm-network"
-          color       = "blue"
-          description = "Azure Network Modules"
-        }
-      }
+      hive         = "network"
+      approvers    = ["Ledermayer", "Wonka"]
+      contributors = ["Ledermayer"]
     }
 
     #Azure Compute Modules
     azure-compute = {
-      provider  = "azure"
-      hive      = "compute"
-      description = "Azure Compute Terraform Team"
-      members   = []
-      variables = {}
-      secrets   = {}
-      labels = {
-        azurerm-compute = {
-          name        = "azurerm-compute"
-          color       = "blue"
-          description = "Azure Compute Modules"
-        }
-      }
+      hive         = "compute"
+      approvers    = ["Ledermayer", "Wonka"]
+      contributors = ["Ledermayer"]
     }
   }
 
@@ -158,7 +141,7 @@ Default: `{}`
 
 ### <a name="input_labels"></a> [labels](#input\_labels)
 
-Description: Labels
+Description: value
 
 Type:
 
@@ -180,14 +163,6 @@ Type: `set(string)`
 
 Default: `[]`
 
-### <a name="input_provider"></a> [provider](#input\_provider)
-
-Description: The cloud provider to be bootstrapped.
-
-Type: `string`
-
-Default: `"oci"`
-
 ### <a name="input_repos"></a> [repos](#input\_repos)
 
 Description:
@@ -199,7 +174,6 @@ map(object({
     #Common
     name = object({
       language = optional(string, "terraform")
-      provider = optional(string)
       infix    = optional(string) #easy
       type     = optional(string)
       hive     = optional(string)
@@ -230,15 +204,23 @@ Default: `{}`
 
 ### <a name="input_secrets"></a> [secrets](#input\_secrets)
 
-Description: Secrets
+Description: value
 
 Type: `map(string)`
 
 Default: `{}`
 
+### <a name="input_terraform_provider"></a> [terraform\_provider](#input\_terraform\_provider)
+
+Description: The terraform provider to be bootstrapped.
+
+Type: `string`
+
+Default: `"oci"`
+
 ### <a name="input_variables"></a> [variables](#input\_variables)
 
-Description: Variables
+Description: value
 
 Type: `map(string)`
 
