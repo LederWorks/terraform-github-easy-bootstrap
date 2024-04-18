@@ -29,7 +29,7 @@ output "flattened_labels" {
   description = "Flattened GitHub Issue Labels"
 }
 
-resource "github_repository_label" "label" {
+resource "github_issue_label" "label" {
   for_each = { for label in local.flattened_labels : "${label.repo_key}_${label.label_name}" => label }
 
   repository  = each.value.repo_key
