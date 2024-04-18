@@ -41,10 +41,31 @@ module "github_bootstrap" {
   terraform_provider = "azure"
   members            = ["Ledermayer", "Wonka"]
   admins             = ["Ledermayer"]
-  variables          = {}
-  secrets            = {}
-  labels             = {}
   brand              = "ezpz"
+
+  #Inputs
+  variables = {
+    one = "pici"
+    dog = "tej"
+  }
+
+  secrets = {
+    my   = "verysecret"
+    your = "notsecret"
+  }
+
+  labels = {
+    one = {
+      name        = "one"
+      color       = "f0f0f0"
+      description = "one"
+    }
+    two = {
+      name        = "two"
+      color       = "f0f0f0"
+      description = "two"
+    }
+  }
 
   #### Set Variables
   hives = {
@@ -83,13 +104,29 @@ module "github_bootstrap" {
       wiki_enabled        = false
       archive_enabled     = false
 
-      #Contributors
-      contributors = []
-
       #Custom Inputs
-      custom_variables = {}
-      custom_secrets   = {}
-      custom_labels    = {}
+      custom_variables = {
+        wait  = "babám"
+        never = "menjel"
+      }
+
+      custom_secrets = {
+        their = "regret"
+        our   = "szeglet"
+      }
+
+      custom_labels = {
+        three = {
+          name        = "three"
+          color       = "f0f0f0"
+          description = "three"
+        }
+        four = {
+          name        = "four"
+          color       = "f0f0f0"
+          description = "four"
+        }
+      }
     }
 
     ### Azure Compute NIC Module
@@ -102,7 +139,6 @@ module "github_bootstrap" {
       description = "Azure Compute NIC Module"
     }
   }
-
 }
 ```
 
