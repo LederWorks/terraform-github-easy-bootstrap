@@ -22,15 +22,16 @@ locals {
   repos = var.repos != {} ? {
     for repo_key, repo in var.repos : repo_key => {
       #Common
-      name             = local.repo_names[repo_key]
-      description      = repo.description
-      url              = repo.url
+      name        = local.repo_names[repo_key]
+      description = repo.description
+      url         = repo.url
       #General
-      private_enabled  = repo.private_enabled
-      issues_enabled   = repo.issues_enabled
+      private_enabled     = repo.private_enabled
+      issues_enabled      = repo.issues_enabled
       discussions_enabled = repo.discussions_enabled
-      project_enabled  = repo.project_enabled
-      wiki_enabled     = repo.wiki_enabled
+      projects_enabled     = repo.project_enabled
+      wiki_enabled        = repo.wiki_enabled
+      archive_enabled     = repo.archive_enabled
       #Custom Inputs
       custom_teams     = repo.custom_teams
       custom_variables = repo.custom_variables

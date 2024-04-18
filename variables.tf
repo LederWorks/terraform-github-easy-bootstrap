@@ -67,14 +67,15 @@ variable "repos" {
       hive     = optional(string)
       suffix   = string
     })
-    description      = optional(string)
-    url             = optional(string)
+    description = optional(string)
+    url         = optional(string)
     #General
-    private_enabled   = optional(bool, false)
-    issues_enabled    = optional(bool, true)
+    private_enabled     = optional(bool, false)
+    issues_enabled      = optional(bool, true)
     discussions_enabled = optional(bool, false)
-    project_enabled  = optional(bool, false)
-    wiki_enabled     = optional(bool, false)
+    projects_enabled     = optional(bool, false)
+    wiki_enabled        = optional(bool, false)
+    archive_enabled     = optional(bool, false)
     #Custom Inputs
     custom_teams     = optional(set(string), [])
     custom_variables = optional(map(string), {})
@@ -85,7 +86,7 @@ variable "repos" {
       description = optional(string)
     })))
   }))
-  default = {}
+  default     = {}
   description = <<EOT
 
   EOT

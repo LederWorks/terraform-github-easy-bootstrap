@@ -24,7 +24,7 @@ resource "github_repository" "repo" {
   merge_commit_message        = "PR_BODY"
   delete_branch_on_merge      = true
   auto_init                   = true
-  archive_on_destroy          = true
+  archive_on_destroy          = each.value.archive_enabled
 
   #Templates
   gitignore_template = "Terraform"
