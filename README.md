@@ -83,8 +83,10 @@ module "github_bootstrap" {
       wiki_enabled        = false
       archive_enabled     = false
 
+      #Contributors
+      contributors = []
+
       #Custom Inputs
-      custom_teams     = []
       custom_variables = {}
       custom_secrets   = {}
       custom_labels    = {}
@@ -147,17 +149,19 @@ Default: `null`
 Description:   A map of competency hives to be created.  
   Each hive is a collection of repositories that share a common theme.
 
-  hive - The name of the hive.  
-  approvers - A list of usernames that are approvers for the hive.  
-  contributors - A list of usernames that are contributors for the hive.
+  hive - (Required) The name of the hive.
+
+  approvers - (Required) A list of usernames that are approvers for the hive.
+
+  contributors - (Required) A list of usernames that are contributors for the hive.
 
 Type:
 
 ```hcl
 map(object({
     hive         = string
-    approvers    = optional(set(string), [])
-    contributors = optional(set(string), [])
+    approvers    = set(string)
+    contributors = set(string)
   }))
 ```
 
@@ -213,7 +217,42 @@ Default: `null`
 
 ### <a name="input_repos"></a> [repos](#input\_repos)
 
-Description:
+Description:   A map of repositories and associated configurations to be created. The repos object support the following:
+
+  name - (Required) The name of the repository. The name object supports the following:
+
+    language - (Optional) The language of the repository. Defaults to 'terraform'.  
+    type - (Optional) The type of the repository.  
+    hive - (Optional) The hive of the repository.  
+    suffix - (Required) The suffix of the repository.
+
+  description - (Optional) The description of the repository.
+
+  url - (Optional) The URL of the repository.
+
+  private\_enabled - (Optional) Whether the repository is private. Defaults to false.
+
+  issues\_enabled - (Optional) Whether issues are enabled. Defaults to true.
+
+  discussions\_enabled - (Optional) Whether discussions are enabled. Defaults to false.
+
+  projects\_enabled - (Optional) Whether projects are enabled. Defaults to false.
+
+  wiki\_enabled - (Optional) Whether the wiki is enabled. Defaults to false.
+
+  archive\_enabled - (Optional) Whether the repository is archived. Defaults to false.
+
+  contributors - (Optional) A list of usernames that are contributors for the repository.
+
+  custom\_variables - (Optional) A map of custom variables to be added to the repository.
+
+  custom\_secrets - (Optional) A map of custom secrets to be added to the repository.
+
+  custom\_labels - (Optional) A map of custom labels to be added to the repository. The custom\_labels object supports the following:
+
+    name - (Required) The name of the label.  
+    color - (Required) The color of the label.  
+    description - (Optional) The description of the label.
 
 Type:
 
@@ -235,8 +274,9 @@ map(object({
     projects_enabled    = optional(bool, false)
     wiki_enabled        = optional(bool, false)
     archive_enabled     = optional(bool, false)
+    #Contributors
+    contributors = optional(set(string), [])
     #Custom Inputs
-    custom_teams     = optional(set(string), [])
     custom_variables = optional(map(string), {})
     custom_secrets   = optional(map(string), {})
     custom_labels = optional(map(object({
