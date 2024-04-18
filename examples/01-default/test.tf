@@ -2,47 +2,30 @@
 module "github_bootstrap" {
   source = "../.."
 
-  ### Common Variables ###
-  # owner = "Ledermayer"
+  #### Common Variables
+  terraform_provider = "azure"
+  members            = ["Wonka", "Ledermayer"]
+  admins             = ["Ledermayer"]
+  variables          = {}
+  secrets            = {}
+  labels             = {}
 
-  ### General Variables ###
 
-  ### Global Variables ###
 
-  ### Set Variables ###
+  #### Set Variables
   hives = {
     #Azure Network Modules
     azure-network = {
-      provider  = "azure"
-      hive      = "network"
-      description = "Azure Network Terraform Team"
-      members   = []
-      variables = {}
-      secrets   = {}
-      labels = {
-        azurerm-compute = {
-          name        = "azurerm-network"
-          color       = "blue"
-          description = "Azure Network Modules"
-        }
-      }
+      hive         = "network"
+      approvers    = ["Ledermayer", "Wonka"]
+      contributors = ["Ledermayer"]
     }
 
     #Azure Compute Modules
     azure-compute = {
-      provider  = "azure"
-      hive      = "compute"
-      description = "Azure Compute Terraform Team"
-      members   = []
-      variables = {}
-      secrets   = {}
-      labels = {
-        azurerm-compute = {
-          name        = "azurerm-compute"
-          color       = "blue"
-          description = "Azure Compute Modules"
-        }
-      }
+      hive         = "compute"
+      approvers    = ["Ledermayer", "Wonka"]
+      contributors = ["Ledermayer"]
     }
   }
 

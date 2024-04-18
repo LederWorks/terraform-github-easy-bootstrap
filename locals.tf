@@ -1,7 +1,8 @@
 locals {
+
   #Hives
   hive_names = { for hive_key, hive in var.hives :
-    hive_key => "${var.provider}-${hive.hive}"
+    hive_key => "${var.terraform_provider}-${hive.hive}"
   }
 
   hives = var.hives != {} ? {
@@ -14,7 +15,7 @@ locals {
 
   #Repositories
   repo_names = { for repo_key, repo in var.repos :
-    repo_key => "${repo.name.language}-${repo.name.provider}-${repo.name.infix}-${repo.name.type}-${repo.name.hive}-${repo.name.suffix}"
+    repo_key => "${repo.name.language}-${var.terraform_provider}-${repo.name.infix}-${repo.name.type}-${repo.name.hive}-${repo.name.suffix}"
   }
 
   repos = var.repos != {} ? {

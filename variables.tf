@@ -8,10 +8,10 @@
 #  \______/  \______/ \__| \__| \__|\__| \__| \__| \______/ \__|  \__|
 
 #Provider
-variable "provider" {
+variable "terraform_provider" {
   type        = string
   default     = "oci"
-  description = "The cloud provider to be bootstrapped."
+  description = "The terraform provider to be bootstrapped."
 }
 
 #Members
@@ -20,6 +20,7 @@ variable "members" {
   default     = []
   description = "Members of the provider team."
 }
+
 #Admins
 variable "admins" {
   type        = set(string)
@@ -29,15 +30,17 @@ variable "admins" {
 
 #Variables
 variable "variables" {
-  type    = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
+  description = "value"
 }
 
 #Secrets
 variable "secrets" {
-  type      = map(string)
-  default   = {}
-  sensitive = true
+  type        = map(string)
+  default     = {}
+  sensitive   = true
+  description = "value"
 }
 
 #Labels
@@ -47,7 +50,8 @@ variable "labels" {
     color       = string
     description = optional(string)
   }))
-  default = {}
+  default     = {}
+  description = "value"
 }
 
 
@@ -76,7 +80,6 @@ variable "repos" {
     #Common
     name = object({
       language = optional(string, "terraform")
-      provider = optional(string)
       infix    = optional(string) #easy
       type     = optional(string)
       hive     = optional(string)

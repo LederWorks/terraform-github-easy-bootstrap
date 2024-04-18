@@ -1,7 +1,7 @@
 #### Provider Default Team
 resource "github_team" "team" {
-  name                      = "${var.provider}-team"
-  description               = "${var.provider} team"
+  name                      = "${var.terraform_provider}-team"
+  description               = "${var.terraform_provider} team"
   privacy                   = "closed"
   create_default_maintainer = true
 }
@@ -18,8 +18,8 @@ resource "github_team_members" "team" {
 
 #### Provider Admins
 resource "github_team" "admins" {
-  name                      = "${var.provider}-admins"
-  description               = "Admins of the ${var.provider} provider"
+  name                      = "${var.terraform_provider}-admins"
+  description               = "Admins of the ${var.terraform_provider} provider"
   privacy                   = "closed"
   create_default_maintainer = true
 }
