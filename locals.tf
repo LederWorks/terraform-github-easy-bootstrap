@@ -49,9 +49,9 @@ locals {
   flattened_variables = flatten([
     for repo_key, variables in local.variables : [
       for variable_name, variable_value in variables : {
-        repo_name      = repo_name
-        variable_name  = secret_name
-        variable_value = secret_value
+        repo_name      = repo_key
+        variable_name  = variable_name
+        variable_value = variable_value
         repository_id  = github_repository.repo[repo_key].id
       }
     ]
@@ -68,7 +68,7 @@ locals {
   flattened_secrets = flatten([
     for repo_key, secrets in local.secrets : [
       for secret_name, secret_value in secrets : {
-        repo_name     = repo_name
+        repo_name     = repo_key
         secret_name   = secret_name
         secret_value  = secret_value
         repository_id = github_repository.repo[repo_key].id
