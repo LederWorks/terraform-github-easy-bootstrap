@@ -1,6 +1,7 @@
 #Variables
+#Variables
 resource "github_actions_variable" "variable" {
-  for_each = local.variables[each.key]
+  for_each = local.variables
 
   repository    = github_repository.repo[each.key].id
   variable_name = each.key
@@ -9,7 +10,7 @@ resource "github_actions_variable" "variable" {
 
 #Secrets
 resource "github_actions_secret" "secret" {
-  for_each = local.secrets[each.key]
+  for_each = local.secrets
 
   repository      = github_repository.repo[each.key].id
   secret_name     = each.key
