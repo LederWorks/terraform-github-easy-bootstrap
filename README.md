@@ -190,7 +190,7 @@ map(object({
     private_enabled     = optional(bool, false)
     issues_enabled      = optional(bool, true)
     discussions_enabled = optional(bool, false)
-    projects_enabled     = optional(bool, false)
+    projects_enabled    = optional(bool, false)
     wiki_enabled        = optional(bool, false)
     archive_enabled     = optional(bool, false)
     #Custom Inputs
