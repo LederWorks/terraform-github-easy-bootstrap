@@ -47,9 +47,10 @@ module "github_bootstrap" {
   ### Set Variables ###
   hives = {
     #Azure Network Modules
-    azurerm-network = {
+    azure-network = {
       provider  = "azure"
       hive      = "network"
+      description = "Azure Network Terraform Team"
       members   = []
       variables = {}
       secrets   = {}
@@ -63,9 +64,10 @@ module "github_bootstrap" {
     }
 
     #Azure Compute Modules
-    azurerm-compute = {
+    azure-compute = {
       provider  = "azure"
       hive      = "compute"
+      description = "Azure Compute Terraform Team"
       members   = []
       variables = {}
       secrets   = {}
@@ -137,11 +139,12 @@ Type:
 
 ```hcl
 map(object({
-    provider  = string
-    hive      = string
-    members   = optional(set(string), [])
-    variables = optional(map(string), {})
-    secrets   = optional(map(string), {})
+    provider    = string
+    hive        = string
+    description = optional(string)
+    members     = optional(set(string), [])
+    variables   = optional(map(string), {})
+    secrets     = optional(map(string), {})
     labels = optional(map(object({
       name        = string
       color       = string
