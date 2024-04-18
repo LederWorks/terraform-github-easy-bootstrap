@@ -149,6 +149,7 @@ The following resources are used by this module:
 - [github_actions_secret.secret](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) (resource)
 - [github_actions_variable.variable](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_variable) (resource)
 - [github_repository.repo](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository) (resource)
+- [github_repository_label.label](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_label) (resource)
 - [github_team.admins](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
 - [github_team.approvers](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
 - [github_team.contributors](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
@@ -341,29 +342,37 @@ Default: `{}`
 
 The following outputs are exported:
 
+### <a name="output_flattened_labels"></a> [flattened\_labels](#output\_flattened\_labels)
+
+Description: Flattened GitHub Issue Labels
+
+### <a name="output_flattened_secrets"></a> [flattened\_secrets](#output\_flattened\_secrets)
+
+Description: Flattened  GitHub Actions Secrets
+
+### <a name="output_flattened_variables"></a> [flattened\_variables](#output\_flattened\_variables)
+
+Description: Flattened  GitHub Actions Variables
+
 ### <a name="output_hives"></a> [hives](#output\_hives)
 
-Description: Hives
+Description: Hive Configuration
+
+### <a name="output_labels"></a> [labels](#output\_labels)
+
+Description: Normalized GitHub Issue Labels
 
 ### <a name="output_repos"></a> [repos](#output\_repos)
 
-Description: Repositories
+Description: Repository Configuration
 
 ### <a name="output_secrets"></a> [secrets](#output\_secrets)
 
-Description: n/a
-
-### <a name="output_secrets2"></a> [secrets2](#output\_secrets2)
-
-Description: n/a
+Description: Normalized GitHub Actions Secrets
 
 ### <a name="output_variables"></a> [variables](#output\_variables)
 
-Description: Inputs
-
-### <a name="output_variables2"></a> [variables2](#output\_variables2)
-
-Description: n/a
+Description: Normalized GitHub Actions Variables
 
 <!-- markdownlint-disable-file MD033 MD012 -->
 ## Contributing
