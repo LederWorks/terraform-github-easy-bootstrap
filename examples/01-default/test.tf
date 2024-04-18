@@ -4,24 +4,23 @@ module "github_bootstrap" {
 
   #### Common Variables
   terraform_provider = "azure"
-  members            = ["Wonka", "Ledermayer"]
+  members            = ["Ledermayer", "Wonka"]
   admins             = ["Ledermayer"]
   variables          = {}
   secrets            = {}
   labels             = {}
-
-
+  brand              = "ezpz"
 
   #### Set Variables
   hives = {
-    #Azure Network Modules
+    ### Azure Network Modules
     azure-network = {
       hive         = "network"
       approvers    = ["Ledermayer", "Wonka"]
       contributors = ["Ledermayer"]
     }
 
-    #Azure Compute Modules
+    ### Azure Compute Modules
     azure-compute = {
       hive         = "compute"
       approvers    = ["Ledermayer", "Wonka"]
@@ -30,28 +29,40 @@ module "github_bootstrap" {
   }
 
   repos = {
-    #Azure Network NSG Module
+    ### Azure Network NSG Module
     azurerm-network-nsg = {
+      #Common
       name = {
-        language = "terraform"
-        provider = "azurerm"
-        infix    = "baby"
-        type     = "brick"
-        hive     = "network"
-        suffix   = "nsg"
+        type   = "brick"
+        hive   = "network"
+        suffix = "nsg"
       }
+      description = "Azure Network NSG Module"
+      url         = null
+
+      #General
+      private_enabled     = false
+      issues_enabled      = true
+      discussions_enabled = false
+      projects_enabled    = false
+      wiki_enabled        = false
+      archive_enabled     = false
+
+      #Custom Inputs
+      custom_teams     = []
+      custom_variables = {}
+      custom_secrets   = {}
+      custom_labels    = {}
     }
 
-    #Azure Compute NIC Module
+    ### Azure Compute NIC Module
     azurerm-compute-nic = {
       name = {
-        language = "terraform"
-        provider = "azurerm"
-        infix    = "baby"
-        type     = "brick"
-        hive     = "compute"
-        suffix   = "nic"
+        type   = "brick"
+        hive   = "compute"
+        suffix = "nic"
       }
+      description = "Azure Compute NIC Module"
     }
   }
 

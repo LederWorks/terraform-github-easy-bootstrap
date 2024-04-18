@@ -15,7 +15,7 @@ locals {
 
   #Repositories
   repo_names = { for repo_key, repo in var.repos :
-    repo_key => "${repo.name.language}-${var.terraform_provider}-${repo.name.infix}-${repo.name.type}-${repo.name.hive}-${repo.name.suffix}"
+    repo_key => "${repo.name.language}-${var.terraform_provider}-${var.brand}-${repo.name.type}-${repo.name.hive}-${repo.name.suffix}"
   }
 
   repos = var.repos != {} ? {

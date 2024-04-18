@@ -11,28 +11,46 @@
 variable "terraform_provider" {
   type        = string
   default     = "oci"
-  description = "The terraform provider to be bootstrapped."
+  description = "(Optional) The terraform provider to be bootstrapped. Defaults to 'oci'."
+}
+
+variable "provider_bootstrap_enabled" {
+  type        = bool
+  default     = false
+  description = "(Optional) Enable provider bootstrap, which creates the provider teams and sets up team members and admins."
+}
+
+variable "provider_team_id" {
+  type        = string
+  default     = null
+  description = "(Optional) The ID of the already existing provider team. Mutually exclusive with provider_bootstrap_enabled."
+}
+
+variable "provider_admin_team_id" {
+  type        = string
+  default     = null
+  description = "(Optional) The ID of the already existing provider admin team. Mutually exclusive with provider_bootstrap_enabled."
 }
 
 #Members
 variable "members" {
   type        = set(string)
   default     = []
-  description = "Members of the provider team."
+  description = "(Optional) Members of the provider team. Required when provider_bootstrap_enabled is set to true."
 }
 
 #Admins
 variable "admins" {
   type        = set(string)
   default     = []
-  description = "Admins of the provider team."
+  description = "(Optional) Admins of the provider team. Required when provider_bootstrap_enabled is set to true."
 }
 
 #Variables
 variable "variables" {
   type        = map(string)
   default     = {}
-  description = "value"
+  description = "(Optional) value"
 }
 
 #Secrets
@@ -40,7 +58,7 @@ variable "secrets" {
   type        = map(string)
   default     = {}
   sensitive   = true
-  description = "value"
+  description = "(Optional) value"
 }
 
 #Labels
@@ -51,9 +69,15 @@ variable "labels" {
     description = optional(string)
   }))
   default     = {}
-  description = "value"
+  description = "(Optional) value"
 }
 
+#Brand
+variable "brand" {
+  type        = string
+  default     = null
+  description = "(Optional) The brand name to be used in the nomenclature. This appears as an infix in the repository name."
+}
 
 #  $$$$$$\             $$\           $$\    $$\                              
 # $$  __$$\            $$ |          $$ |   $$ |                             
@@ -71,7 +95,16 @@ variable "hives" {
     approvers    = optional(set(string), [])
     contributors = optional(set(string), [])
   }))
-  default = {}
+  default     = {}
+  description = <<EOT
+  A map of competency hives to be created.
+  Each hive is a collection of repositories that share a common theme.
+
+  hive - The name of the hive.
+  approvers - A list of usernames that are approvers for the hive.
+  contributors - A list of usernames that are contributors for the hive.
+
+  EOT
 }
 
 #Repositories
@@ -80,7 +113,6 @@ variable "repos" {
     #Common
     name = object({
       language = optional(string, "terraform")
-      infix    = optional(string) #easy
       type     = optional(string)
       hive     = optional(string)
       suffix   = string
