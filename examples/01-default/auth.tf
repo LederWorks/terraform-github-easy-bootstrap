@@ -8,7 +8,7 @@ provider "azurerm" {
 }
 
 provider "github" {
-  # Configuration options
+  organization = "LederWorks"
 }
 
 #Versions
