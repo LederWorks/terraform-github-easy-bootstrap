@@ -50,7 +50,7 @@ module "github_bootstrap" {
       name = {
         language = "terraform"
         provider = "azurerm"
-        infix    = "easy"
+        infix    = "baby"
         type     = "brick"
         hive     = "network"
         suffix   = "nsg"
@@ -62,7 +62,7 @@ module "github_bootstrap" {
       name = {
         language = "terraform"
         provider = "azurerm"
-        infix    = "easy"
+        infix    = "baby"
         type     = "brick"
         hive     = "compute"
         suffix   = "nic"

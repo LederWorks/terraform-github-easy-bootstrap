@@ -33,9 +33,6 @@ resource "github_repository" "repo" {
 
   #Security
   security_and_analysis {
-    advanced_security {
-      status = "enabled"
-    }
     secret_scanning {
       status = "enabled"
     }
