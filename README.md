@@ -48,7 +48,7 @@ module "github_bootstrap" {
   hives = {
     #Azure Network Modules
     azurerm-network = {
-      provider  = "azurerm"
+      provider  = "azure"
       hive      = "network"
       members   = []
       variables = {}
@@ -64,7 +64,7 @@ module "github_bootstrap" {
 
     #Azure Compute Modules
     azurerm-compute = {
-      provider  = "azurerm"
+      provider  = "azure"
       hive      = "compute"
       members   = []
       variables = {}
@@ -113,6 +113,7 @@ module "github_bootstrap" {
 The following resources are used by this module:
 
 - [github_repository.repo](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository) (resource)
+- [github_team.team](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
 
 ## Required Inputs
 
