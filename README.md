@@ -242,8 +242,6 @@ Description:   A map of repositories and associated configurations to be created
 
   archive\_enabled - (Optional) Whether the repository is archived. Defaults to false.
 
-  contributors - (Optional) A list of usernames that are contributors for the repository.
-
   custom\_variables - (Optional) A map of custom variables to be added to the repository.
 
   custom\_secrets - (Optional) A map of custom secrets to be added to the repository.
@@ -274,8 +272,6 @@ map(object({
     projects_enabled    = optional(bool, false)
     wiki_enabled        = optional(bool, false)
     archive_enabled     = optional(bool, false)
-    #Contributors
-    contributors = optional(set(string), [])
     #Custom Inputs
     custom_variables = optional(map(string), {})
     custom_secrets   = optional(map(string), {})
