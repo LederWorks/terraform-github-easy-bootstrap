@@ -146,6 +146,8 @@ module "github_bootstrap" {
 
 The following resources are used by this module:
 
+- [github_actions_secret.secret](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) (resource)
+- [github_actions_variable.variable](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_variable) (resource)
 - [github_repository.repo](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository) (resource)
 - [github_team.admins](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
 - [github_team.approvers](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
