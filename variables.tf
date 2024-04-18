@@ -58,6 +58,7 @@ variable "hives" {
 #Repositories
 variable "repos" {
   type = map(object({
+    #Common
     name = object({
       language = optional(string, "terraform")
       provider = optional(string)
@@ -66,8 +67,15 @@ variable "repos" {
       hive     = optional(string)
       suffix   = string
     })
-    private          = optional(bool, false)
+    description      = optional(string)
+    url             = optional(string)
+    #General
+    private_enabled   = optional(bool, false)
+    issues_enabled    = optional(bool, true)
+    discussions_enabled = optional(bool, false)
     project_enabled  = optional(bool, false)
+    wiki_enabled     = optional(bool, false)
+    #Custom Inputs
     custom_teams     = optional(set(string), [])
     custom_variables = optional(map(string), {})
     custom_secrets   = optional(map(string), {})
@@ -76,7 +84,9 @@ variable "repos" {
       color       = string
       description = optional(string)
     })))
-
   }))
   default = {}
+  description = <<EOT
+
+  EOT
 }
