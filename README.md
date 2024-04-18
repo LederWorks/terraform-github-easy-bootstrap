@@ -21,15 +21,13 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (>= 3.61.0)
 
-- <a name="requirement_github"></a> [github](#requirement\_github) (>= 6.2.1)
-
 ## Providers
 
 The following providers are used by this module:
 
 - <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (>= 3.61.0)
 
-- <a name="provider_github"></a> [github](#provider\_github) (>= 6.2.1)
+- <a name="provider_github"></a> [github](#provider\_github)
 
 ## Examples
 
