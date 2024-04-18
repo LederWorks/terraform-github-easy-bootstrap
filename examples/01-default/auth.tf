@@ -7,6 +7,10 @@ provider "azurerm" {
   }
 }
 
+provider "github" {
+  # Configuration options
+}
+
 #Versions
 terraform {
   required_version = ">=1.3.6"
@@ -14,6 +18,10 @@ terraform {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "3.99.0"
+    }
+     github = {
+      source = "integrations/github"
+      version = "6.2.1"
     }
   }
 }
