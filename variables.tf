@@ -135,7 +135,7 @@ variable "repos" {
       name        = string
       color       = string
       description = optional(string)
-    })))
+    })), {})
   }))
   default     = {}
   description = <<EOT
