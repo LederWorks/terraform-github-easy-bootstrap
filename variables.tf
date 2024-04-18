@@ -128,8 +128,6 @@ variable "repos" {
     projects_enabled    = optional(bool, false)
     wiki_enabled        = optional(bool, false)
     archive_enabled     = optional(bool, false)
-    #Contributors
-    contributors = optional(set(string), [])
     #Custom Inputs
     custom_variables = optional(map(string), {})
     custom_secrets   = optional(map(string), {})
@@ -165,8 +163,6 @@ variable "repos" {
   wiki_enabled - (Optional) Whether the wiki is enabled. Defaults to false.
 
   archive_enabled - (Optional) Whether the repository is archived. Defaults to false.
-
-  contributors - (Optional) A list of usernames that are contributors for the repository.
 
   custom_variables - (Optional) A map of custom variables to be added to the repository.
 

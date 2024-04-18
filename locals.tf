@@ -32,7 +32,6 @@ locals {
       wiki_enabled        = repo.wiki_enabled
       archive_enabled     = repo.archive_enabled
       #Custom Inputs
-      custom_teams     = repo.custom_teams
       custom_variables = repo.custom_variables
       custom_secrets   = repo.custom_secrets
       custom_labels    = repo.custom_labels
