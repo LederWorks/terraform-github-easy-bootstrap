@@ -6,11 +6,12 @@ locals {
 
   hives = var.hives != {} ? {
     for hive_key, hive in var.hives : hive_key => {
-      name      = local.hive_names[hive_key]
-      members   = hive.members
-      variables = hive.variables
-      secrets   = hive.secrets
-      labels    = hive.labels
+      name        = local.hive_names[hive_key]
+      description = hive.description
+      members     = hive.members
+      variables   = hive.variables
+      secrets     = hive.secrets
+      labels      = hive.labels
     }
   } : {}
 

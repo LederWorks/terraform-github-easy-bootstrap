@@ -41,11 +41,12 @@ variable "labels" {
 #Hives
 variable "hives" {
   type = map(object({
-    provider  = string
-    hive      = string
-    members   = optional(set(string), [])
-    variables = optional(map(string), {})
-    secrets   = optional(map(string), {})
+    provider    = string
+    hive        = string
+    description = optional(string)
+    members     = optional(set(string), [])
+    variables   = optional(map(string), {})
+    secrets     = optional(map(string), {})
     labels = optional(map(object({
       name        = string
       color       = string
