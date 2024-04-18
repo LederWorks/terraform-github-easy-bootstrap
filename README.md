@@ -39,7 +39,7 @@ module "github_bootstrap" {
 
   #### Common Variables
   terraform_provider = "azure"
-  members            = ["Ledermayer", "Wonka"]
+  members            = local.all_members
   admins             = ["Ledermayer"]
   brand              = "ezpz"
 
@@ -51,19 +51,19 @@ module "github_bootstrap" {
 
   secrets = {
     my   = "verysecret"
-    your = "notsecret"
+    not = "yoursecret"
   }
 
   labels = {
     one = {
       name        = "one"
-      color       = "f0f0f0"
-      description = "one"
+      color       = "0000Ff"
+      description = "blue"
     }
     two = {
       name        = "two"
-      color       = "f0f0f0"
-      description = "two"
+      color       = "ff00ff"
+      description = "magenta"
     }
   }
 
@@ -72,15 +72,15 @@ module "github_bootstrap" {
     ### Azure Network Modules
     azure-network = {
       hive         = "network"
-      approvers    = ["Ledermayer", "Wonka"]
-      contributors = ["Ledermayer"]
+      approvers    = local.hu_members
+      contributors = local.us_members
     }
 
     ### Azure Compute Modules
     azure-compute = {
       hive         = "compute"
-      approvers    = ["Ledermayer", "Wonka"]
-      contributors = ["Ledermayer"]
+      approvers    = local.us_members
+      contributors = local.hu_members
     }
   }
 
@@ -118,13 +118,13 @@ module "github_bootstrap" {
       custom_labels = {
         three = {
           name        = "three"
-          color       = "f0f0f0"
-          description = "three"
+          color       = "Ff0000"
+          description = "red"
         }
         four = {
           name        = "four"
-          color       = "f0f0f0"
-          description = "four"
+          color       = "00ff00"
+          description = "green"
         }
       }
     }
@@ -348,11 +348,11 @@ Description: Flattened GitHub Issue Labels
 
 ### <a name="output_flattened_secrets"></a> [flattened\_secrets](#output\_flattened\_secrets)
 
-Description: Flattened  GitHub Actions Secrets
+Description: Flattened GitHub Actions Secrets
 
 ### <a name="output_flattened_variables"></a> [flattened\_variables](#output\_flattened\_variables)
 
-Description: Flattened  GitHub Actions Variables
+Description: Flattened GitHub Actions Variables
 
 ### <a name="output_hives"></a> [hives](#output\_hives)
 
