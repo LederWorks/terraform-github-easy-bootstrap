@@ -7,9 +7,7 @@ provider "azurerm" {
   }
 }
 
-provider "github" {
-  owner = "LederWorks"
-}
+provider "github" {}
 
 #Versions
 terraform {
