@@ -1,22 +1,17 @@
 <!-- BEGIN_TF_DOCS -->
 <!-- markdownlint-disable-file MD033 MD012 -->
-# terraform-provider-easy-brick-category-purpose
-LederWorks Easy Category Purpose Brick Module
+# terraform-github-easy-bootstrap
+LederWorks Easy Github Bootstrap Module
 
 This module were created by [LederWorks](https://lederworks.com) IaC enthusiasts.
 
 ## About This Module
-This module implements the [SECTION](https://lederworks.com/docs/microsoft-azure/bricks/compute/#section) reference Insight.
+This module has been mainly designed and developed to bootstrap terraform module repositories, however it can be used for any github repository.
 
 ## How to Use This Modul
-- Ensure Azure credentials are [in place](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure) (e.g. `az login` and `az account set --subscription="SUBSCRIPTION_ID"` on your workstation)
-- Owner role or equivalent is required!
-- Ensure pre-requisite resources are created.
+- Ensure Github credentials are [in place](https://registry.terraform.io/providers/integrations/github/latest/docs#authentication)
+- _Some_ role or equivalent is required!
 - Create a Terraform configuration that pulls in this module and specifies values for the required variables.
-
-## Disclaimer / Known Issues
-- Disclaimer
-- Known Issues
 
 ## Requirements
 
@@ -24,43 +19,126 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.3.6)
 
-- <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (>= 1.0.0)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (>= 3.61.0)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (>= 3.60.0)
-
-- <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) (>= 2.11.0)
+- <a name="requirement_github"></a> [github](#requirement\_github) (>= 6.2.1)
 
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (>= 3.60.0)
+- <a name="provider_github"></a> [github](#provider\_github) (>= 6.2.1)
 
 ## Examples
 
 ### Example 1
 ```hcl
 # Module Test
-module "terratest-category-purpose" {
-  source = "../"
+module "github_bootstrap" {
+  source = "../.."
 
-  #Subscription
-  # subscription_id = data.azurerm_client_config.current.subscription_id
+  #### Common Variables
+  terraform_provider = "azure"
+  members            = local.all_members
+  admins             = ["Ledermayer"]
+  brand              = "ezpz"
 
-  #Resource Group
-  # resource_group_object = azurerm_resource_group.RGRP
+  #Inputs
+  variables = {
+    one = "pici"
+    dog = "tej"
+  }
 
-  #Tags
-  # tags = local.tags
+  secrets = {
+    my   = "verysecret"
+    not = "yoursecret"
+  }
 
-  ### Common Variables ###
+  labels = {
+    one = {
+      name        = "one"
+      color       = "0000Ff"
+      description = "blue"
+    }
+    two = {
+      name        = "two"
+      color       = "ff00ff"
+      description = "magenta"
+    }
+  }
 
-  ### General Variables ###
+  #### Set Variables
+  hives = {
+    ### Azure Network Modules
+    azure-network = {
+      hive         = "network"
+      approvers    = local.hu_members
+      contributors = local.us_members
+    }
 
-  ### Global Variables ###
+    ### Azure Compute Modules
+    azure-compute = {
+      hive         = "compute"
+      approvers    = local.us_members
+      contributors = local.hu_members
+    }
+  }
 
-  ### Local Variables ###
+  repos = {
+    ### Azure Network NSG Module
+    azurerm-network-nsg = {
+      #Common
+      name = {
+        type   = "brick"
+        hive   = "network"
+        suffix = "nsg"
+      }
+      description = "Azure Network NSG Module"
+      url         = null
 
+      #General
+      private_enabled     = false
+      issues_enabled      = true
+      discussions_enabled = false
+      projects_enabled    = false
+      wiki_enabled        = false
+      archive_enabled     = false
+
+      #Custom Inputs
+      custom_variables = {
+        wait  = "babám"
+        never = "menjel"
+      }
+
+      custom_secrets = {
+        their = "regret"
+        our   = "szeglet"
+      }
+
+      custom_labels = {
+        three = {
+          name        = "three"
+          color       = "Ff0000"
+          description = "red"
+        }
+        four = {
+          name        = "four"
+          color       = "00ff00"
+          description = "green"
+        }
+      }
+    }
+
+    ### Azure Compute NIC Module
+    azurerm-compute-nic = {
+      name = {
+        type   = "brick"
+        hive   = "compute"
+        suffix = "nic"
+      }
+      description = "Azure Compute NIC Module"
+    }
+  }
 }
 ```
 
@@ -68,45 +146,233 @@ module "terratest-category-purpose" {
 
 The following resources are used by this module:
 
+- [github_actions_secret.secret](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret) (resource)
+- [github_actions_variable.variable](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_variable) (resource)
+- [github_issue_label.label](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/issue_label) (resource)
+- [github_repository.repo](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository) (resource)
+- [github_team.admins](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
+- [github_team.approvers](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
+- [github_team.contributors](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
+- [github_team.team](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
+- [github_team_members.admins](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
+- [github_team_members.approvers](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
+- [github_team_members.members](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
+- [github_team_members.team](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
+
 ## Required Inputs
 
-The following input variables are required:
-
-### <a name="input_resource_group_object"></a> [resource\_group\_object](#input\_resource\_group\_object)
-
-Description: (Required) Resource Group Object
-
-Type: `any`
-
-### <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id)
-
-Description: (Required) ID of the Subscription
-
-Type: `any`
+No required inputs.
 
 ## Optional Inputs
 
 The following input variables are optional (have default values):
 
-### <a name="input_context"></a> [context](#input\_context)
+### <a name="input_admins"></a> [admins](#input\_admins)
 
-Description: Context Module
+Description: (Optional) Admins of the provider team. Required when provider\_bootstrap\_enabled is set to true.
 
-Type: `any`
+Type: `set(string)`
+
+Default: `[]`
+
+### <a name="input_brand"></a> [brand](#input\_brand)
+
+Description: (Optional) The brand name to be used in the nomenclature. This appears as an infix in the repository name.
+
+Type: `string`
 
 Default: `null`
 
-### <a name="input_tags"></a> [tags](#input\_tags)
+### <a name="input_hives"></a> [hives](#input\_hives)
 
-Description: (Optional) Your Azure tags, as a map(string)
+Description:   A map of competency hives to be created.  
+  Each hive is a collection of repositories that share a common theme.
+
+  hive         - (Required) The name of the hive.  
+  approvers    - (Required) A list of usernames that are approvers for the hive.  
+  contributors - (Required) A list of usernames that are contributors for the hive.
+
+Type:
+
+```hcl
+map(object({
+    hive         = string
+    approvers    = set(string)
+    contributors = set(string)
+  }))
+```
+
+Default: `{}`
+
+### <a name="input_labels"></a> [labels](#input\_labels)
+
+Description: (Optional) value
+
+Type:
+
+```hcl
+map(object({
+    name        = string
+    color       = string
+    description = optional(string)
+  }))
+```
+
+Default: `{}`
+
+### <a name="input_members"></a> [members](#input\_members)
+
+Description: (Optional) Members of the provider team. Required when provider\_bootstrap\_enabled is set to true.
+
+Type: `set(string)`
+
+Default: `[]`
+
+### <a name="input_provider_admin_team_id"></a> [provider\_admin\_team\_id](#input\_provider\_admin\_team\_id)
+
+Description: (Optional) The ID of the already existing provider admin team. Mutually exclusive with provider\_bootstrap\_enabled.
+
+Type: `string`
+
+Default: `null`
+
+### <a name="input_provider_bootstrap_enabled"></a> [provider\_bootstrap\_enabled](#input\_provider\_bootstrap\_enabled)
+
+Description: (Optional) Enable provider bootstrap, which creates the provider teams and sets up team members and admins.
+
+Type: `bool`
+
+Default: `false`
+
+### <a name="input_provider_team_id"></a> [provider\_team\_id](#input\_provider\_team\_id)
+
+Description: (Optional) The ID of the already existing provider team. Mutually exclusive with provider\_bootstrap\_enabled.
+
+Type: `string`
+
+Default: `null`
+
+### <a name="input_repos"></a> [repos](#input\_repos)
+
+Description:   A map of repositories and associated configurations to be created. The repos object support the following:
+
+  name - (Required) The name of the repository. The name object supports the following:
+
+    language - (Optional) The language of the repository. Defaults to 'terraform'.  
+    type     - (Optional) The type of the repository.  
+    hive     - (Optional) The hive of the repository.  
+    suffix   - (Required) The suffix of the repository.
+
+  description - (Optional) The description of the repository.  
+  url         - (Optional) The URL of the repository.
+
+  private\_enabled     - (Optional) Whether the repository is private. Defaults to false.  
+  issues\_enabled      - (Optional) Whether issues are enabled. Defaults to true.  
+  discussions\_enabled - (Optional) Whether discussions are enabled. Defaults to false.  
+  projects\_enabled    - (Optional) Whether projects are enabled. Defaults to false.  
+  wiki\_enabled        - (Optional) Whether the wiki is enabled. Defaults to false.  
+  archive\_enabled     - (Optional) Whether the repository is archived. Defaults to false.
+
+  custom\_variables - (Optional) A map of custom variables to be added to the repository.  
+  custom\_secrets   - (Optional) A map of custom secrets to be added to the repository.  
+  custom\_labels    - (Optional) A map of custom labels to be added to the repository. The custom\_labels object supports the following:
+
+    name        - (Required) The name of the label.  
+    color       - (Required) The color of the label.  
+    description - (Optional) The description of the label.
+
+Type:
+
+```hcl
+map(object({
+    #Common
+    name = object({
+      language = optional(string, "terraform")
+      type     = optional(string)
+      hive     = optional(string)
+      suffix   = string
+    })
+    description = optional(string)
+    url         = optional(string)
+    #General
+    private_enabled     = optional(bool, false)
+    issues_enabled      = optional(bool, true)
+    discussions_enabled = optional(bool, false)
+    projects_enabled    = optional(bool, false)
+    wiki_enabled        = optional(bool, false)
+    archive_enabled     = optional(bool, false)
+    #Custom Inputs
+    custom_variables = optional(map(string), {})
+    custom_secrets   = optional(map(string), {})
+    custom_labels = optional(map(object({
+      name        = string
+      color       = string
+      description = optional(string)
+    })), {})
+  }))
+```
+
+Default: `{}`
+
+### <a name="input_secrets"></a> [secrets](#input\_secrets)
+
+Description: (Optional) value
 
 Type: `map(string)`
 
-Default: `null`
+Default: `{}`
+
+### <a name="input_terraform_provider"></a> [terraform\_provider](#input\_terraform\_provider)
+
+Description: (Optional) The terraform provider to be bootstrapped. Defaults to 'oci'.
+
+Type: `string`
+
+Default: `"oci"`
+
+### <a name="input_variables"></a> [variables](#input\_variables)
+
+Description: (Optional) value
+
+Type: `map(string)`
+
+Default: `{}`
 
 ## Outputs
 
-No outputs.
+The following outputs are exported:
+
+### <a name="output_flattened_labels"></a> [flattened\_labels](#output\_flattened\_labels)
+
+Description: Flattened GitHub Issue Labels
+
+### <a name="output_flattened_secrets"></a> [flattened\_secrets](#output\_flattened\_secrets)
+
+Description: Flattened GitHub Actions Secrets
+
+### <a name="output_flattened_variables"></a> [flattened\_variables](#output\_flattened\_variables)
+
+Description: Flattened GitHub Actions Variables
+
+### <a name="output_hives"></a> [hives](#output\_hives)
+
+Description: Hive Configuration
+
+### <a name="output_labels"></a> [labels](#output\_labels)
+
+Description: Normalized GitHub Issue Labels
+
+### <a name="output_repos"></a> [repos](#output\_repos)
+
+Description: Repository Configuration
+
+### <a name="output_secrets"></a> [secrets](#output\_secrets)
+
+Description: Normalized GitHub Actions Secrets
+
+### <a name="output_variables"></a> [variables](#output\_variables)
+
+Description: Normalized GitHub Actions Variables
 
 <!-- markdownlint-disable-file MD033 MD012 -->
 ## Contributing

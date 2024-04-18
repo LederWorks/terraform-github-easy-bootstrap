@@ -1,22 +1,107 @@
 # Module Test
-module "terratest-category-purpose" {
-  source = "../"
+module "github_bootstrap" {
+  source = "../.."
 
-  #Subscription
-  # subscription_id = data.azurerm_client_config.current.subscription_id
+  #### Common Variables
+  terraform_provider = "azure"
+  members            = local.all_members
+  admins             = ["Ledermayer"]
+  brand              = "ezpz"
 
-  #Resource Group
-  # resource_group_object = azurerm_resource_group.RGRP
+  #Inputs
+  variables = {
+    one = "pici"
+    dog = "tej"
+  }
 
-  #Tags
-  # tags = local.tags
+  secrets = {
+    my   = "verysecret"
+    not = "yoursecret"
+  }
 
-  ### Common Variables ###
+  labels = {
+    one = {
+      name        = "one"
+      color       = "0000Ff"
+      description = "blue"
+    }
+    two = {
+      name        = "two"
+      color       = "ff00ff"
+      description = "magenta"
+    }
+  }
 
-  ### General Variables ###
+  #### Set Variables
+  hives = {
+    ### Azure Network Modules
+    azure-network = {
+      hive         = "network"
+      approvers    = local.hu_members
+      contributors = local.us_members
+    }
 
-  ### Global Variables ###
+    ### Azure Compute Modules
+    azure-compute = {
+      hive         = "compute"
+      approvers    = local.us_members
+      contributors = local.hu_members
+    }
+  }
 
-  ### Local Variables ###
+  repos = {
+    ### Azure Network NSG Module
+    azurerm-network-nsg = {
+      #Common
+      name = {
+        type   = "brick"
+        hive   = "network"
+        suffix = "nsg"
+      }
+      description = "Azure Network NSG Module"
+      url         = null
 
+      #General
+      private_enabled     = false
+      issues_enabled      = true
+      discussions_enabled = false
+      projects_enabled    = false
+      wiki_enabled        = false
+      archive_enabled     = false
+
+      #Custom Inputs
+      custom_variables = {
+        wait  = "babám"
+        never = "menjel"
+      }
+
+      custom_secrets = {
+        their = "regret"
+        our   = "szeglet"
+      }
+
+      custom_labels = {
+        three = {
+          name        = "three"
+          color       = "Ff0000"
+          description = "red"
+        }
+        four = {
+          name        = "four"
+          color       = "00ff00"
+          description = "green"
+        }
+      }
+    }
+
+    ### Azure Compute NIC Module
+    azurerm-compute-nic = {
+      name = {
+        type   = "brick"
+        hive   = "compute"
+        suffix = "nic"
+      }
+      description = "Azure Compute NIC Module"
+    }
+  }
 }
