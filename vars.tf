@@ -26,7 +26,7 @@ output "variables" {
 
 output "flattened_variables" {
   value       = local.flattened_variables
-  description = "Flattened  GitHub Actions Variables"
+  description = "Flattened GitHub Actions Variables"
 }
 
 resource "github_actions_variable" "variable" {

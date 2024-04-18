@@ -26,7 +26,7 @@ output "secrets" {
 
 output "flattened_secrets" {
   value       = local.flattened_secrets
-  description = "Flattened  GitHub Actions Secrets"
+  description = "Flattened GitHub Actions Secrets"
 
 }
 
