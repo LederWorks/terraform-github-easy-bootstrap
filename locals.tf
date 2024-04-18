@@ -38,4 +38,19 @@ locals {
     }
   } : {}
 
+  #Inputs
+  variables = {
+    for repo_key, repo in var.repos : repo_key => merge(
+      var.variables,
+      repo.custom_variables
+    )
+  }
+
+  secrets = {
+    for repo_key, repo in var.repos : repo_key => merge(
+      var.secrets,
+      repo.custom_secrets
+    )
+  }
+
 }
