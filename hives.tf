@@ -49,7 +49,7 @@ resource "github_team_members" "approvers" {
 
   team_id = github_team.approvers[each.key].id
   dynamic "members" {
-    for_each = each.value.members
+    for_each = each.value.approvers
     content {
       username = members.value
       role     = "member"
@@ -71,7 +71,7 @@ resource "github_team_members" "members" {
 
   team_id = github_team.contributors[each.key].id
   dynamic "members" {
-    for_each = each.value.members
+    for_each = each.value.contributors
     content {
       username = members.value
       role     = "member"
