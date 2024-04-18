@@ -21,13 +21,13 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (>= 3.61.0)
 
+- <a name="requirement_github"></a> [github](#requirement\_github) (>= 6.2.1)
+
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (>= 3.61.0)
-
-- <a name="provider_github"></a> [github](#provider\_github)
+- <a name="provider_github"></a> [github](#provider\_github) (>= 6.2.1)
 
 ## Examples
 
@@ -38,7 +38,7 @@ module "github_bootstrap" {
   source = "../.."
 
   ### Common Variables ###
-  owner = "Ledermayer"
+  # owner = "Ledermayer"
 
   ### General Variables ###
 
@@ -115,21 +115,30 @@ module "github_bootstrap" {
 The following resources are used by this module:
 
 - [github_repository.repo](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository) (resource)
+- [github_team.admins](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
+- [github_team.approvers](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
+- [github_team.contributors](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
 - [github_team.team](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
+- [github_team_members.admins](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
+- [github_team_members.approvers](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
+- [github_team_members.members](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
+- [github_team_members.team](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
 
 ## Required Inputs
 
-The following input variables are required:
-
-### <a name="input_owner"></a> [owner](#input\_owner)
-
-Description: n/a
-
-Type: `string`
+No required inputs.
 
 ## Optional Inputs
 
 The following input variables are optional (have default values):
+
+### <a name="input_admins"></a> [admins](#input\_admins)
+
+Description: Admins of the provider team.
+
+Type: `set(string)`
+
+Default: `[]`
 
 ### <a name="input_hives"></a> [hives](#input\_hives)
 
@@ -139,17 +148,9 @@ Type:
 
 ```hcl
 map(object({
-    provider    = string
-    hive        = string
-    description = optional(string)
-    members     = optional(set(string), [])
-    variables   = optional(map(string), {})
-    secrets     = optional(map(string), {})
-    labels = optional(map(object({
-      name        = string
-      color       = string
-      description = optional(string)
-    })))
+    hive         = string
+    approvers    = optional(set(string), [])
+    contributors = optional(set(string), [])
   }))
 ```
 
@@ -157,7 +158,7 @@ Default: `{}`
 
 ### <a name="input_labels"></a> [labels](#input\_labels)
 
-Description: n/a
+Description: Labels
 
 Type:
 
@@ -170,6 +171,22 @@ map(object({
 ```
 
 Default: `{}`
+
+### <a name="input_members"></a> [members](#input\_members)
+
+Description: Members of the provider team.
+
+Type: `set(string)`
+
+Default: `[]`
+
+### <a name="input_provider"></a> [provider](#input\_provider)
+
+Description: The cloud provider to be bootstrapped.
+
+Type: `string`
+
+Default: `"oci"`
 
 ### <a name="input_repos"></a> [repos](#input\_repos)
 
@@ -213,23 +230,15 @@ Default: `{}`
 
 ### <a name="input_secrets"></a> [secrets](#input\_secrets)
 
-Description: n/a
+Description: Secrets
 
 Type: `map(string)`
 
 Default: `{}`
 
-### <a name="input_template_repo"></a> [template\_repo](#input\_template\_repo)
-
-Description: The template repository to use for creating new repos
-
-Type: `string`
-
-Default: `null`
-
 ### <a name="input_variables"></a> [variables](#input\_variables)
 
-Description: n/a
+Description: Variables
 
 Type: `map(string)`
 
