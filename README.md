@@ -44,7 +44,7 @@ module "github_bootstrap" {
 
   #### Members
   contributors = local.all_members
-  approvers = []
+  approvers = ["Dilergore"]
   admins = ["Ledermayer"]
 
   #### Inputs
@@ -150,6 +150,24 @@ The following resources are used by this module:
 
 The following input variables are required:
 
+### <a name="input_admins"></a> [admins](#input\_admins)
+
+Description: (Required) Admins of the hive team.
+
+Type: `set(string)`
+
+### <a name="input_approvers"></a> [approvers](#input\_approvers)
+
+Description: (Required) Approvers of the hive team.
+
+Type: `set(string)`
+
+### <a name="input_contributors"></a> [contributors](#input\_contributors)
+
+Description: (Required) Contributors of the hive team.
+
+Type: `set(string)`
+
 ### <a name="input_hive"></a> [hive](#input\_hive)
 
 Description: (Required) The name of the hive, such as compute, network, security etc.
@@ -166,22 +184,6 @@ Type: `string`
 
 The following input variables are optional (have default values):
 
-### <a name="input_admins"></a> [admins](#input\_admins)
-
-Description: (Optional) Admins of the hive team.
-
-Type: `set(string)`
-
-Default: `[]`
-
-### <a name="input_approvers"></a> [approvers](#input\_approvers)
-
-Description: (Optional) Approvers of the hive team.
-
-Type: `set(string)`
-
-Default: `[]`
-
 ### <a name="input_brand"></a> [brand](#input\_brand)
 
 Description: (Optional) The brand name to be used in the nomenclature. This appears as an infix in the repository name.
@@ -189,14 +191,6 @@ Description: (Optional) The brand name to be used in the nomenclature. This appe
 Type: `string`
 
 Default: `"easy"`
-
-### <a name="input_contributors"></a> [contributors](#input\_contributors)
-
-Description: (Optional) Contributors of the hive team.
-
-Type: `set(string)`
-
-Default: `[]`
 
 ### <a name="input_labels"></a> [labels](#input\_labels)
 
