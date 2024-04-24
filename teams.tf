@@ -16,8 +16,6 @@ resource "github_team" "contributors" {
 }
 
 resource "github_team_members" "contributors" {
-  count = var.contributors != [] ? 1 : 0
-
   team_id = github_team.contributors.id
   dynamic "members" {
     for_each = var.contributors
@@ -37,8 +35,6 @@ resource "github_team" "approvers" {
 }
 
 resource "github_team_members" "approvers" {
-  count = var.approvers != [] ? 1 : 0
-
   team_id = github_team.approvers.id
   dynamic "members" {
     for_each = var.approvers
@@ -57,8 +53,6 @@ resource "github_team" "admins" {
   create_default_maintainer = true
 }
 resource "github_team_members" "admins" {
-  count = var.admins != [] ? 1 : 0
-
   team_id = github_team.admins.id
   dynamic "members" {
     for_each = var.admins

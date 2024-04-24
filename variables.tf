@@ -38,22 +38,19 @@ variable "hive" {
 #Contributors
 variable "contributors" {
   type        = set(string)
-  default     = []
-  description = "(Optional) Contributors of the hive team."
+  description = "(Required) Contributors of the hive team."
 }
 
 #Approvers
 variable "approvers" {
   type        = set(string)
-  default     = []
-  description = "(Optional) Approvers of the hive team."
+  description = "(Required) Approvers of the hive team."
 }
 
 #Admins
 variable "admins" {
   type        = set(string)
-  default     = []
-  description = "(Optional) Admins of the hive team."
+  description = "(Required) Admins of the hive team."
 }
 
 # $$$$$$\                                 $$\               
