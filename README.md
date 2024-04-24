@@ -38,12 +38,16 @@ module "github_bootstrap" {
   source = "../.."
 
   #### Common Variables
-  terraform_provider = "azure"
-  members            = local.all_members
-  admins             = ["Ledermayer"]
+  terraform_provider = "mastiff"
   brand              = "ezpz"
+  hive = "rainbow"
 
-  #Inputs
+  #### Members
+  contributors = local.all_members
+  approvers = []
+  admins = ["Ledermayer"]
+
+  #### Inputs
   variables = {
     one = "pici"
     dog = "tej"
@@ -67,33 +71,12 @@ module "github_bootstrap" {
     }
   }
 
-  #### Set Variables
-  hives = {
-    ### Azure Network Modules
-    azure-network = {
-      hive         = "network"
-      approvers    = local.hu_members
-      contributors = local.us_members
-    }
-
-    ### Azure Compute Modules
-    azure-compute = {
-      hive         = "compute"
-      approvers    = local.us_members
-      contributors = local.hu_members
-    }
-  }
-
   repos = {
-    ### Azure Network NSG Module
-    azurerm-network-nsg = {
+    pink = {
       #Common
-      name = {
-        type   = "brick"
-        hive   = "network"
-        suffix = "nsg"
-      }
-      description = "Azure Network NSG Module"
+      type   = "engine"
+      suffix = "pink"
+      description = "Mastiff Rainbow Engine Pink Module"
       url         = null
 
       #General
@@ -128,15 +111,21 @@ module "github_bootstrap" {
         }
       }
     }
-
-    ### Azure Compute NIC Module
-    azurerm-compute-nic = {
-      name = {
-        type   = "brick"
-        hive   = "compute"
-        suffix = "nic"
-      }
-      description = "Azure Compute NIC Module"
+    purple = {
+      type   = "brick"
+      suffix = "purple"
+    }
+    violet = {
+      type   = "block"
+      suffix = "violet"
+    }
+    brown = {
+      type   = "wrapper"
+      suffix = "brown"
+    }
+    orange = {
+      type   = "accelerator"
+      suffix = "orange"
     }
   }
 }
@@ -153,15 +142,25 @@ The following resources are used by this module:
 - [github_team.admins](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
 - [github_team.approvers](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
 - [github_team.contributors](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
-- [github_team.team](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team) (resource)
 - [github_team_members.admins](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
 - [github_team_members.approvers](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
-- [github_team_members.members](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
-- [github_team_members.team](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
+- [github_team_members.contributors](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_members) (resource)
 
 ## Required Inputs
 
-No required inputs.
+The following input variables are required:
+
+### <a name="input_hive"></a> [hive](#input\_hive)
+
+Description: (Required) The name of the hive, such as compute, network, security etc.
+
+Type: `string`
+
+### <a name="input_terraform_provider"></a> [terraform\_provider](#input\_terraform\_provider)
+
+Description: (Required) The terraform provider to be bootstrapped, such as azurerm, google, aws etc.
+
+Type: `string`
 
 ## Optional Inputs
 
@@ -169,7 +168,15 @@ The following input variables are optional (have default values):
 
 ### <a name="input_admins"></a> [admins](#input\_admins)
 
-Description: (Optional) Admins of the provider team. Required when provider\_bootstrap\_enabled is set to true.
+Description: (Optional) Admins of the hive team.
+
+Type: `set(string)`
+
+Default: `[]`
+
+### <a name="input_approvers"></a> [approvers](#input\_approvers)
+
+Description: (Optional) Approvers of the hive team.
 
 Type: `set(string)`
 
@@ -181,32 +188,23 @@ Description: (Optional) The brand name to be used in the nomenclature. This appe
 
 Type: `string`
 
-Default: `null`
+Default: `"easy"`
 
-### <a name="input_hives"></a> [hives](#input\_hives)
+### <a name="input_contributors"></a> [contributors](#input\_contributors)
 
-Description:   A map of competency hives to be created.  
-  Each hive is a collection of repositories that share a common theme.
+Description: (Optional) Contributors of the hive team.
 
-  hive         - (Required) The name of the hive.  
-  approvers    - (Required) A list of usernames that are approvers for the hive.  
-  contributors - (Required) A list of usernames that are contributors for the hive.
+Type: `set(string)`
 
-Type:
-
-```hcl
-map(object({
-    hive         = string
-    approvers    = set(string)
-    contributors = set(string)
-  }))
-```
-
-Default: `{}`
+Default: `[]`
 
 ### <a name="input_labels"></a> [labels](#input\_labels)
 
-Description: (Optional) value
+Description:   (Optional) A map of labels to be created for all hive repositories. The labels object supports the following:
+
+  name        - (Required) The name of the label.  
+  color       - (Required) The color of the label.  
+  description - (Optional) The description of the label.
 
 Type:
 
@@ -220,49 +218,12 @@ map(object({
 
 Default: `{}`
 
-### <a name="input_members"></a> [members](#input\_members)
-
-Description: (Optional) Members of the provider team. Required when provider\_bootstrap\_enabled is set to true.
-
-Type: `set(string)`
-
-Default: `[]`
-
-### <a name="input_provider_admin_team_id"></a> [provider\_admin\_team\_id](#input\_provider\_admin\_team\_id)
-
-Description: (Optional) The ID of the already existing provider admin team. Mutually exclusive with provider\_bootstrap\_enabled.
-
-Type: `string`
-
-Default: `null`
-
-### <a name="input_provider_bootstrap_enabled"></a> [provider\_bootstrap\_enabled](#input\_provider\_bootstrap\_enabled)
-
-Description: (Optional) Enable provider bootstrap, which creates the provider teams and sets up team members and admins.
-
-Type: `bool`
-
-Default: `false`
-
-### <a name="input_provider_team_id"></a> [provider\_team\_id](#input\_provider\_team\_id)
-
-Description: (Optional) The ID of the already existing provider team. Mutually exclusive with provider\_bootstrap\_enabled.
-
-Type: `string`
-
-Default: `null`
-
 ### <a name="input_repos"></a> [repos](#input\_repos)
 
 Description:   A map of repositories and associated configurations to be created. The repos object support the following:
 
-  name - (Required) The name of the repository. The name object supports the following:
-
-    language - (Optional) The language of the repository. Defaults to 'terraform'.  
-    type     - (Optional) The type of the repository.  
-    hive     - (Optional) The hive of the repository.  
-    suffix   - (Required) The suffix of the repository.
-
+  type        - (Required) The type of the repository.  
+  suffix      - (Required) The suffix of the repository.  
   description - (Optional) The description of the repository.  
   url         - (Optional) The URL of the repository.
 
@@ -286,12 +247,8 @@ Type:
 ```hcl
 map(object({
     #Common
-    name = object({
-      language = optional(string, "terraform")
-      type     = optional(string)
-      hive     = optional(string)
-      suffix   = string
-    })
+    type        = string
+    suffix      = string
     description = optional(string)
     url         = optional(string)
     #General
@@ -316,23 +273,15 @@ Default: `{}`
 
 ### <a name="input_secrets"></a> [secrets](#input\_secrets)
 
-Description: (Optional) value
+Description: (Optional) A map(string) of action secrets to be created for all hive repositories
 
 Type: `map(string)`
 
 Default: `{}`
 
-### <a name="input_terraform_provider"></a> [terraform\_provider](#input\_terraform\_provider)
-
-Description: (Optional) The terraform provider to be bootstrapped. Defaults to 'oci'.
-
-Type: `string`
-
-Default: `"oci"`
-
 ### <a name="input_variables"></a> [variables](#input\_variables)
 
-Description: (Optional) value
+Description: (Optional) A map(string) of action variables to be created for all hive repositories
 
 Type: `map(string)`
 
@@ -342,37 +291,9 @@ Default: `{}`
 
 The following outputs are exported:
 
-### <a name="output_flattened_labels"></a> [flattened\_labels](#output\_flattened\_labels)
-
-Description: Flattened GitHub Issue Labels
-
-### <a name="output_flattened_secrets"></a> [flattened\_secrets](#output\_flattened\_secrets)
-
-Description: Flattened GitHub Actions Secrets
-
-### <a name="output_flattened_variables"></a> [flattened\_variables](#output\_flattened\_variables)
-
-Description: Flattened GitHub Actions Variables
-
-### <a name="output_hives"></a> [hives](#output\_hives)
-
-Description: Hive Configuration
-
-### <a name="output_labels"></a> [labels](#output\_labels)
-
-Description: Normalized GitHub Issue Labels
-
 ### <a name="output_repos"></a> [repos](#output\_repos)
 
 Description: Repository Configuration
-
-### <a name="output_secrets"></a> [secrets](#output\_secrets)
-
-Description: Normalized GitHub Actions Secrets
-
-### <a name="output_variables"></a> [variables](#output\_variables)
-
-Description: Normalized GitHub Actions Variables
 
 <!-- markdownlint-disable-file MD033 MD012 -->
 ## Contributing

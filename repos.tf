@@ -1,7 +1,7 @@
 #Repositories
 locals {
   repo_names = { for repo_key, repo in var.repos :
-    repo_key => "${repo.name.language}-${var.terraform_provider}-${var.brand}-${repo.name.type}-${repo.name.hive}-${repo.name.suffix}"
+    repo_key => "terraform-${var.terraform_provider}-${var.brand}-${repo.type}-${var.hive}-${repo.suffix}"
   }
 
   repos = var.repos != {} ? {
@@ -47,7 +47,7 @@ resource "github_repository" "repo" {
   has_wiki        = each.value.wiki_enabled
 
   #Commits
-  allow_merge_commit          = true
+  allow_merge_commit          = false
   allow_squash_merge          = true
   allow_rebase_merge          = false
   allow_auto_merge            = false

@@ -1,55 +1,43 @@
-#### Provider Default Team
-resource "github_team" "team" {
-  name                      = "${var.terraform_provider}-team"
-  description               = "${var.terraform_provider} team"
+# $$\      $$\                         $$\                                     
+# $$$\    $$$ |                        $$ |                                    
+# $$$$\  $$$$ | $$$$$$\  $$$$$$\$$$$\  $$$$$$$\   $$$$$$\   $$$$$$\   $$$$$$$\ 
+# $$\$$\$$ $$ |$$  __$$\ $$  _$$  _$$\ $$  __$$\ $$  __$$\ $$  __$$\ $$  _____|
+# $$ \$$$  $$ |$$$$$$$$ |$$ / $$ / $$ |$$ |  $$ |$$$$$$$$ |$$ |  \__|\$$$$$$\  
+# $$ |\$  /$$ |$$   ____|$$ | $$ | $$ |$$ |  $$ |$$   ____|$$ |       \____$$\ 
+# $$ | \_/ $$ |\$$$$$$$\ $$ | $$ | $$ |$$$$$$$  |\$$$$$$$\ $$ |      $$$$$$$  |
+# \__|     \__| \_______|\__| \__| \__|\_______/  \_______|\__|      \_______/ 
+
+#### Hive Contributors
+resource "github_team" "contributors" {
+  name                      = "${var.hive}-contributors"
+  description               = "Contributors for the ${var.terraform_provider}-${var.hive} hive."
   privacy                   = "closed"
   create_default_maintainer = true
 }
-resource "github_team_members" "team" {
-  team_id = github_team.team.id
+
+resource "github_team_members" "contributors" {
+  team_id = github_team.contributors.id
   dynamic "members" {
-    for_each = var.members
+    for_each = var.contributors
     content {
       username = members.value
       role     = "member"
-    }
-  }
-}
-
-#### Provider Admins
-resource "github_team" "admins" {
-  name                      = "${var.terraform_provider}-admins"
-  description               = "Admins of the ${var.terraform_provider} provider"
-  privacy                   = "closed"
-  create_default_maintainer = true
-}
-resource "github_team_members" "admins" {
-  count   = var.admins != [] ? 1 : 0
-  team_id = github_team.admins.id
-  dynamic "members" {
-    for_each = var.admins
-    content {
-      username = members.value
-      role     = "maintainer"
     }
   }
 }
 
 #### Hive Approvers
 resource "github_team" "approvers" {
-  for_each = local.hives != {} ? local.hives : {}
-
-  name                      = "${each.value.name}-approvers"
-  description               = "Approvers of the ${each.value.name} hive"
+  name                      = "${var.hive}-approvers"
+  description               = "Approvers of the ${var.terraform_provider}-${var.hive} hive."
   privacy                   = "closed"
   create_default_maintainer = true
 }
-resource "github_team_members" "approvers" {
-  for_each = local.hives != {} ? local.hives : {}
 
-  team_id = github_team.approvers[each.key].id
+resource "github_team_members" "approvers" {
+  team_id = github_team.approvers.id
   dynamic "members" {
-    for_each = each.value.approvers
+    for_each = var.approvers
     content {
       username = members.value
       role     = "member"
@@ -57,24 +45,20 @@ resource "github_team_members" "approvers" {
   }
 }
 
-#### Hive Contributors
-resource "github_team" "contributors" {
-  for_each = local.hives != {} ? local.hives : {}
-
-  name                      = "${each.value.name}-contributors"
-  description               = "Contributors for the ${each.value.name} hive"
+#### Hive Admins
+resource "github_team" "admins" {
+  name                      = "${var.hive}-admins"
+  description               = "Admins of the ${var.terraform_provider}-${var.hive} hive."
   privacy                   = "closed"
   create_default_maintainer = true
 }
-resource "github_team_members" "members" {
-  for_each = local.hives != {} ? local.hives : {}
-
-  team_id = github_team.contributors[each.key].id
+resource "github_team_members" "admins" {
+  team_id = github_team.admins.id
   dynamic "members" {
-    for_each = each.value.contributors
+    for_each = var.admins
     content {
       username = members.value
-      role     = "member"
+      role     = "maintainer"
     }
   }
 }

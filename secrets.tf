@@ -19,16 +19,15 @@ locals {
   ])
 }
 
-output "secrets" {
-  value       = local.secrets
-  description = "Normalized GitHub Actions Secrets"
-}
+# output "secrets" {
+#   value       = local.secrets
+#   description = "Normalized GitHub Actions Secrets"
+# }
 
-output "flattened_secrets" {
-  value       = local.flattened_secrets
-  description = "Flattened GitHub Actions Secrets"
-
-}
+# output "flattened_secrets" {
+#   value       = local.flattened_secrets
+#   description = "Flattened GitHub Actions Secrets"
+# }
 
 resource "github_actions_secret" "secret" {
   for_each        = { for secret in local.flattened_secrets : "${secret.repo_name}_${secret.secret_name}" => secret }

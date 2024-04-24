@@ -1,33 +1,28 @@
-#Hives
-output "hives" {
-  value = module.github_bootstrap.hives
-}
-
 #Repositories
 output "repos" {
   value = module.github_bootstrap.repos
 }
 
 #Variables
-output "variables" {
+/* output "variables" {
   value = module.github_bootstrap.variables
 }
 output "flattened_variables" {
   value = module.github_bootstrap.flattened_variables
-}
+} */
 
 #Secrets
-output "secrets" {
+/* output "secrets" {
   value = module.github_bootstrap.secrets
 }
 output "flattened_secrets" {
   value = module.github_bootstrap.flattened_secrets
-}
+} */
 
 #Labels
-output "labels" {
+/* output "labels" {
   value = module.github_bootstrap.labels
 }
 output "flattened_labels" {
   value = module.github_bootstrap.flattened_labels
-}
+} */

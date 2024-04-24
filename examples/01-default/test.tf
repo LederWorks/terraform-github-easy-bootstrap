@@ -3,12 +3,16 @@ module "github_bootstrap" {
   source = "../.."
 
   #### Common Variables
-  terraform_provider = "azure"
-  members            = local.all_members
-  admins             = ["Ledermayer"]
+  terraform_provider = "mastiff"
   brand              = "ezpz"
+  hive = "rainbow"
 
-  #Inputs
+  #### Members
+  contributors = local.all_members
+  approvers = ["Dilergore"]
+  admins = ["Ledermayer"]
+
+  #### Inputs
   variables = {
     one = "pici"
     dog = "tej"
@@ -32,33 +36,12 @@ module "github_bootstrap" {
     }
   }
 
-  #### Set Variables
-  hives = {
-    ### Azure Network Modules
-    azure-network = {
-      hive         = "network"
-      approvers    = local.hu_members
-      contributors = local.us_members
-    }
-
-    ### Azure Compute Modules
-    azure-compute = {
-      hive         = "compute"
-      approvers    = local.us_members
-      contributors = local.hu_members
-    }
-  }
-
   repos = {
-    ### Azure Network NSG Module
-    azurerm-network-nsg = {
+    pink = {
       #Common
-      name = {
-        type   = "brick"
-        hive   = "network"
-        suffix = "nsg"
-      }
-      description = "Azure Network NSG Module"
+      type   = "engine"
+      suffix = "pink"
+      description = "Mastiff Rainbow Engine Pink Module"
       url         = null
 
       #General
@@ -93,15 +76,21 @@ module "github_bootstrap" {
         }
       }
     }
-
-    ### Azure Compute NIC Module
-    azurerm-compute-nic = {
-      name = {
-        type   = "brick"
-        hive   = "compute"
-        suffix = "nic"
-      }
-      description = "Azure Compute NIC Module"
+    purple = {
+      type   = "brick"
+      suffix = "purple"
+    }
+    violet = {
+      type   = "block"
+      suffix = "violet"
+    }
+    brown = {
+      type   = "wrapper"
+      suffix = "brown"
+    }
+    orange = {
+      type   = "accelerator"
+      suffix = "orange"
     }
   }
 }

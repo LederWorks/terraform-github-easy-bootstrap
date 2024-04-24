@@ -19,15 +19,15 @@ locals {
   ])
 }
 
-output "variables" {
-  value       = local.variables
-  description = "Normalized GitHub Actions Variables"
-}
+# output "variables" {
+#   value       = local.variables
+#   description = "Normalized GitHub Actions Variables"
+# }
 
-output "flattened_variables" {
-  value       = local.flattened_variables
-  description = "Flattened GitHub Actions Variables"
-}
+# output "flattened_variables" {
+#   value       = local.flattened_variables
+#   description = "Flattened GitHub Actions Variables"
+# }
 
 resource "github_actions_variable" "variable" {
   for_each      = { for variable in local.flattened_variables : "${variable.repo_name}_${variable.variable_name}" => variable }
