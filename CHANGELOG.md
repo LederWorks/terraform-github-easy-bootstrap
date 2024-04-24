@@ -2,10 +2,7 @@
 
 ## v0.3.0 [current]
 FEATURES:
-- list
-- feature
-- updates
-- here
+- Significantly simplified module logic, only focusing on a single hive creation to enforce separation of concerns
 
 ENHANCEMENTS:
 - Updated go task to v5, which supports sum caching
@@ -14,13 +11,6 @@ ENHANCEMENTS:
 - Updated setup-terraform to v3
 - Updated terraform-docs to v1.1.0
 - Updated gittools to v1.1.1
-
-
-BUG FIXES:
-- list
-- bug
-- fixes
-- here
 
 ## v0.2.0
 FEATURES:

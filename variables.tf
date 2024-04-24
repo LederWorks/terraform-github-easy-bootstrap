@@ -79,7 +79,6 @@ variable "variables" {
 variable "secrets" {
   type        = map(string)
   default     = {}
-  sensitive   = true
   description = "(Optional) A map(string) of action secrets to be created for all hive repositories"
 }
 
