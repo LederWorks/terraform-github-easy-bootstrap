@@ -10,55 +10,77 @@
 #Provider
 variable "terraform_provider" {
   type        = string
-  default     = "oci"
-  description = "(Optional) The terraform provider to be bootstrapped. Defaults to 'oci'."
+  description = "(Required) The terraform provider to be bootstrapped, such as azurerm, google, aws etc."
 }
 
-variable "provider_bootstrap_enabled" {
-  type        = bool
-  default     = false
-  description = "(Optional) Enable provider bootstrap, which creates the provider teams and sets up team members and admins."
-}
-
-variable "provider_team_id" {
+#Brand
+variable "brand" {
   type        = string
-  default     = null
-  description = "(Optional) The ID of the already existing provider team. Mutually exclusive with provider_bootstrap_enabled."
+  default     = "easy"
+  description = "(Optional) The brand name to be used in the nomenclature. This appears as an infix in the repository name."
 }
 
-variable "provider_admin_team_id" {
+#Hive
+variable "hive" {
   type        = string
-  default     = null
-  description = "(Optional) The ID of the already existing provider admin team. Mutually exclusive with provider_bootstrap_enabled."
+  description = "(Required) The name of the hive, such as compute, network, security etc."
 }
 
-#Members
-variable "members" {
+# $$\      $$\                         $$\                                     
+# $$$\    $$$ |                        $$ |                                    
+# $$$$\  $$$$ | $$$$$$\  $$$$$$\$$$$\  $$$$$$$\   $$$$$$\   $$$$$$\   $$$$$$$\ 
+# $$\$$\$$ $$ |$$  __$$\ $$  _$$  _$$\ $$  __$$\ $$  __$$\ $$  __$$\ $$  _____|
+# $$ \$$$  $$ |$$$$$$$$ |$$ / $$ / $$ |$$ |  $$ |$$$$$$$$ |$$ |  \__|\$$$$$$\  
+# $$ |\$  /$$ |$$   ____|$$ | $$ | $$ |$$ |  $$ |$$   ____|$$ |       \____$$\ 
+# $$ | \_/ $$ |\$$$$$$$\ $$ | $$ | $$ |$$$$$$$  |\$$$$$$$\ $$ |      $$$$$$$  |
+# \__|     \__| \_______|\__| \__| \__|\_______/  \_______|\__|      \_______/ 
+
+#Contributors
+variable "contributors" {
   type        = set(string)
   default     = []
-  description = "(Optional) Members of the provider team. Required when provider_bootstrap_enabled is set to true."
+  description = "(Optional) Contributors of the hive team."
+}
+
+#Approvers
+variable "approvers" {
+  type        = set(string)
+  default     = []
+  description = "(Optional) Approvers of the hive team."
 }
 
 #Admins
 variable "admins" {
   type        = set(string)
   default     = []
-  description = "(Optional) Admins of the provider team. Required when provider_bootstrap_enabled is set to true."
+  description = "(Optional) Admins of the hive team."
 }
+
+# $$$$$$\                                 $$\               
+# \_$$  _|                                $$ |              
+#   $$ |  $$$$$$$\   $$$$$$\  $$\   $$\ $$$$$$\    $$$$$$$\ 
+#   $$ |  $$  __$$\ $$  __$$\ $$ |  $$ |\_$$  _|  $$  _____|
+#   $$ |  $$ |  $$ |$$ /  $$ |$$ |  $$ |  $$ |    \$$$$$$\  
+#   $$ |  $$ |  $$ |$$ |  $$ |$$ |  $$ |  $$ |$$\  \____$$\ 
+# $$$$$$\ $$ |  $$ |$$$$$$$  |\$$$$$$  |  \$$$$  |$$$$$$$  |
+# \______|\__|  \__|$$  ____/  \______/    \____/ \_______/ 
+#                   $$ |                                    
+#                   $$ |                                    
+#                   \__|                                    
 
 #Variables
 variable "variables" {
   type        = map(string)
   default     = {}
-  description = "(Optional) value"
+  description = "(Optional) A map(string) of action variables to be created for all hive repositories"
 }
 
 #Secrets
 variable "secrets" {
-  type    = map(string)
-  default = {}
-  #sensitive   = true
-  description = "(Optional) value"
+  type        = map(string)
+  default     = {}
+  sensitive   = true
+  description = "(Optional) A map(string) of action secrets to be created for all hive repositories"
 }
 
 #Labels
@@ -69,54 +91,33 @@ variable "labels" {
     description = optional(string)
   }))
   default     = {}
-  description = "(Optional) value"
-}
-
-#Brand
-variable "brand" {
-  type        = string
-  default     = null
-  description = "(Optional) The brand name to be used in the nomenclature. This appears as an infix in the repository name."
-}
-
-#  $$$$$$\             $$\           $$\    $$\                              
-# $$  __$$\            $$ |          $$ |   $$ |                             
-# $$ /  \__| $$$$$$\ $$$$$$\         $$ |   $$ |$$$$$$\   $$$$$$\   $$$$$$$\ 
-# \$$$$$$\  $$  __$$\\_$$  _|        \$$\  $$  |\____$$\ $$  __$$\ $$  _____|
-#  \____$$\ $$$$$$$$ | $$ |           \$$\$$  / $$$$$$$ |$$ |  \__|\$$$$$$\  
-# $$\   $$ |$$   ____| $$ |$$\         \$$$  / $$  __$$ |$$ |       \____$$\ 
-# \$$$$$$  |\$$$$$$$\  \$$$$  |         \$  /  \$$$$$$$ |$$ |      $$$$$$$  |
-#  \______/  \_______|  \____/           \_/    \_______|\__|      \_______/ 
-
-#Hives
-variable "hives" {
-  type = map(object({
-    hive         = string
-    approvers    = set(string)
-    contributors = set(string)
-  }))
-  default     = {}
   description = <<EOT
-  A map of competency hives to be created.
-  Each hive is a collection of repositories that share a common theme.
+  (Optional) A map of labels to be created for all hive repositories. The labels object supports the following:
 
-  hive         - (Required) The name of the hive.
-  approvers    - (Required) A list of usernames that are approvers for the hive.
-  contributors - (Required) A list of usernames that are contributors for the hive.
-
+  name        - (Required) The name of the label.
+  color       - (Required) The color of the label.
+  description - (Optional) The description of the label.
   EOT
 }
+
+# $$$$$$$\                                          
+# $$  __$$\                                         
+# $$ |  $$ | $$$$$$\   $$$$$$\   $$$$$$\   $$$$$$$\ 
+# $$$$$$$  |$$  __$$\ $$  __$$\ $$  __$$\ $$  _____|
+# $$  __$$< $$$$$$$$ |$$ /  $$ |$$ /  $$ |\$$$$$$\  
+# $$ |  $$ |$$   ____|$$ |  $$ |$$ |  $$ | \____$$\ 
+# $$ |  $$ |\$$$$$$$\ $$$$$$$  |\$$$$$$  |$$$$$$$  |
+# \__|  \__| \_______|$$  ____/  \______/ \_______/ 
+#                     $$ |                          
+#                     $$ |                          
+#                     \__|                          
 
 #Repositories
 variable "repos" {
   type = map(object({
     #Common
-    name = object({
-      language = optional(string, "terraform")
-      type     = optional(string)
-      hive     = optional(string)
-      suffix   = string
-    })
+    type        = string
+    suffix      = string
     description = optional(string)
     url         = optional(string)
     #General
@@ -139,13 +140,8 @@ variable "repos" {
   description = <<EOT
   A map of repositories and associated configurations to be created. The repos object support the following:
 
-  name - (Required) The name of the repository. The name object supports the following:
-
-    language - (Optional) The language of the repository. Defaults to 'terraform'.
-    type     - (Optional) The type of the repository.
-    hive     - (Optional) The hive of the repository.
-    suffix   - (Required) The suffix of the repository.
-
+  type        - (Required) The type of the repository.
+  suffix      - (Required) The suffix of the repository.
   description - (Optional) The description of the repository.
   url         - (Optional) The URL of the repository.
 
@@ -163,6 +159,5 @@ variable "repos" {
     name        - (Required) The name of the label.
     color       - (Required) The color of the label.
     description - (Optional) The description of the label.
-
   EOT
 }
