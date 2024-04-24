@@ -9,7 +9,7 @@ module "github_bootstrap" {
 
   #### Members
   contributors = local.all_members
-  approvers = []
+  approvers = ["Dilergore"]
   admins = ["Ledermayer"]
 
   #### Inputs
