@@ -175,7 +175,7 @@ locals {
 
       ### Files for each example
       flatten([
-        for example_key, example in repo.examples : [
+        for example_key, example in lookup(repo, "examples", {}) : [
 
           #### Examples ####
 
