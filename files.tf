@@ -29,7 +29,7 @@ locals {
   } : {} */
 
   # Generate the content for the examples section
-  examples_section = templatefile("${path.module}/templates/config/examples.tftpl", {
+  examples_section = templatefile("${path.module}/templates/config/examples.md.tftpl", {
     examples = flatten([
       for repo_key, repo in var.repos : [
         for example_key, example in repo.examples : {
