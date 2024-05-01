@@ -205,6 +205,7 @@ locals {
                 resource_group_location = "germanywestcentral"
                 module_name             = "${var.terraform_provider}-${repo.type}-${var.hive}-${repo.suffix}"
                 module_repository       = "${local.repo_names[repo_key]}"
+                module_version          = "0.1.0"
               })
               commit_message = "Deploy examples/${example.name}/main.tf"
               overwrite      = false
@@ -279,7 +280,7 @@ locals {
               file       = ".test/${example.name}/go.mod"
               content = templatefile("${path.module}/templates/go.mod.tftpl", {
                 module_name = local.repo_names[repo_key]
-                example = "${example.name}"
+                example     = "${example.name}"
               })
               commit_message = "Deploy .test/${example.name}/go.mod"
             }
