@@ -347,7 +347,7 @@ variable "repos" {
         subscription_id             = optional(string)                           # Can also be set via ARM_SUBSCRIPTION_ID environment variable.
         tenant_id                   = optional(string)                           # Can also be set via ARM_TENANT_ID environment variable.
       }))
-    })))
+    })), {})
   }))
   default     = {}
   description = <<EOT
