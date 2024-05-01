@@ -37,6 +37,7 @@ locals {
             type         = repo.type
             hive         = var.hive
             suffix       = repo.suffix
+            about        = repo.documentation.about
           })
           commit_message = "Update header.txt"
         }

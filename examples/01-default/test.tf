@@ -75,14 +75,20 @@ module "github_bootstrap" {
           description = "green"
         }
       }
+
+      #Documentation
+      documentation = {
+        enabled = true
+        about = "This is a pink engine module"
+      }
     }
-    #Do not deploy default content
+    #Do not deploy release content
     purple = {
       type   = "brick"
       suffix = "purple"
-      /* documentation = {
-        enabled      = false
-      } */
+      documentation = {
+        about = "This is a purple brick module"
+      }
       release = {
         enabled      = false
       }

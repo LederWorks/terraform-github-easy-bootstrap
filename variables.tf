@@ -145,6 +145,7 @@ variable "repos" {
       enabled       = bool
       output_file   = optional(string, "README.md")
       output_format = optional(string, "markdown document")
+      about         = optional(string, "This is a Terraform module.")
       }), {
       enabled = true
     })
