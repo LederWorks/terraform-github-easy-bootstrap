@@ -176,7 +176,6 @@ locals {
       ### Files for each example
       flatten([
         for example_key, example in repo.examples : [
-        # for example_key, example in lookup(repo, "examples", {}) : [
 
           #### Examples ####
 
@@ -186,7 +185,8 @@ locals {
               repository = local.repo_names[repo_key]
               file       = "examples/${example.name}/auth.tf"
               content = templatefile("${path.module}/templates/examples/auth.tf.tftpl", {
-                # Add the variables required for the auth.tf template here
+                providers       = var.repos[repo_key].providers
+                backend_azurerm = var.repos[repo_key].backend_azurerm
               })
               commit_message = "Update examples/${example.name}/auth.tf"
             }
