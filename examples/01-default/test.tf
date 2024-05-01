@@ -5,12 +5,12 @@ module "github_bootstrap" {
   #### Common Variables
   terraform_provider = "mastiff"
   brand              = "ezpz"
-  hive = "rainbow"
+  hive               = "rainbow"
 
   #### Members
   contributors = local.all_members
-  approvers = ["Dilergore"]
-  admins = ["Ledermayer"]
+  approvers    = ["Dilergore"]
+  admins       = ["Ledermayer"]
 
   #### Inputs
   variables = {
@@ -19,7 +19,7 @@ module "github_bootstrap" {
   }
 
   secrets = {
-    my   = "verysecret"
+    my  = "verysecret"
     not = "yoursecret"
   }
 
@@ -40,8 +40,8 @@ module "github_bootstrap" {
     #All customization options with Pink
     pink = {
       #Common
-      type   = "engine"
-      suffix = "pink"
+      type        = "engine"
+      suffix      = "pink"
       description = "Mastiff Rainbow Engine Pink Module"
       url         = null
 
@@ -79,8 +79,31 @@ module "github_bootstrap" {
 
       #Documentation
       documentation = {
-        enabled = true
-        about = "This is a pink engine module"
+        #General
+        enabled       = true
+        output_file   = "USAGE.md"
+        output_format = "markdown table"
+
+        #Content
+        about             = "This is a pink engine module"
+        # inputs_enabled    = false #Defaults to true
+        # outputs_enabled   = false #Defaults to true
+        # providers_enabled = false #Defaults to true
+        required_enabled  = false #Defaults to true
+        # resources_enabled = false #Defaults to true
+
+        #Config
+        # anchor_enabled      = false #Defaults to true
+        # default_enabled     = false #Defaults to true
+        # description_enabled = false #Defaults to true
+        # escape_enabled      = false #Defaults to true
+        hide_empty_enabled  = true  #Defaults to false
+        # html_enabled        = false #Defaults to true
+        indent              = 4     #Defaults to 2
+        # lockfile_enabled    = true  #Defaults to false
+        required_enabled    = false #Defaults to true
+        # sensitive_enabled   = false #Defaults to true
+        # type_enabled        = false #Defaults to true
       }
     }
 
@@ -90,10 +113,10 @@ module "github_bootstrap" {
       suffix = "purple"
       documentation = {
         enabled = true
-        about = "This is a purple brick module"
+        about   = "This is a purple brick module"
       }
       release = {
-        enabled      = false
+        enabled = false
       }
     }
 

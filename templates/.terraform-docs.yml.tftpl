@@ -1,5 +1,5 @@
 #This file is managed by the Github Bootstrap workflow. Any modifications to this file may be overwritten. To make changes, please modify the bootstrap module.
-formatter: $${output_format}
+formatter: ${output_format}
 
 version: ""
 header-from: .config/header.txt
@@ -10,18 +10,22 @@ sections:
   show:
     - header
     - footer
-    - inputs
-    - outputs
-    - requirements
-    - providers
-    - resources
+    ${inputs}
+    ${outputs}
+    ${providers}
+    ${requirements}
+    ${resources}
 
 content: |-
   {{ .Header }}
 
+  %{ if requirements_enabled ~}
   {{ .Requirements }}
+  %{ endif ~}
 
+  %{ if providers_enabled ~}
   {{ .Providers }}
+  %{ endif ~}
 
   ## Examples
 
@@ -30,11 +34,17 @@ content: |-
   {{ include "examples/01-default/test.tf" }}
   ```
 
+  %{ if resources_enabled ~}
   {{ .Resources }}
+  %{ endif ~}
 
+  %{ if inputs_enabled ~}
   {{ .Inputs }}
+  %{ endif ~}
 
+  %{ if outputs_enabled ~}
   {{ .Outputs }}
+  %{ endif ~}
 
   {{ .Footer }}
 
@@ -54,14 +64,14 @@ sort:
   by: required
 
 settings:
-  anchor: true
-  default: true
-  description: true
-  escape: true
-  hide-empty: false
-  html: true
-  indent: 2
-  lockfile: false
-  required: true
-  sensitive: true
-  type: true
+  anchor: ${anchor}
+  default: ${default}
+  description: ${description}
+  escape: ${escape}
+  hide-empty: ${hide_empty}
+  html: ${html}
+  indent: ${indent}
+  lockfile: ${lockfile}
+  required: ${required}
+  sensitive: ${sensitive}
+  type: ${type}

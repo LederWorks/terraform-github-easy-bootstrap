@@ -142,10 +142,29 @@ variable "repos" {
 
     #Terraform-Docs
     documentation = optional(object({
+      #General
       enabled       = bool
       output_file   = optional(string, "README.md")
       output_format = optional(string, "markdown document")
-      about         = optional(string, "This is a Terraform module.")
+      #Content
+      about                = optional(string, "This is a Terraform module.")
+      inputs_enabled       = optional(bool, true)
+      outputs_enabled      = optional(bool, true)
+      providers_enabled    = optional(bool, true)
+      requirements_enabled = optional(bool, true)
+      resources_enabled    = optional(bool, true)
+      #Config
+      anchor_enabled      = optional(bool, true)
+      default_enabled     = optional(bool, true)
+      description_enabled = optional(bool, true)
+      escape_enabled      = optional(bool, true)
+      hide_empty_enabled  = optional(bool, false)
+      html_enabled        = optional(bool, true)
+      indent              = optional(int, 2)
+      lockfile_enabled    = optional(bool, false)
+      required_enabled    = optional(bool, true)
+      sensitive_enabled   = optional(bool, true)
+      type_enabled        = optional(bool, true)
       }), {
       enabled = true
     })

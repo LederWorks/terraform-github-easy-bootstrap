@@ -10,7 +10,7 @@ locals {
   flattened_variables = flatten([
     for repo_key, variables in local.variables : [
       for variable_name, variable_value in variables : {
-        repo_name      = repo_key
+        repo_name      = local.repo_names[repo_key]
         variable_name  = variable_name
         variable_value = variable_value
         repository_id  = github_repository.repo[repo_key].id
@@ -19,15 +19,15 @@ locals {
   ])
 }
 
-# output "variables" {
-#   value       = local.variables
-#   description = "Normalized GitHub Actions Variables"
-# }
+output "variables" {
+  value       = local.variables
+  description = "Normalized GitHub Actions Variables"
+}
 
-# output "flattened_variables" {
-#   value       = local.flattened_variables
-#   description = "Flattened GitHub Actions Variables"
-# }
+output "flattened_variables" {
+  value       = local.flattened_variables
+  description = "Flattened GitHub Actions Variables"
+}
 
 resource "github_actions_variable" "variable" {
   for_each      = { for variable in local.flattened_variables : "${variable.repo_name}_${variable.variable_name}" => variable }

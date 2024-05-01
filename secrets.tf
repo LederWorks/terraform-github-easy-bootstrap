@@ -10,7 +10,7 @@ locals {
   flattened_secrets = flatten([
     for repo_key, secrets in local.secrets : [
       for secret_name, secret_value in secrets : {
-        repo_name     = repo_key
+        repo_name     = local.repo_names[repo_key]
         secret_name   = secret_name
         secret_value  = secret_value
         repository_id = github_repository.repo[repo_key].id
@@ -19,15 +19,15 @@ locals {
   ])
 }
 
-# output "secrets" {
-#   value       = local.secrets
-#   description = "Normalized GitHub Actions Secrets"
-# }
+output "secrets" {
+  value       = local.secrets
+  description = "Normalized GitHub Actions Secrets"
+}
 
-# output "flattened_secrets" {
-#   value       = local.flattened_secrets
-#   description = "Flattened GitHub Actions Secrets"
-# }
+output "flattened_secrets" {
+  value       = local.flattened_secrets
+  description = "Flattened GitHub Actions Secrets"
+}
 
 resource "github_actions_secret" "secret" {
   for_each        = { for secret in local.flattened_secrets : "${secret.repo_name}_${secret.secret_name}" => secret }
