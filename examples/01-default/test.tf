@@ -128,6 +128,7 @@ module "github_bootstrap" {
         everest = {
           name = "01-everest"
           description = "Everest is the highest mountain in the world"
+          context_deployed = true
         }
 
         kaytoo = {
@@ -138,6 +139,7 @@ module "github_bootstrap" {
         kangchenjunga = {
           name = "03-kangchenjunga"
           description = "Kangchenjunga is the third highest mountain in the world"
+          context_deployed = true
         }
       }
     }
