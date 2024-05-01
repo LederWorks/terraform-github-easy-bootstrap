@@ -56,7 +56,7 @@ locals {
         gitignore = {
           repository = local.repo_names[repo_key]
           file       = ".gitignore"
-          content = templatefile("${path.module}/templates/github/gitignore.tftpl", {
+          content = templatefile("${path.module}/templates/github/.gitignore.tftpl", {
             # Add the variables required for the footer.txt template here
           })
           commit_message = "Update .gitignore"
@@ -68,7 +68,7 @@ locals {
         gitattributes = {
           repository = local.repo_names[repo_key]
           file       = ".gitattributes"
-          content = templatefile("${path.module}/templates/github/gitattributes.tftpl", {
+          content = templatefile("${path.module}/templates/github/.gitattributes.tftpl", {
             # Add the variables required for the footer.txt template here
           })
           commit_message = "Update .gitattributes"
