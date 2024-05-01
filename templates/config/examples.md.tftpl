@@ -1,72 +1,72 @@
 ## Examples
 
 %{ for example in examples ~}
-  %{ if example.auth_enabled and example.auth_docs_enabled %}
-  ### Authentication Example: ${example.name}
+%{ if example.auth_enabled and example.auth_docs_enabled %}
+### Authentication Example: ${example.name}
 
-  ```hcl
-  {{ include "examples/${example.name}/auth.tf" }}
-  ```
+```hcl
+{{ include "examples/${example.name}/auth.tf" }}
+```
 
-  %{ endif ~}
+%{ endif ~}
 
-  %{ if example.context_deployed and example.context_docs_enabled %}
+%{ if example.context_deployed and example.context_docs_enabled %}
 
-  ### Context Example: ${example.name}
+### Context Example: ${example.name}
 
-  ```hcl
-  {{ include "examples/${example.name}/context.tf" }}
-  ```
+```hcl
+{{ include "examples/${example.name}/context.tf" }}
+```
 
-  %{ endif ~}
+%{ endif ~}
 
-  %{ if example.data_deployed and example.data_docs_enabled %}
+%{ if example.data_deployed and example.data_docs_enabled %}
 
-  ### Data Example: ${example.name}
+### Data Example: ${example.name}
 
-  ```hcl
-  {{ include "examples/${example.name}/data.tf" }}
-  ```
+```hcl
+{{ include "examples/${example.name}/data.tf" }}
+```
 
-  %{ endif ~}
+%{ endif ~}
 
-  %{ if example.locals_deployed and example.locals_docs_enabled %}
+%{ if example.locals_deployed and example.locals_docs_enabled %}
 
-  ### Locals Example: ${example.name}
+### Locals Example: ${example.name}
 
-  ```hcl
-  {{ include "examples/${example.name}/locals.tf" }}
-  ```
+```hcl
+{{ include "examples/${example.name}/locals.tf" }}
+```
 
-  %{ endif ~}
+%{ endif ~}
 
-  %{ if example.main_deployed and example.main_docs_enabled %}
+%{ if example.main_deployed and example.main_docs_enabled %}
 
-  ### Main Example: ${example.name}
+### Main Example: ${example.name}
 
-  ```hcl
-  {{ include "examples/${example.name}/main.tf" }}
-  ```
+```hcl
+{{ include "examples/${example.name}/main.tf" }}
+```
 
-  %{ endif ~}
+%{ endif ~}
 
-  %{ if example.variables_deployed and example.variables_docs_enabled %}
+%{ if example.variables_deployed and example.variables_docs_enabled %}
 
-  ### Variables Example: ${example.name}
+### Variables Example: ${example.name}
 
-  ```hcl
-  {{ include "examples/${example.name}/variables.tf" }}
-  ```
+```hcl
+{{ include "examples/${example.name}/variables.tf" }}
+```
 
-  %{ endif ~}
+%{ endif ~}
 
-  %{ if example.outputs_deployed and example.outputs_docs_enabled %}
+%{ if example.outputs_deployed and example.outputs_docs_enabled %}
 
-  ### Outputs Example: ${example.name}
+### Outputs Example: ${example.name}
 
-  ```hcl
-  {{ include "examples/${example.name}/outputs.tf" }}
-  ```
+```hcl
+{{ include "examples/${example.name}/outputs.tf" }}
+```
 
-  %{ endif ~}
+%{ endif ~}
 %{ endfor ~}
