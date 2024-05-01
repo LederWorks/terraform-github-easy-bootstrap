@@ -19,7 +19,7 @@ locals {
         documentation-config = {
           repository     = local.repo_names[repo_key]
           file           = ".config/.terraform-docs.yml"
-          content        = templatefile("${path.module}/templates/.terraform-docs.yml.tpl", {
+          content        = templatefile("${path.module}/templates/.terraform-docs.yml.tftpl", {
             output_format = repo.documentation.output_format
           })
           commit_message = "Update .terraform-docs.yml"
@@ -31,7 +31,7 @@ locals {
         release = {
           repository     = local.repo_names[repo_key]
           file           = ".github/workflows/release.yml"
-          content        = templatefile("${path.module}/templates/release.yml.tpl", {
+          content        = templatefile("${path.module}/templates/release.yml.tftpl", {
             # Add the variables required for the release.yml template here
           })
           commit_message = "Update release.yml"
@@ -42,8 +42,8 @@ locals {
         release_config = {
           repository     = local.repo_names[repo_key]
           file           = ".github/gitversionconfig.yml"
-          content        = templatefile("${path.module}/templates/gitversionconfig.yml.tpl", {
-            # Add the variables required for the .github/gitversionconfig.yml template here
+          content        = templatefile("${path.module}/templates/gitversionconfig.yml.tftpl", {
+            # Add the variables required for the gitversionconfig.yml template here
           })
           commit_message = "Update gitversionconfig.yml"
         }
