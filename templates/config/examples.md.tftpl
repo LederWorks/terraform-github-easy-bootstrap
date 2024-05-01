@@ -5,7 +5,7 @@
 ### Authentication Example: ${example.name}
 
 ```hcl
-{{ include "examples/${example.name}/auth.tf" }}
+$${{ include "examples/${example.name}/auth.tf" }}
 ```
 
 %{ endif %}
@@ -15,7 +15,7 @@
 ### Context Example: ${example.name}
 
 ```hcl
-{{ include "examples/${example.name}/context.tf" }}
+$${{ include "examples/${example.name}/context.tf" }}
 ```
 
 %{ endif %}
@@ -25,7 +25,7 @@
 ### Data Example: ${example.name}
 
 ```hcl
-{{ include "examples/${example.name}/data.tf" }}
+$${{ include "examples/${example.name}/data.tf" }}
 ```
 
 %{ endif %}
@@ -35,7 +35,7 @@
 ### Locals Example: ${example.name}
 
 ```hcl
-{{ include "examples/${example.name}/locals.tf" }}
+$${{ include "examples/${example.name}/locals.tf" }}
 ```
 
 %{ endif %}
@@ -45,7 +45,7 @@
 ### Main Example: ${example.name}
 
 ```hcl
-{{ include "examples/${example.name}/main.tf" }}
+$${{ include "examples/${example.name}/main.tf" }}
 ```
 
 %{ endif %}
@@ -55,7 +55,7 @@
 ### Variables Example: ${example.name}
 
 ```hcl
-{{ include "examples/${example.name}/variables.tf" }}
+$${{ include "examples/${example.name}/variables.tf" }}
 ```
 
 %{ endif %}
@@ -65,7 +65,7 @@
 ### Outputs Example: ${example.name}
 
 ```hcl
-{{ include "examples/${example.name}/outputs.tf" }}
+$${{ include "examples/${example.name}/outputs.tf" }}
 ```
 
 %{ endif %}
