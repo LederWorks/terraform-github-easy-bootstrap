@@ -32,6 +32,24 @@ variable "hive" {
   description = "(Required) The name of the hive, such as compute, network, security etc."
 }
 
+#  $$$$$$\                       $$$$$$\  $$\           
+# $$  __$$\                     $$  __$$\ \__|          
+# $$ /  \__| $$$$$$\  $$$$$$$\  $$ /  \__|$$\  $$$$$$\  
+# $$ |      $$  __$$\ $$  __$$\ $$$$\     $$ |$$  __$$\ 
+# $$ |      $$ /  $$ |$$ |  $$ |$$  _|    $$ |$$ /  $$ |
+# $$ |  $$\ $$ |  $$ |$$ |  $$ |$$ |      $$ |$$ |  $$ |
+# \$$$$$$  |\$$$$$$  |$$ |  $$ |$$ |      $$ |\$$$$$$$ |
+#  \______/  \______/ \__|  \__|\__|      \__| \____$$ |
+#                                             $$\   $$ |
+#                                             \$$$$$$  |
+#                                              \______/ 
+
+variable "terraform_version" {
+  type        = string
+  description = "(Required) The version of Terraform to be used in the repositories workflows."
+  default     = "1.8.2"
+}
+
 # $$\      $$\                         $$\                                     
 # $$$\    $$$ |                        $$ |                                    
 # $$$$\  $$$$ | $$$$$$\  $$$$$$\$$$$\  $$$$$$$\   $$$$$$\   $$$$$$\   $$$$$$$\ 
@@ -225,6 +243,9 @@ variable "repos" {
       #outputs.tf
       outputs_deployed     = optional(bool, true) # Deploy the outputs.tf sample file for the example
       outputs_docs_enabled = optional(bool, true) # Configure the outputs.tf documentation for the example
+      #terratest.tf
+      terratest_enabled     = optional(bool, true) # Manage the terratest-%EXAMPLE%.yml workflow file in the .test folder for the example
+      terraform_version    = optional(string) # The version of Terraform to be used in the examples workflows.
       #variables.tf
       variables_deployed     = optional(bool, false) # Deploy the variables.tf sample file for the example
       variables_docs_enabled = optional(bool, false) # Configure the variables.tf documentation for the example

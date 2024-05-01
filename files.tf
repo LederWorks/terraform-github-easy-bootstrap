@@ -41,7 +41,7 @@ locals {
       } : {},
 
       repo.documentation.enabled ? {
-        documentation-config = {
+        documentation_config = {
           repository = local.repo_names[repo_key]
           file       = ".config/.terraform-docs.yml"
           content = templatefile("${path.module}/templates/.terraform-docs.yml.tftpl", {
@@ -75,7 +75,7 @@ locals {
       } : {},
 
       repo.documentation.enabled ? {
-        documentation-header = {
+        documentation_header = {
           repository = local.repo_names[repo_key]
           file       = ".config/header.txt"
           content = templatefile("${path.module}/templates/header.txt.tftpl", {
@@ -92,7 +92,7 @@ locals {
       } : {},
 
       repo.documentation.enabled ? {
-        documentation-footer = {
+        documentation_footer = {
           repository = local.repo_names[repo_key]
           file       = ".config/footer.txt"
           content = templatefile("${path.module}/templates/footer.txt.tftpl", {
@@ -131,90 +131,104 @@ locals {
 
           #auth.tf
           example.auth_enabled ? {
-            "${local.repo_names[repo_key]}-example-${example_key}-auth" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-auth.tf" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/auth.tf"
               content        = templatefile("${path.module}/templates/auth.tf.tftpl", {
                 # Add the variables required for the auth.tf template here
               })
-              commit_message = "Update auth.tf at example/${example.name}"
+              commit_message = "Update example/${example.name}/auth.tf"
             }
           } : {},
 
           #context.tf
           example.context_deployed ? {
-            "${local.repo_names[repo_key]}-example-${example_key}-context" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-context.tf" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/context.tf"
               content        = templatefile("${path.module}/templates/context.tf.tftpl", {
                 # Add the variables required for the context.tf template here
               })
-              commit_message = "Deploy context.tf to example/${example.name}"
+              commit_message = "Deploy example/${example.name}/context.tf"
               overwrite      = false
             }
           } : {},
 
           #data.tf - always deploy when context deployed
           example.context_deployed || example.data_deployed ? {
-            "${local.repo_names[repo_key]}-example-${example_key}-data" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-data.tf" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/data.tf"
               content        = templatefile("${path.module}/templates/data.tf.tftpl", {
                 # Add the variables required for the data.tf template here
               })
-              commit_message = "Deploy data.tf to example/${example.name}"
+              commit_message = "Deploy example/${example.name}/data.tf"
               overwrite      = false
             }
           } : {},
 
           #locals.tf
           example.locals_deployed ? {
-            "${local.repo_names[repo_key]}-example-${example_key}-locals" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-locals.tf" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/locals.tf"
               content        = templatefile("${path.module}/templates/locals.tf.tftpl", {
                 # Add the variables required for the locals.tf template here
               })
-              commit_message = "Deploy locals.tf to example/${example.name}"
+              commit_message = "Deploy example/${example.name}/locals.tf"
               overwrite      = false
             }
           } : {},
 
           #main.tf
           example.main_deployed ? {
-            "${local.repo_names[repo_key]}-example-${example_key}-main" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-main.tf" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/main.tf"
               content        = templatefile("${path.module}/templates/main.tf.tftpl", {
                 # Add the variables required for the main.tf template here
               })
-              commit_message = "Deploy main.tf to example/${example.name}"
+              commit_message = "Deploy example/${example.name}/main.tf"
               overwrite      = false
             }
           } : {},
 
           #outputs.tf
           example.outputs_deployed ? {
-            "${local.repo_names[repo_key]}-example-${example_key}-outputs" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-outputs.tf" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/outputs.tf"
               content        = templatefile("${path.module}/templates/outputs.tf.tftpl", {
                 # Add the variables required for the outputs.tf template here
               })
-              commit_message = "Deploy outputs.tf to example/${example.name}"
+              commit_message = "Deploy example/${example.name}/outputs.tf"
               overwrite      = false
+            }
+          } : {},
+
+          #terratest.yml
+          example.terratest_enabled ? {
+            "${local.repo_names[repo_key]}-example-${example_key}-terratest-${example.name}.yml" = {
+              repository     = local.repo_names[repo_key]
+              file           = ".github/workflows//terratest-${example.name}.yml"
+              content        = templatefile("${path.module}/templates/terratest.yml.tftpl", {
+                example = "${example.name}"
+                terraform_version = coalesce(example.terraform_version, var.terraform_version)
+                rgrp_name = "rgrp-tde3-ic-terratest-${var.terraform_provider}-${repo.type}-${var.hive}-${repo.suffix}"
+              })
+              commit_message = "Deploy example/${example.name}/terratest.yml"
             }
           } : {},
 
           #variables.tf - always deploy when context deployed
           example.context_deployed || example.variables_deployed ? {
-            "${local.repo_names[repo_key]}-example-${example_key}-variables" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-variables.tf" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/variables.tf"
               content        = templatefile("${path.module}/templates/variables.tf.tftpl", {
                 # Add the variables required for the variables.tf template here
               })
-              commit_message = "Deploy variables.tf to example/${example.name}"
+              commit_message = "Deploy example/${example.name}/variables.tf"
               overwrite      = false
             }
           } : {},
