@@ -1,18 +1,32 @@
 #Orchestrated content files
 locals {
-  backend_azurerm = var.repos != {} ? {
+  /* dynamic_backend_azurerm = var.repos != {} ? {
     for repo_key, repo in var.repos : repo_key => {
       backend_azurerm = {
-        enabled = repo.backend_azurerm.enabled
-        resource_group_name = repo.backend_azurerm.resource_group_name
-        storage_account_name = repo.backend_azurerm.storage_account_name
-        container_name = "terratest-${var.terraform_provider}"
-        key = "${var.brand}-${repo.type}-${var.hive}-${repo.suffix}.${example.name}.tfstate"
-        snapshot = repo.backend_azurerm.snapshot
-        use_azuread_auth = repo.backend_azurerm.use_azuread_auth
+        enabled                     = repo.backend_azurerm.enabled
+        resource_group_name         = repo.backend_azurerm.resource_group_name
+        storage_account_name        = repo.backend_azurerm.storage_account_name
+        container_name              = "terratest-${var.terraform_provider}"
+        key                         = "${var.brand}-${repo.type}-${var.hive}-${repo.suffix}.${example.name}.tfstate"
+        snapshot                    = repo.backend_azurerm.snapshot
+        use_azuread_auth            = repo.backend_azurerm.use_azuread_auth
+        use_msi                     = repo.backend_azurerm.use_msi
+        msi_endpoint                = repo.backend_azurerm.msi_endpoint
+        use_oidc                    = repo.backend_azurerm.use_oidc
+        oidc_request_url            = repo.backend_azurerm.oidc_request_url
+        oidc_request_token          = repo.backend_azurerm.oidc_request_token
+        oidc_token                  = repo.backend_azurerm.oidc_token
+        oidc_token_file_path        = repo.backend_azurerm.oidc_token_file_path
+        environment                 = repo.backend_azurerm.environment
+        client_id                   = repo.backend_azurerm.client_id
+        client_secret               = repo.backend_azurerm.client_secret
+        client_certificate_path     = repo.backend_azurerm.client_certificate_path
+        client_certificate_password = repo.backend_azurerm.client_certificate_password
+        subscription_id             = repo.backend_azurerm.subscription_id
+        tenant_id                   = repo.backend_azurerm.tenant_id
       }
     }
-  } : {}
+  } : {} */
 
   files = var.repos != {} ? {
     for repo_key, repo in var.repos : repo_key => merge(
@@ -198,8 +212,8 @@ locals {
               repository = local.repo_names[repo_key]
               file       = "examples/${example.name}/auth.tf"
               content = templatefile("${path.module}/templates/examples/auth.tf.tftpl", {
-                providers       = example.providers
-                backend_azurerm = example.backend_azurerm
+                # providers       = example.providers
+                # backend_azurerm = local.dynamic_backend_azurerm[repo_key].backend_azurerm
               })
               commit_message = "Update examples/${example.name}/auth.tf"
             }
