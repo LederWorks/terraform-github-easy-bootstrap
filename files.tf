@@ -131,7 +131,7 @@ locals {
 
           #auth.tf
           example.auth_enabled ? {
-            "${repo_key}-${example_key}-auth" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-auth" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/auth.tf"
               content        = templatefile("${path.module}/templates/auth.tf.tftpl", {
@@ -143,7 +143,7 @@ locals {
 
           #context.tf
           example.context_deployed ? {
-            "${repo_key}-${example_key}-context" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-context" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/context.tf"
               content        = templatefile("${path.module}/templates/context.tf.tftpl", {
@@ -156,7 +156,7 @@ locals {
 
           #data.tf - always deploy when context deployed
           example.context_deployed || example.data_deployed ? {
-            "${repo_key}-${example_key}-data" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-data" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/data.tf"
               content        = templatefile("${path.module}/templates/data.tf.tftpl", {
@@ -169,7 +169,7 @@ locals {
 
           #locals.tf
           example.locals_deployed ? {
-            "${repo_key}-${example_key}-locals" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-locals" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/locals.tf"
               content        = templatefile("${path.module}/templates/locals.tf.tftpl", {
@@ -182,7 +182,7 @@ locals {
 
           #main.tf
           example.main_deployed ? {
-            "${repo_key}-${example_key}-main" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-main" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/main.tf"
               content        = templatefile("${path.module}/templates/main.tf.tftpl", {
@@ -195,7 +195,7 @@ locals {
 
           #outputs.tf
           example.outputs_deployed ? {
-            "${repo_key}-${example_key}-outputs" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-outputs" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/outputs.tf"
               content        = templatefile("${path.module}/templates/outputs.tf.tftpl", {
@@ -208,7 +208,7 @@ locals {
 
           #variables.tf - always deploy when context deployed
           example.context_deployed || example.variables_deployed ? {
-            "${repo_key}-${example_key}-variables" = {
+            "${local.repo_names[repo_key]}-example-${example_key}-variables" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/variables.tf"
               content        = templatefile("${path.module}/templates/variables.tf.tftpl", {
