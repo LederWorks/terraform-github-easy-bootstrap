@@ -1,19 +1,5 @@
 #Orchestrated content files
 locals {
-  # Flatten the examples map to include the repo_key and example_key.
-  # This way, we will have a unique identifier for each example in each repository.
-
-  /* examples = flatten([
-    for repo_key, repo in var.repos : [
-      for example_key, example in repo.examples : {
-        repo_key     = repo_key
-        example_key  = example_key
-        example      = example
-        repository   = local.repo_names[repo_key]
-        example_name = example.name
-      }
-    ]
-  ]) */
 
   files = var.repos != {} ? {
     for repo_key, repo in var.repos : repo_key => merge(
@@ -140,7 +126,39 @@ locals {
       } : {},
 
       #### Examples ####
-      {
+      flatten([
+        for example_key, example in repo.examples : [
+          #auth.tf
+          example.auth_enabled ? {
+            "${repo_key}-${example_key}-auth" = {
+              repository     = local.repo_names[repo_key]
+              file           = "examples/${example.name}/auth.tf"
+              content        = templatefile("${path.module}/templates/auth.tf.tftpl", {
+                # Variables for auth.tf template here
+              })
+              commit_message = "Add auth.tf to example/${example.name}"
+            }
+          } : {},
+
+          #context.tf
+          example.context_enabled ? {
+            "${repo_key}-${example_key}-context" = {
+              repository     = local.repo_names[repo_key]
+              file           = "examples/${example.name}/context.tf"
+              content        = templatefile("${path.module}/templates/context.tf.tftpl", {
+                # Variables for context.tf template here
+              })
+              commit_message = "Add context.tf to example/${example.name}"
+            }
+          } : {},
+
+          # ... repeat for other files like context.tf, locals.tf, etc...
+
+        ]
+      ])...
+
+
+      /* {
         for example_key, example in repo.examples : "${repo_key}-${example_key}" => {
           #auth.tf
           auth = example.auth_enabled ? {
@@ -218,17 +236,10 @@ locals {
             overwrite      = false
           } : {},
         }
-      }
-      # Figure out how to handle multiple examples based on var.repos.examples.* This is a double embedded map(object)
-      # Also figure out how to create the terraform-docs.yml.tftpl template ## Examples section to be generated from the input parameters of var.repo.examples.*
+      } */
     )
   } : {}
 }
-
-/* output "examples" {
-  value       = local.examples
-  description = "examples/ folder content"
-} */
 
 #Files Module
 module "files" {
