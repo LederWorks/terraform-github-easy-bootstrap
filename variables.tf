@@ -160,7 +160,7 @@ variable "repos" {
       escape_enabled      = optional(bool, true)
       hide_empty_enabled  = optional(bool, false)
       html_enabled        = optional(bool, true)
-      indent              = optional(int, 2)
+      indent              = optional(number, 2)
       lockfile_enabled    = optional(bool, false)
       required_enabled    = optional(bool, true)
       sensitive_enabled   = optional(bool, true)
