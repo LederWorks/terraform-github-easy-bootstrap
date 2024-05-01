@@ -87,17 +87,17 @@ module "github_bootstrap" {
         enabled      = false
       }
     }
-    violet = {
+    /* violet = {
       type   = "block"
       suffix = "violet"
-    }
-    brown = {
+    } */
+    /* brown = {
       type   = "wrapper"
       suffix = "brown"
-    }
-    orange = {
+    } */
+    /* orange = {
       type   = "accelerator"
       suffix = "orange"
-    }
+    } */
   }
 }

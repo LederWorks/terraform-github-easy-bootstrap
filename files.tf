@@ -7,7 +7,7 @@ locals {
         documentation = {
           repository     = local.repo_names[repo_key]
           file           = ".github/workflows/documentation.yml"
-          content        = templatefile("${path.module}/templates/documentation.yml.tpl", {
+          content        = templatefile("${path.module}/templates/documentation.yml.tftpl", {
             output_file   = repo.documentation.output_file
             output_format = repo.documentation.output_format
           })

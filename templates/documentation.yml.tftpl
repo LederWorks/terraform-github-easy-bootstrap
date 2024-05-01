@@ -21,8 +21,8 @@ jobs:
       with:
         working-dir: .
         config-file: .config/.terraform-docs.yml
-        output-file: ${output_file}
+        output-file: "${output_file}"
         output-method: inject
-        output-format: ${output_format}
+        output-format: "${output_format}"
         git-push: "true"
         git-commit-message: "terraform-docs: autogenerate README.MD"
