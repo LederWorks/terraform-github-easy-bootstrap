@@ -23,7 +23,7 @@ jobs:
     - name: Git Configuration
       uses: oleksiyrudenko/gha-git-credentials@v2-latest
       with:
-        token: '${{ secrets.GITHUB_TOKEN }}'
+        token: '\${{ secrets.GITHUB_TOKEN }}'
 
     - name: Generate Changelog
       id: changelog
