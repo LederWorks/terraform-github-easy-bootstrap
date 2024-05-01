@@ -37,6 +37,7 @@ module "github_bootstrap" {
   }
 
   repos = {
+    #All customization options with Pink
     pink = {
       #Common
       type   = "engine"
@@ -82,25 +83,30 @@ module "github_bootstrap" {
         about = "This is a pink engine module"
       }
     }
-    #Do not deploy release content
+
+    #Do not deploy release content for Purple
     purple = {
       type   = "brick"
       suffix = "purple"
       documentation = {
+        enabled = true
         about = "This is a purple brick module"
       }
       release = {
         enabled      = false
       }
     }
+
     /* violet = {
       type   = "block"
       suffix = "violet"
     } */
+
     /* brown = {
       type   = "wrapper"
       suffix = "brown"
     } */
+
     /* orange = {
       type   = "accelerator"
       suffix = "orange"
