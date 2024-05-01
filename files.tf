@@ -262,7 +262,7 @@ locals {
                 example              = "${example.name}"
                 resource_group_name  = "rgrp-pde3-it-terratest"
                 storage_account_name = "saccpde3itterratest001"
-                container_name       = "terratest-${terraform-provider}"
+                container_name       = "terratest-${var.terraform_provider}"
                 key                  = "${var.brand}-${repo.type}-${var.hive}-${repo.suffix}.${example.name}.tfstate"
                 snapshot             = "true"
                 use_azuread_auth     = "true"
