@@ -3,7 +3,7 @@ locals {
   # Flatten the examples map to include the repo_key and example_key.
   # This way, we will have a unique identifier for each example in each repository.
 
-  examples = flatten([
+  /* examples = flatten([
     for repo_key, repo in var.repos : [
       for example_key, example in repo.examples : {
         repo_key     = repo_key
@@ -13,7 +13,7 @@ locals {
         example_name = example.name
       }
     ]
-  ])
+  ]) */
 
   files = var.repos != {} ? {
     for repo_key, repo in var.repos : repo_key => merge(
@@ -140,16 +140,95 @@ locals {
       } : {},
 
       #### Examples ####
+      {
+        for example_key, example in repo.examples : "${repo_key}-${example_key}" => {
+          #auth.tf
+          auth = example.auth_enabled ? {
+            repository     = local.repo_names[repo_key]
+            file           = "examples/${example.name}/auth.tf"
+            content        = templatefile("${path.module}/templates/auth.tf.tftpl", {
+              # Variables for auth.tf template here
+            })
+            commit_message = "Add auth.tf to example/${example.name}"
+          } : {},
+
+          #context.tf
+          context = example.context_enabled ? {
+            repository     = local.repo_names[repo_key]
+            file           = "examples/${example.name}/context.tf"
+            content        = templatefile("${path.module}/templates/context.tf.tftpl", {
+              # Variables for context.tf template here
+            })
+            commit_message = "Add context.tf to example/${example.name}"
+            overwrite      = false
+          } : {},
+
+          #data.tf
+          data = example.data_enabled ? {
+            repository     = local.repo_names[repo_key]
+            file           = "examples/${example.name}/data.tf"
+            content        = templatefile("${path.module}/templates/data.tf.tftpl", {
+              # Variables for data.tf template here
+            })
+            commit_message = "Add data.tf to example/${example.name}"
+            overwrite      = false
+          } : {},
+
+          #locals.tf
+          locals = example.locals_enabled ? {
+            repository     = local.repo_names[repo_key]
+            file           = "examples/${example.name}/locals.tf"
+            content        = templatefile("${path.module}/templates/locals.tf.tftpl", {
+              # Variables for locals.tf template here
+            })
+            commit_message = "Add locals.tf to example/${example.name}"
+            overwrite      = false
+          } : {},
+
+          #main.tf
+          main = example.main_enabled ? {
+            repository     = local.repo_names[repo_key]
+            file           = "examples/${example.name}/main.tf"
+            content        = templatefile("${path.module}/templates/main.tf.tftpl", {
+              # Variables for main.tf template here
+            })
+            commit_message = "Add main.tf to example/${example.name}"
+            overwrite      = false
+          } : {},
+
+          #outputs.tf
+          outputs = example.outputs_enabled ? {
+            repository     = local.repo_names[repo_key]
+            file           = "examples/${example.name}/outputs.tf"
+            content        = templatefile("${path.module}/templates/outputs.tf.tftpl", {
+              # Variables for outputs.tf template here
+            })
+            commit_message = "Add outputs.tf to example/${example.name}"
+            overwrite      = false
+          } : {},
+
+          #variables.tf
+          variables = example.variables_enabled ? {
+            repository     = local.repo_names[repo_key]
+            file           = "examples/${example.name}/variables.tf"
+            content        = templatefile("${path.module}/templates/variables.tf.tftpl", {
+              # Variables for variables.tf template here
+            })
+            commit_message = "Add variables.tf to example/${example.name}"
+            overwrite      = false
+          } : {},
+        }
+      }
       # Figure out how to handle multiple examples based on var.repos.examples.* This is a double embedded map(object)
       # Also figure out how to create the terraform-docs.yml.tftpl template ## Examples section to be generated from the input parameters of var.repo.examples.*
     )
   } : {}
 }
 
-output "examples" {
+/* output "examples" {
   value       = local.examples
   description = "examples/ folder content"
-}
+} */
 
 #Files Module
 module "files" {
