@@ -7,6 +7,12 @@
 # \$$$$$$  |\$$$$$$  |$$ | $$ | $$ |$$ | $$ | $$ |\$$$$$$  |$$ |  $$ |
 #  \______/  \______/ \__| \__| \__|\__| \__| \__| \______/ \__|  \__|
 
+#Organization
+variable "organization" {
+  type        = string
+  description = "(Required) The name of the organization to create the repositories in."
+  default     = "LederWorks"
+}
 #Provider
 variable "terraform_provider" {
   type        = string

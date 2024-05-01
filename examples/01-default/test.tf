@@ -80,9 +80,9 @@ module "github_bootstrap" {
     purple = {
       type   = "brick"
       suffix = "purple"
-      documentation = {
+      /* documentation = {
         enabled      = false
-      }
+      } */
       release = {
         enabled      = false
       }
