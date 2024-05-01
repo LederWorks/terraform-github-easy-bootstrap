@@ -28,6 +28,6 @@ output "flattened_labels" {
 } */
 
 #Examples
-output "examples" {
+/* output "examples" {
   value = module.github_bootstrap.examples
-}
+} */

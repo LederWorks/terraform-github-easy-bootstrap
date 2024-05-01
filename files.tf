@@ -237,15 +237,3 @@ module "files" {
   depends_on = [github_repository.repo]
   files      = each.value
 }
-
-
-
-#Examples
-/* data "template_file" "auth" {
-  for_each = local.files
-  template = file("${path.module}/templates/auth.tf.tpl")
-  vars = {
-    
-  }
-
-} */
