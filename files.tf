@@ -27,6 +27,18 @@ locals {
         }
       } : {},
 
+      #### Code of Conduct ####
+      repo.code_of_conduct.enabled ? {
+        code_of_conduct = {
+          repository = local.repo_names[repo_key]
+          file       = ".github/CODE_OF_CONDUCT.md"
+          content = templatefile("${path.module}/templates/github/code_of_conduct.md.tftpl", {
+            # Add the variables required for the footer.txt template here
+          })
+          commit_message = "Update .github/CODE_OF_CONDUCT.md"
+        }
+      } : {},
+
       #### Documentation ####
       repo.documentation.enabled ? {
         documentation = {

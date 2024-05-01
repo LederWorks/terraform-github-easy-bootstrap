@@ -12,7 +12,7 @@ module "github_bootstrap" {
   approvers    = ["Dilergore"]
   admins       = ["Ledermayer"]
 
-  #### Inputs
+  #### Set Inputs
   variables = {
     one = "pici"
     dog = "tej"

@@ -189,6 +189,13 @@ variable "repos" {
       enabled = true
     })
 
+    ### Code of Conduct
+    code_of_conduct = optional(object({
+      enabled = bool
+      }), {
+      enabled = true
+    })
+
     ### Terraform-Docs
     documentation = optional(object({
       ### General
