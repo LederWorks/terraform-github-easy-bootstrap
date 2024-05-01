@@ -135,9 +135,9 @@ locals {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/auth.tf"
               content        = templatefile("${path.module}/templates/auth.tf.tftpl", {
-                # Variables for auth.tf template here
+                # Add the variables required for the auth.tf template here
               })
-              commit_message = "Add auth.tf to example/${example.name}"
+              commit_message = "Update auth.tf at example/${example.name}"
             }
           } : {},
 
@@ -147,9 +147,9 @@ locals {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/context.tf"
               content        = templatefile("${path.module}/templates/context.tf.tftpl", {
-                # Variables for context.tf template here
+                # Add the variables required for the context.tf template here
               })
-              commit_message = "Add context.tf to example/${example.name}"
+              commit_message = "Deploy context.tf to example/${example.name}"
               overwrite      = false
             }
           } : {},
@@ -160,9 +160,9 @@ locals {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/data.tf"
               content        = templatefile("${path.module}/templates/data.tf.tftpl", {
-                # Variables for data.tf template here
+                # Add the variables required for the data.tf template here
               })
-              commit_message = "Add data.tf to example/${example.name}"
+              commit_message = "Deploy data.tf to example/${example.name}"
               overwrite      = false
             }
           } : {},
@@ -173,9 +173,9 @@ locals {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/locals.tf"
               content        = templatefile("${path.module}/templates/locals.tf.tftpl", {
-                # Variables for locals.tf template here
+                # Add the variables required for the locals.tf template here
               })
-              commit_message = "Add locals.tf to example/${example.name}"
+              commit_message = "Deploy locals.tf to example/${example.name}"
               overwrite      = false
             }
           } : {},
@@ -186,9 +186,9 @@ locals {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/main.tf"
               content        = templatefile("${path.module}/templates/main.tf.tftpl", {
-                # Variables for main.tf template here
+                # Add the variables required for the main.tf template here
               })
-              commit_message = "Add main.tf to example/${example.name}"
+              commit_message = "Deploy main.tf to example/${example.name}"
               overwrite      = false
             }
           } : {},
@@ -199,9 +199,9 @@ locals {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/outputs.tf"
               content        = templatefile("${path.module}/templates/outputs.tf.tftpl", {
-                # Variables for outputs.tf template here
+                # Add the variables required for the outputs.tf template here
               })
-              commit_message = "Add outputs.tf to example/${example.name}"
+              commit_message = "Deploy outputs.tf to example/${example.name}"
               overwrite      = false
             }
           } : {},
@@ -212,95 +212,14 @@ locals {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/variables.tf"
               content        = templatefile("${path.module}/templates/variables.tf.tftpl", {
-                # Variables for variables.tf template here
+                # Add the variables required for the variables.tf template here
               })
-              commit_message = "Add variables.tf to example/${example.name}"
+              commit_message = "Deploy variables.tf to example/${example.name}"
               overwrite      = false
             }
           } : {},
         ]
       ])...
-
-      /* {
-        for example_key, example in repo.examples : "${repo_key}-${example_key}" => {
-          #auth.tf
-          auth = example.auth_enabled ? {
-            repository     = local.repo_names[repo_key]
-            file           = "examples/${example.name}/auth.tf"
-            content        = templatefile("${path.module}/templates/auth.tf.tftpl", {
-              # Variables for auth.tf template here
-            })
-            commit_message = "Add auth.tf to example/${example.name}"
-          } : {},
-
-          #context.tf
-          context = example.context_enabled ? {
-            repository     = local.repo_names[repo_key]
-            file           = "examples/${example.name}/context.tf"
-            content        = templatefile("${path.module}/templates/context.tf.tftpl", {
-              # Variables for context.tf template here
-            })
-            commit_message = "Add context.tf to example/${example.name}"
-            overwrite      = false
-          } : {},
-
-          #data.tf
-          data = example.data_enabled ? {
-            repository     = local.repo_names[repo_key]
-            file           = "examples/${example.name}/data.tf"
-            content        = templatefile("${path.module}/templates/data.tf.tftpl", {
-              # Variables for data.tf template here
-            })
-            commit_message = "Add data.tf to example/${example.name}"
-            overwrite      = false
-          } : {},
-
-          #locals.tf
-          locals = example.locals_enabled ? {
-            repository     = local.repo_names[repo_key]
-            file           = "examples/${example.name}/locals.tf"
-            content        = templatefile("${path.module}/templates/locals.tf.tftpl", {
-              # Variables for locals.tf template here
-            })
-            commit_message = "Add locals.tf to example/${example.name}"
-            overwrite      = false
-          } : {},
-
-          #main.tf
-          main = example.main_enabled ? {
-            repository     = local.repo_names[repo_key]
-            file           = "examples/${example.name}/main.tf"
-            content        = templatefile("${path.module}/templates/main.tf.tftpl", {
-              # Variables for main.tf template here
-            })
-            commit_message = "Add main.tf to example/${example.name}"
-            overwrite      = false
-          } : {},
-
-          #outputs.tf
-          outputs = example.outputs_enabled ? {
-            repository     = local.repo_names[repo_key]
-            file           = "examples/${example.name}/outputs.tf"
-            content        = templatefile("${path.module}/templates/outputs.tf.tftpl", {
-              # Variables for outputs.tf template here
-            })
-            commit_message = "Add outputs.tf to example/${example.name}"
-            overwrite      = false
-          } : {},
-
-          #variables.tf
-          variables = example.variables_enabled ? {
-            repository     = local.repo_names[repo_key]
-            file           = "examples/${example.name}/variables.tf"
-            content        = templatefile("${path.module}/templates/variables.tf.tftpl", {
-              # Variables for variables.tf template here
-            })
-            commit_message = "Add variables.tf to example/${example.name}"
-            overwrite      = false
-          } : {},
-        }
-      } */
-
     )
   } : {}
 }
