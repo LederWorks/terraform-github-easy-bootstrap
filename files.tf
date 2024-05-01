@@ -42,7 +42,7 @@ locals {
         release_config = {
           repository     = local.repo_names[repo_key]
           file           = ".github/gitversionconfig.yml"
-          content        = templatefile("${path.module}/templates/.github/gitversionconfig.yml.tpl", {
+          content        = templatefile("${path.module}/templates/gitversionconfig.yml.tpl", {
             # Add the variables required for the .github/gitversionconfig.yml template here
           })
           commit_message = "Update gitversionconfig.yml"
@@ -51,6 +51,15 @@ locals {
       )
     } : {}
 }
+
+#Files Module
+module "files" {
+  for_each = local.files
+  source = "./modules/files"
+  files = each.value
+}
+
+
 
 #Examples
 /* data "template_file" "auth" {
@@ -61,10 +70,3 @@ locals {
   }
 
 } */
-
-#Files Module
-module "files" {
-  for_each = local.files
-  source = "./modules/files"
-  files = each.value
-}
