@@ -197,7 +197,21 @@ variable "repos" {
     })
 
     ### Code Owners
-    code_owners = optional(object({
+    codeowners = optional(object({
+      enabled = bool
+      }), {
+      enabled = true
+    })
+
+    ### GitIgnore
+    gitignore = optional(object({
+      enabled = bool
+      }), {
+      enabled = true
+    })
+
+    ### GitAttributes
+    gitattributes = optional(object({
       enabled = bool
       }), {
       enabled = true
@@ -333,13 +347,7 @@ variable "repos" {
         subscription_id             = optional(string)                           # Can also be set via ARM_SUBSCRIPTION_ID environment variable.
         tenant_id                   = optional(string)                           # Can also be set via ARM_TENANT_ID environment variable.
       }))
-      })), {
-      default = {
-        enabled = true
-      }
-    })
-
-
+    })))
   }))
   default     = {}
   description = <<EOT

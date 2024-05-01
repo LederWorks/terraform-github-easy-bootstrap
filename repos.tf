@@ -60,8 +60,8 @@ resource "github_repository" "repo" {
   archive_on_destroy          = each.value.archive_enabled
 
   #Templates
-  gitignore_template = "Terraform"
-  license_template   = "mit"
+  # gitignore_template = "Terraform"
+  license_template = "mit"
 
   #Security
   security_and_analysis {

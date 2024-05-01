@@ -40,7 +40,7 @@ locals {
       } : {},
 
       #### Code Owners ####
-      repo.code_owners.enabled ? {
+      repo.codeowners.enabled ? {
         code_owners = {
           repository = local.repo_names[repo_key]
           file       = ".github/CODEOWNERS"
@@ -48,6 +48,30 @@ locals {
             # Add the variables required for the footer.txt template here
           })
           commit_message = "Update .github/CODEOWNERS"
+        }
+      } : {},
+
+      #### GitIgnore ####
+      repo.gitignore.enabled ? {
+        gitignore = {
+          repository = local.repo_names[repo_key]
+          file       = ".gitignore"
+          content = templatefile("${path.module}/templates/github/gitignore.tftpl", {
+            # Add the variables required for the footer.txt template here
+          })
+          commit_message = "Update .gitignore"
+        }
+      } : {},
+
+      #### GitAttributes ####
+      repo.gitattributes.enabled ? {
+        gitattributes = {
+          repository = local.repo_names[repo_key]
+          file       = ".gitattributes"
+          content = templatefile("${path.module}/templates/github/gitattributes.tftpl", {
+            # Add the variables required for the footer.txt template here
+          })
+          commit_message = "Update .gitattributes"
         }
       } : {},
 
