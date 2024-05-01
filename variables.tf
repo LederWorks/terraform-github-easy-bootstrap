@@ -346,7 +346,7 @@ variable "repos" {
         client_certificate_password = optional(string)                           # Can also be set via ARM_CLIENT_CERTIFICATE_PASSWORD environment variable.
         subscription_id             = optional(string)                           # Can also be set via ARM_SUBSCRIPTION_ID environment variable.
         tenant_id                   = optional(string)                           # Can also be set via ARM_TENANT_ID environment variable.
-      }), {
+        }), {
         enabled = true
       })
     })), {})
