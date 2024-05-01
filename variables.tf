@@ -134,8 +134,8 @@ variable "labels" {
 #                     \__|                          
 
 variable "repo_purpose" {
-  type = string
-  default = "module"
+  type        = string
+  default     = "module"
   description = "Purpose of the repositories, such as module, infra, etc."
 }
 
@@ -191,6 +191,13 @@ variable "repos" {
 
     ### Code of Conduct
     code_of_conduct = optional(object({
+      enabled = bool
+      }), {
+      enabled = true
+    })
+
+    ### Code Owners
+    code_owners = optional(object({
       enabled = bool
       }), {
       enabled = true
@@ -302,46 +309,33 @@ variable "repos" {
         })
       }))
 
-      #### Backends for auth.tf - We do not enable as default any backends, as there are only one can be configured, and each needs custom input anyway for each examples.
-      backends = optional(map(object({
-        azurerm = optional(object({
-          resource_group_name         = optional(string, "rgrp-pde3-it-terratest") # Can be passed via -backend-config="resource_group_name=<resource group name>" in the init command.
-          storage_account_name        = optional(string, "saccpde3itterratest001") # Can be passed via -backend-config="storage_account_name=<storage account name>" in the init command.
-          container_name              = optional(string, "terratest-azurerm")      # Can be passed via -backend-config="container_name=<container name>" in the init command.
-          key                         = optional(string)                           # Can be passed via -backend-config="key=<blob key name>" in the init command.
-          snapshot                    = optional(bool, true)                       # Can also be set via ARM_SNAPSHOT environment variable.
-          use_azuread_auth            = optional(bool, true)                       # Can also be set via ARM_USE_AZUREAD environment variable.
-          use_msi                     = optional(bool, false)                      # Can also be set via ARM_USE_MSI environment variable.
-          msi_endpoint                = optional(string)                           # Can also be set via ARM_MSI_ENDPOINT environment variable.
-          use_oidc                    = optional(bool, false)                      # Can also be set via ARM_USE_OIDC environment variable.
-          oidc_request_url            = optional(string)                           # Can also be set via ARM_OIDC_REQUEST_URL or ACTIONS_ID_TOKEN_REQUEST_URL environment variables.
-          oidc_request_token          = optional(string)                           # Can also be set via ARM_OIDC_REQUEST_TOKEN or ACTIONS_ID_TOKEN_REQUEST_TOKEN environment variables.
-          oidc_token                  = optional(string)                           # Can also be set via ARM_OIDC_TOKEN environment variable.
-          oidc_token_file_path        = optional(string)                           # Can also be set via ARM_OIDC_TOKEN_FILE_PATH environment variable.
-          environment                 = optional(string, "public")                 # Can also be set via ARM_ENVIRONMENT environment variable.
-          client_id                   = optional(string)                           # Can also be set via ARM_CLIENT_ID environment variable.
-          client_secret               = optional(string)                           # Can also be set via ARM_CLIENT_SECRET environment variable.
-          client_certificate_path     = optional(string)                           # Can also be set via ARM_CLIENT_CERTIFICATE_PATH environment variable.
-          client_certificate_password = optional(string)                           # Can also be set via ARM_CLIENT_CERTIFICATE_PASSWORD environment variable.
-          subscription_id             = optional(string)                           # Can also be set via ARM_SUBSCRIPTION_ID environment variable.
-          tenant_id                   = optional(string)                           # Can also be set via ARM_TENANT_ID environment variable.
-        }))
-        /* gcs = optional(object({
-          bucket      = optional(string, "pde3-it-terratest")
-          prefix      = optional(string, "terratest-google")
-          credentials = optional(string, "gcp-credentials.json")
-        })) */
-        /* s3 = optional(object({
-          bucket  = optional(string, "pde3-it-terratest")
-          key     = optional(string, "terratest-oci")
-          region  = optional(string, "us-west-2")
-          profile = optional(string, "default")
-        })) */
-      })))
+      #### Backends for auth.tf
+      backend_azurerm = optional(object({
+        enabled                     = bool
+        resource_group_name         = optional(string, "rgrp-pde3-it-terratest") # Can be passed via -backend-config="resource_group_name=<resource group name>" in the init command.
+        storage_account_name        = optional(string, "saccpde3itterratest001") # Can be passed via -backend-config="storage_account_name=<storage account name>" in the init command.
+        container_name              = optional(string, "terratest-azurerm")      # Can be passed via -backend-config="container_name=<container name>" in the init command.
+        key                         = optional(string)                           # Can be passed via -backend-config="key=<blob key name>" in the init command.
+        snapshot                    = optional(bool, true)                       # Can also be set via ARM_SNAPSHOT environment variable.
+        use_azuread_auth            = optional(bool, true)                       # Can also be set via ARM_USE_AZUREAD environment variable.
+        use_msi                     = optional(bool, false)                      # Can also be set via ARM_USE_MSI environment variable.
+        msi_endpoint                = optional(string)                           # Can also be set via ARM_MSI_ENDPOINT environment variable.
+        use_oidc                    = optional(bool, false)                      # Can also be set via ARM_USE_OIDC environment variable.
+        oidc_request_url            = optional(string)                           # Can also be set via ARM_OIDC_REQUEST_URL or ACTIONS_ID_TOKEN_REQUEST_URL environment variables.
+        oidc_request_token          = optional(string)                           # Can also be set via ARM_OIDC_REQUEST_TOKEN or ACTIONS_ID_TOKEN_REQUEST_TOKEN environment variables.
+        oidc_token                  = optional(string)                           # Can also be set via ARM_OIDC_TOKEN environment variable.
+        oidc_token_file_path        = optional(string)                           # Can also be set via ARM_OIDC_TOKEN_FILE_PATH environment variable.
+        environment                 = optional(string, "public")                 # Can also be set via ARM_ENVIRONMENT environment variable.
+        client_id                   = optional(string)                           # Can also be set via ARM_CLIENT_ID environment variable.
+        client_secret               = optional(string)                           # Can also be set via ARM_CLIENT_SECRET environment variable.
+        client_certificate_path     = optional(string)                           # Can also be set via ARM_CLIENT_CERTIFICATE_PATH environment variable.
+        client_certificate_password = optional(string)                           # Can also be set via ARM_CLIENT_CERTIFICATE_PASSWORD environment variable.
+        subscription_id             = optional(string)                           # Can also be set via ARM_SUBSCRIPTION_ID environment variable.
+        tenant_id                   = optional(string)                           # Can also be set via ARM_TENANT_ID environment variable.
+      }))
       })), {
       default = {
-        name        = "01-default"
-        description = "This is the default example."
+        enabled = true
       }
     })
 
@@ -372,3 +366,19 @@ variable "repos" {
     description - (Optional) The description of the label.
   EOT
 }
+
+
+
+
+
+/* gcs = optional(object({
+          bucket      = optional(string, "pde3-it-terratest")
+          prefix      = optional(string, "terratest-google")
+          credentials = optional(string, "gcp-credentials.json")
+        })) */
+/* s3 = optional(object({
+          bucket  = optional(string, "pde3-it-terratest")
+          key     = optional(string, "terratest-oci")
+          region  = optional(string, "us-west-2")
+          profile = optional(string, "default")
+        })) */

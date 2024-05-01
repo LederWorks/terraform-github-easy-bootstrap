@@ -39,6 +39,18 @@ locals {
         }
       } : {},
 
+      #### Code Owners ####
+      repo.code_owners.enabled ? {
+        code_owners = {
+          repository = local.repo_names[repo_key]
+          file       = ".github/CODEOWNERS"
+          content = templatefile("${path.module}/templates/github/codeowners.tftpl", {
+            # Add the variables required for the footer.txt template here
+          })
+          commit_message = "Update .github/CODEOWNERS"
+        }
+      } : {},
+
       #### Documentation ####
       repo.documentation.enabled ? {
         documentation = {
