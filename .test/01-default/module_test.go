@@ -30,7 +30,7 @@ func TestTerraform(t *testing.T) {
 	})
 
 	// At the end of the test, run `terraform destroy` to clean up any resources that were created.
-	// defer terraform.Destroy(t, terraformOptions)
+	defer terraform.Destroy(t, terraformOptions)
 
 	// Run tf version
 	terraform.RunTerraformCommand(t, terraformOptions, "version")
