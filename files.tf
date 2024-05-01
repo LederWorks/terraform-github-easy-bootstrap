@@ -56,6 +56,7 @@ locals {
 module "files" {
   for_each = local.files
   source = "./modules/files"
+  depends_on = [github_repository.repo]
   files = each.value
 }
 
