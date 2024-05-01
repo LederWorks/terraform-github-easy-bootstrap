@@ -1,7 +1,7 @@
 ## Examples
 
 %{ for example in examples ~}
-  %{ if example.auth_enabled and example.auth_docs_enabled ~}
+  %{ if example.auth_enabled and example.auth_docs_enabled %}
   ### Authentication Example: ${example.name}
 
   ```hcl
@@ -10,7 +10,7 @@
 
   %{ endif ~}
 
-  %{ if example.context_deployed and example.context_docs_enabled ~}
+  %{ if example.context_deployed and example.context_docs_enabled %}
 
   ### Context Example: ${example.name}
 
@@ -20,7 +20,7 @@
 
   %{ endif ~}
 
-  %{ if example.data_deployed and example.data_docs_enabled ~}
+  %{ if example.data_deployed and example.data_docs_enabled %}
 
   ### Data Example: ${example.name}
 
@@ -30,7 +30,7 @@
 
   %{ endif ~}
 
-  %{ if example.locals_deployed and example.locals_docs_enabled ~}
+  %{ if example.locals_deployed and example.locals_docs_enabled %}
 
   ### Locals Example: ${example.name}
 
@@ -40,7 +40,7 @@
 
   %{ endif ~}
 
-  %{ if example.main_deployed and example.main_docs_enabled ~}
+  %{ if example.main_deployed and example.main_docs_enabled %}
 
   ### Main Example: ${example.name}
 
@@ -50,7 +50,7 @@
 
   %{ endif ~}
 
-  %{ if example.variables_deployed and example.variables_docs_enabled ~}
+  %{ if example.variables_deployed and example.variables_docs_enabled %}
 
   ### Variables Example: ${example.name}
 
@@ -60,7 +60,7 @@
 
   %{ endif ~}
 
-  %{ if example.outputs_deployed and example.outputs_docs_enabled ~}
+  %{ if example.outputs_deployed and example.outputs_docs_enabled %}
 
   Outputs Example: ${example.name}
 
