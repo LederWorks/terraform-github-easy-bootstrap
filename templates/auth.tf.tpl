@@ -1,4 +1,4 @@
-#This file is managed by the Github Bootstrap workflow. Any modifications to this file may be overwritten. To make changes, please modify the bootstrap module.
+#This file is managed by the Github Bootstrap workflow. Any modifications to this file may be overwritten. To make changes, please modify the terraform-github-easy-bootstrap module.
 #Providers
 provider "azurerm" {
   features {

@@ -1,4 +1,4 @@
-#This file is managed by the Github Bootstrap workflow. Any modifications to this file may be overwritten. To make changes, please modify the bootstrap module.
+#This file is managed by the Github Bootstrap workflow. Any modifications to this file may be overwritten. To make changes, please modify the terraform-github-easy-bootstrap module.
 formatter: ${output_format}
 
 version: ""
@@ -19,13 +19,13 @@ sections:
 content: |-
   {{ .Header }}
 
-  %{ if requirements_enabled ~}
-  {{ .Requirements }}
-  %{ endif ~}
+%{ if requirements_enabled ~}
+{{ .Requirements }}
+%{ endif ~}
 
-  %{ if providers_enabled ~}
-  {{ .Providers }}
-  %{ endif ~}
+%{ if providers_enabled ~}
+{{ .Providers }}
+%{ endif ~}
 
   ## Examples
 
@@ -34,17 +34,17 @@ content: |-
   {{ include "examples/01-default/test.tf" }}
   ```
 
-  %{ if resources_enabled ~}
-  {{ .Resources }}
-  %{ endif ~}
+%{ if resources_enabled ~}
+{{ .Resources }}
+%{ endif ~}
 
-  %{ if inputs_enabled ~}
-  {{ .Inputs }}
-  %{ endif ~}
+%{ if inputs_enabled ~}
+{{ .Inputs }}
+%{ endif ~}
 
-  %{ if outputs_enabled ~}
-  {{ .Outputs }}
-  %{ endif ~}
+%{ if outputs_enabled ~}
+{{ .Outputs }}
+%{ endif ~}
 
   {{ .Footer }}
 

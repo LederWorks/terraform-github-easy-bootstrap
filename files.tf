@@ -98,7 +98,10 @@ locals {
           })
           commit_message = "Update gitversionconfig.yml"
         }
-      } : {}
+      } : {},
+
+      #### Examples ####
+      # Figure out how to handle multiple examples based on var.repos.examples.* This is a double embedded map(object)
     )
   } : {}
 }
