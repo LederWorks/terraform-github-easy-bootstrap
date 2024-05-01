@@ -1,5 +1,18 @@
 #Orchestrated content files
 locals {
+  backend_azurerm = var.repos != {} ? {
+    for repo_key, repo in var.repos : repo_key => {
+      backend_azurerm = {
+        enabled = repo.backend_azurerm.enabled
+        resource_group_name = repo.backend_azurerm.resource_group_name
+        storage_account_name = repo.backend_azurerm.storage_account_name
+        container_name = "terratest-${var.terraform_provider}"
+        key = "${var.brand}-${repo.type}-${var.hive}-${repo.suffix}.${example.name}.tfstate"
+        snapshot = repo.backend_azurerm.snapshot
+        use_azuread_auth = repo.backend_azurerm.use_azuread_auth
+      }
+    }
+  } : {}
 
   files = var.repos != {} ? {
     for repo_key, repo in var.repos : repo_key => merge(

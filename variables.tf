@@ -328,8 +328,8 @@ variable "repos" {
         enabled                     = bool
         resource_group_name         = optional(string, "rgrp-pde3-it-terratest")                                                       # Can be passed via -backend-config="resource_group_name=<resource group name>" in the init command.
         storage_account_name        = optional(string, "saccpde3itterratest001")                                                       # Can be passed via -backend-config="storage_account_name=<storage account name>" in the init command.
-        container_name              = optional(string, "terratest-${var.terraform_provider}")                                          # Can be passed via -backend-config="container_name=<container name>" in the init command.
-        key                         = optional(string, "${var.brand}-${repo.type}-${var.hive}-${repo.suffix}.${example.name}.tfstate") # Can be passed via -backend-config="key=<blob key name>" in the init command.
+        container_name              = optional(string)                                          # Can be passed via -backend-config="container_name=<container name>" in the init command.
+        key                         = optional(string, ) # Can be passed via -backend-config="key=<blob key name>" in the init command.
         snapshot                    = optional(bool, true)                                                                             # Can also be set via ARM_SNAPSHOT environment variable.
         use_azuread_auth            = optional(bool, true)                                                                             # Can also be set via ARM_USE_AZUREAD environment variable.
         use_msi                     = optional(bool, false)                                                                            # Can also be set via ARM_USE_MSI environment variable.
@@ -349,6 +349,26 @@ variable "repos" {
         }), {
         enabled = true
       })
+
+      /* backend_gcs = optional(object({
+        enabled     = bool
+        bucket      = optional(string, "pde3-it-terratest")
+        prefix      = optional(string, "terratest-google")
+        credentials = optional(string, "gcp-credentials.json")
+        }), {
+        enabled = false
+      }) */
+
+      /* backend_s3 = optional(object({
+        enabled = bool
+        bucket  = optional(string, "pde3-it-terratest")
+        key     = optional(string, "terratest-oci")
+        region  = optional(string, "us-west-2")
+        profile = optional(string, "default")
+        }), {
+        enabled = false
+      }) */
+
     })), {})
   }))
   default     = {}
