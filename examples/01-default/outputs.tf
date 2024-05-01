@@ -20,9 +20,9 @@ output "flattened_secrets" {
 } */
 
 #Labels
-/* output "labels" {
+output "labels" {
   value = module.github_bootstrap.labels
 }
 output "flattened_labels" {
   value = module.github_bootstrap.flattened_labels
-} */
+}
