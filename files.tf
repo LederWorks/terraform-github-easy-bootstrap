@@ -185,8 +185,10 @@ locals {
               repository = local.repo_names[repo_key]
               file       = "examples/${example.name}/auth.tf"
               content = templatefile("${path.module}/templates/examples/auth.tf.tftpl", {
-                providers       = var.repos[repo_key].example.providers
-                backend_azurerm = var.repos[repo_key].example.backend_azurerm
+                /* providers       = var.repos[repo_key].example.providers
+                backend_azurerm = var.repos[repo_key].example.backend_azurerm */
+                providers      = lookup(var.repos[repo_key], "providers", {})
+                backend_azurerm = lookup(var.repos[repo_key], "backend_azurerm", {})
               })
               commit_message = "Update examples/${example.name}/auth.tf"
             }
