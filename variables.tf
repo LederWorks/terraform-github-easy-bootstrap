@@ -117,19 +117,19 @@ variable "labels" {
 #Repositories
 variable "repos" {
   type = map(object({
-    #Common
+    ### Common
     type        = string
     suffix      = string
     description = optional(string)
     url         = optional(string)
-    #General
+    ### General
     private_enabled     = optional(bool, false)
     issues_enabled      = optional(bool, true)
     discussions_enabled = optional(bool, false)
     projects_enabled    = optional(bool, false)
     wiki_enabled        = optional(bool, false)
     archive_enabled     = optional(bool, false)
-    #Custom Inputs
+    ### Custom Inputs
     custom_variables = optional(map(string), {})
     custom_secrets   = optional(map(string), {})
     custom_labels = optional(map(object({
@@ -138,22 +138,46 @@ variable "repos" {
       description = optional(string)
     })), {})
 
-    #### Templates ####
+# $$$$$$$$\                                $$\            $$\                         
+# \__$$  __|                               $$ |           $$ |                        
+#    $$ | $$$$$$\  $$$$$$\$$$$\   $$$$$$\  $$ | $$$$$$\ $$$$$$\    $$$$$$\   $$$$$$$\ 
+#    $$ |$$  __$$\ $$  _$$  _$$\ $$  __$$\ $$ | \____$$\\_$$  _|  $$  __$$\ $$  _____|
+#    $$ |$$$$$$$$ |$$ / $$ / $$ |$$ /  $$ |$$ | $$$$$$$ | $$ |    $$$$$$$$ |\$$$$$$\  
+#    $$ |$$   ____|$$ | $$ | $$ |$$ |  $$ |$$ |$$  __$$ | $$ |$$\ $$   ____| \____$$\ 
+#    $$ |\$$$$$$$\ $$ | $$ | $$ |$$$$$$$  |$$ |\$$$$$$$ | \$$$$  |\$$$$$$$\ $$$$$$$  |
+#    \__| \_______|\__| \__| \__|$$  ____/ \__| \_______|  \____/  \_______|\_______/ 
+#                                $$ |                                                 
+#                                $$ |                                                 
+#                                \__|                                                 
 
-    #Terraform-Docs
+    ### PR Template
+    pr_template = optional(object({
+      enabled = bool
+    }), {
+      enabled = true
+    })
+
+    ### Support Template
+    support = optional(object({
+      enabled = bool
+    }), {
+      enabled = true
+    })
+
+    ### Terraform-Docs
     documentation = optional(object({
-      #General
+      ### General
       enabled       = bool
       output_file   = optional(string, "README.md")
       output_format = optional(string, "markdown document")
-      #Content
+      ### Content
       about                = optional(string, "This is a Terraform module.")
       inputs_enabled       = optional(bool, true)
       outputs_enabled      = optional(bool, true)
       providers_enabled    = optional(bool, true)
       requirements_enabled = optional(bool, true)
       resources_enabled    = optional(bool, true)
-      #Config
+      ### Config
       anchor_enabled      = optional(bool, true)
       default_enabled     = optional(bool, true)
       description_enabled = optional(bool, true)
@@ -169,17 +193,17 @@ variable "repos" {
       enabled = true
     })
 
-    #Semver + Release
+    ### Semver + Release
     release = optional(object({
       enabled = bool
       }), {
       enabled = true
     })
 
-    #Examples - Deploys the examples/%EXAMPLE%/auth.tf files configured for the repository
+    ### Examples - Deploys the examples/%EXAMPLE%/auth.tf files configured for the repository
     examples = optional(map(object({
       name = string
-      ##Providers for examples
+      #### Providers for examples
       providers = optional(object({
         azurerm = optional(object({
           enabled = bool # We use enabled to determine if the provider is to be bootstrapped, as all attributes are optional.
@@ -204,7 +228,7 @@ variable "repos" {
         }))
       }))
 
-      ##Backends for examples - We do not enable as default any backends, as there are only one can be configured, and each needs custom input anyway for each examples.
+      #### Backends for examples - We do not enable as default any backends, as there are only one can be configured, and each needs custom input anyway for each examples.
       backends = optional(map(object({
         azurerm = optional(object({
           resource_group_name         = optional(string, "rgrp-pde3-it-terratest") # Can be passed via -backend-config="resource_group_name=<resource group name>" in the init command.

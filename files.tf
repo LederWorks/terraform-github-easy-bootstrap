@@ -2,6 +2,30 @@
 locals {
   files = var.repos != {} ? {
     for repo_key, repo in var.repos : repo_key => merge(
+      #### PR Template ####
+      repo.pr_template.enabled ? {
+        pr_template = {
+          repository = local.repo_names[repo_key]
+          file       = ".github/PULL_REQUEST_TEMPLATE.md"
+          content = templatefile("${path.module}/templates/pull_request_template.md.tftpl", {
+            # Add the variables required for the footer.txt template here
+          })
+          commit_message = "Update PULL_REQUEST_TEMPLATE.md"
+        }
+      } : {},
+
+      #### Support Template ####
+      repo.support.enabled ? {
+        support = {
+          repository = local.repo_names[repo_key]
+          file       = ".github/SUPPORT.md"
+          content = templatefile("${path.module}/templates/support.md.tftpl", {
+            # Add the variables required for the footer.txt template here
+          })
+          commit_message = "Update SUPPORT.md"
+        }
+      } : {},
+
       #### Documentation ####
       repo.documentation.enabled ? {
         documentation = {
