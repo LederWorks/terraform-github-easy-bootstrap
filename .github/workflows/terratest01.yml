@@ -1,7 +1,9 @@
 name: Terratest - terraform-github-easy-bootstrap
 
 on:
-  - pull_request
+  pull_request:
+    paths:
+      - 'examples/01-default/**'
 
 jobs:
   build:

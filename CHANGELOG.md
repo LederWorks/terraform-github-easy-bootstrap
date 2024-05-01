@@ -2,6 +2,10 @@
 
 ## v0.3.0 [current]
 FEATURES:
+- Added logic to create content from template files
+
+## v0.2.0
+FEATURES:
 - Significantly simplified module logic, only focusing on a single hive creation to enforce separation of concerns
 
 ENHANCEMENTS:
@@ -11,10 +15,6 @@ ENHANCEMENTS:
 - Updated setup-terraform to v3
 - Updated terraform-docs to v1.1.0
 - Updated gittools to v1.1.1
-
-## v0.2.0
-FEATURES:
-- MVP Ready
 
 ## v0.1.0
 FEATURES:
