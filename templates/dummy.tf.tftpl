@@ -4,14 +4,14 @@
 #Resource Group
 resource "azurerm_resource_group" "rgrp" {
   name     = "${resource_group_name}"
-  location = "${resource_group_location}"
+  location = "germanywestcentral"
 }
 output "resource_group_name" {
   value = azurerm_resource_group.rgrp.name
 }
 
-# Module Configuration
-module "${module_name}" {
-  // source = "git::https://github.com/LederWorks/${module_repository}.git?ref=${module_version}"
-  source = "../.."
+#Subscription ID
+data "azurerm_client_config" "current" {}
+output "subscription_id" {
+  value = data.azurerm_client_config.current.subscription_id
 }

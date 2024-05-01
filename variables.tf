@@ -234,6 +234,8 @@ variable "repos" {
       #data.tf
       data_deployed     = optional(bool, false) # Deploy the data.tf sample file for the example
       data_docs_enabled = optional(bool, false) # Configure the data.tf documentation for the example
+      #dummy.tf
+      dummy_deployed = optional(bool, false) # Deploy the dummy.tf sample file for the example
       #locals.tf
       locals_deployed     = optional(bool, true) # Deploy the locals.tf sample file for the example
       locals_docs_enabled = optional(bool, true) # Configure the locals.tf documentation for the example
@@ -244,8 +246,8 @@ variable "repos" {
       outputs_deployed     = optional(bool, true) # Deploy the outputs.tf sample file for the example
       outputs_docs_enabled = optional(bool, true) # Configure the outputs.tf documentation for the example
       #terratest.tf
-      terratest_enabled     = optional(bool, true) # Manage the terratest-%EXAMPLE%.yml workflow file in the .test folder for the example
-      terraform_version    = optional(string) # The version of Terraform to be used in the examples workflows.
+      terratest_enabled = optional(bool, true) # Manage the terratest-%EXAMPLE%.yml workflow file and the .test/%EXAMPLE% folder
+      terraform_version = optional(string)     # The version of Terraform to be used in the examples workflows.
       #variables.tf
       variables_deployed     = optional(bool, false) # Deploy the variables.tf sample file for the example
       variables_docs_enabled = optional(bool, false) # Configure the variables.tf documentation for the example
@@ -322,7 +324,7 @@ variable "repos" {
           profile = optional(string, "default")
         })) */
       })))
-    })), {
+      })), {
       default = {
         name        = "01-default"
         description = "This is the default example."

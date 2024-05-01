@@ -1,3 +1,6 @@
+#This file is managed by the Github Bootstrap workflow. Any modifications to this file may be overwritten.
+#To make changes, please modify the terraform-github-easy-bootstrap module.
+
 name: Terratest - terraform-github-easy-bootstrap
 
 on:
@@ -42,5 +45,5 @@ jobs:
 
     - name: Clean up failed resources
       run: |
-        az group delete --name ${rgrp_name} --subscription $${{ secrets.ARM_SUBSCRIPTION_ID }} --yes
+        az group delete --name ${resource_group_name} --subscription $${{ secrets.ARM_SUBSCRIPTION_ID }} --yes
       if: failure()
