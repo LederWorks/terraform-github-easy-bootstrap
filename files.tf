@@ -33,7 +33,7 @@ locals {
     examples = flatten([
       for repo_key, repo in var.repos : [
         for example_key, example in repo.examples : {
-          name        = example.name
+          name        = example.name,
           description = example.description
         }
       ]
