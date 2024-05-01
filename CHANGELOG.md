@@ -7,6 +7,7 @@ FEATURES:
 
 BUG FIXES:
 - Fixed wrong key generation for labels, secrets and vars
+- Fixed repos merge commit message and title unnecessary update trigger, by setting the correct API defaults
 
 ## v0.2.0
 FEATURES:
