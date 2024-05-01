@@ -37,7 +37,7 @@ locals {
             default     = repo.documentation.default_enabled
             description = repo.documentation.description_enabled
             escape      = repo.documentation.escape_enabled
-            hide_empty  = repo.documentation.hide_enabled
+            hide_empty  = repo.documentation.hide_empty_enabled
             html        = repo.documentation.html_enabled
             indent      = repo.documentation.indent
             lockfile    = repo.documentation.lockfile_enabled
