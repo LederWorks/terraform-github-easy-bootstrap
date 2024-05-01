@@ -262,7 +262,7 @@ variable "repos" {
       #### Files
       #auth.tf
       auth_enabled      = optional(bool, true) # Manage the auth.tf file configuration for the example
-      auth_docs_enabled = optional(bool, true) # Configure the auth.tf documentation for the example
+      auth_docs_enabled = optional(bool, false) # Configure the auth.tf documentation for the example
       #context.tf
       context_deployed     = optional(bool, false) # Deploy the context.tf sample file for the example
       context_docs_enabled = optional(bool, false) # Configure the context.tf documentation for the example
@@ -273,13 +273,13 @@ variable "repos" {
       dummy_deployed = optional(bool, false) # Deploy the dummy.tf sample file for the example
       #locals.tf
       locals_deployed     = optional(bool, true) # Deploy the locals.tf sample file for the example
-      locals_docs_enabled = optional(bool, true) # Configure the locals.tf documentation for the example
+      locals_docs_enabled = optional(bool, false) # Configure the locals.tf documentation for the example
       #main.tf
       main_deployed     = optional(bool, true) # Deploy the main.tf sample file for the example
       main_docs_enabled = optional(bool, true) # Configure the main.tf documentation for the example
       #outputs.tf
       outputs_deployed     = optional(bool, true) # Deploy the outputs.tf sample file for the example
-      outputs_docs_enabled = optional(bool, true) # Configure the outputs.tf documentation for the example
+      outputs_docs_enabled = optional(bool, false) # Configure the outputs.tf documentation for the example
       #terratest.tf
       terratest_enabled = optional(bool, true) # Manage the terratest-%EXAMPLE%.yml workflow file and the .test/%EXAMPLE% folder
       terraform_version = optional(string)     # The version of Terraform to be used in the examples workflows.
