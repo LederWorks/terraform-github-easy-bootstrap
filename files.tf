@@ -128,6 +128,7 @@ locals {
       #### Examples ####
       flatten([
         for example_key, example in repo.examples : [
+
           #auth.tf
           example.auth_enabled ? {
             "${repo_key}-${example_key}-auth" = {
@@ -153,11 +154,72 @@ locals {
             }
           } : {},
 
-          # ... repeat for other files like context.tf, locals.tf, etc...
+          #data.tf - always deploy when context deployed
+          example.context_deployed || example.data_deployed ? {
+            "${repo_key}-${example_key}-data" = {
+              repository     = local.repo_names[repo_key]
+              file           = "examples/${example.name}/data.tf"
+              content        = templatefile("${path.module}/templates/data.tf.tftpl", {
+                # Variables for data.tf template here
+              })
+              commit_message = "Add data.tf to example/${example.name}"
+              overwrite      = false
+            }
+          } : {},
 
+          #locals.tf
+          example.locals_deployed ? {
+            "${repo_key}-${example_key}-locals" = {
+              repository     = local.repo_names[repo_key]
+              file           = "examples/${example.name}/locals.tf"
+              content        = templatefile("${path.module}/templates/locals.tf.tftpl", {
+                # Variables for locals.tf template here
+              })
+              commit_message = "Add locals.tf to example/${example.name}"
+              overwrite      = false
+            }
+          } : {},
+
+          #main.tf
+          example.main_deployed ? {
+            "${repo_key}-${example_key}-main" = {
+              repository     = local.repo_names[repo_key]
+              file           = "examples/${example.name}/main.tf"
+              content        = templatefile("${path.module}/templates/main.tf.tftpl", {
+                # Variables for main.tf template here
+              })
+              commit_message = "Add main.tf to example/${example.name}"
+              overwrite      = false
+            }
+          } : {},
+
+          #outputs.tf
+          example.outputs_deployed ? {
+            "${repo_key}-${example_key}-outputs" = {
+              repository     = local.repo_names[repo_key]
+              file           = "examples/${example.name}/outputs.tf"
+              content        = templatefile("${path.module}/templates/outputs.tf.tftpl", {
+                # Variables for outputs.tf template here
+              })
+              commit_message = "Add outputs.tf to example/${example.name}"
+              overwrite      = false
+            }
+          } : {},
+
+          #variables.tf - always deploy when context deployed
+          example.context_deployed || example.variables_deployed ? {
+            "${repo_key}-${example_key}-variables" = {
+              repository     = local.repo_names[repo_key]
+              file           = "examples/${example.name}/variables.tf"
+              content        = templatefile("${path.module}/templates/variables.tf.tftpl", {
+                # Variables for variables.tf template here
+              })
+              commit_message = "Add variables.tf to example/${example.name}"
+              overwrite      = false
+            }
+          } : {},
         ]
       ])...
-
 
       /* {
         for example_key, example in repo.examples : "${repo_key}-${example_key}" => {
@@ -238,6 +300,7 @@ locals {
           } : {},
         }
       } */
+
     )
   } : {}
 }
