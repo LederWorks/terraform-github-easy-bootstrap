@@ -76,9 +76,16 @@ module "github_bootstrap" {
         }
       }
     }
+    #Do not deploy default content
     purple = {
       type   = "brick"
       suffix = "purple"
+      documentation = {
+        enabled      = false
+      }
+      release = {
+        enabled      = false
+      }
     }
     violet = {
       type   = "block"
