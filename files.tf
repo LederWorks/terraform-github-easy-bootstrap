@@ -144,7 +144,7 @@ locals {
             requirements_enabled = repo.documentation.requirements_enabled
             resources            = repo.documentation.resources_enabled ? "- resources" : null
             resources_enabled    = repo.documentation.resources_enabled
-            examples_section     = local.examples_section
+            #Examples
             #Config
             anchor      = repo.documentation.anchor_enabled
             default     = repo.documentation.default_enabled

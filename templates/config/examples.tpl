@@ -7,6 +7,6 @@
   ```hcl
   #auth.tf
   {{ include "examples/${example.name}/auth.tf" }}
-
+  ```
   %{ endif ~}
 %{ endfor ~}
