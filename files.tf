@@ -126,6 +126,7 @@ locals {
 
       #### Examples ####
       # Figure out how to handle multiple examples based on var.repos.examples.* This is a double embedded map(object)
+      # Also figure out how to create the terraform-docs.yml.tftpl template ## Examples section to be generated from the input parameters of var.repo.examples.*
     )
   } : {}
 }

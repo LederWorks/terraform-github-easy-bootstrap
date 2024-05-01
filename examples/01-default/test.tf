@@ -85,11 +85,11 @@ module "github_bootstrap" {
         output_format = "markdown table"
 
         #Content
-        about             = "This is a pink engine module"
+        about = "This is a pink engine module"
         # inputs_enabled    = false #Defaults to true
         # outputs_enabled   = false #Defaults to true
         # providers_enabled = false #Defaults to true
-        required_enabled  = false #Defaults to true
+        required_enabled = false #Defaults to true
         # resources_enabled = false #Defaults to true
 
         #Config
@@ -97,11 +97,11 @@ module "github_bootstrap" {
         # default_enabled     = false #Defaults to true
         # description_enabled = false #Defaults to true
         # escape_enabled      = false #Defaults to true
-        hide_empty_enabled  = true  #Defaults to false
+        hide_empty_enabled = true #Defaults to false
         # html_enabled        = false #Defaults to true
-        indent              = 4     #Defaults to 2
+        indent = 4 #Defaults to 2
         # lockfile_enabled    = true  #Defaults to false
-        required_enabled    = false #Defaults to true
+        required_enabled = false #Defaults to true
         # sensitive_enabled   = false #Defaults to true
         # type_enabled        = false #Defaults to true
       }

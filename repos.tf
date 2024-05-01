@@ -54,7 +54,7 @@ resource "github_repository" "repo" {
   squash_merge_commit_title   = "PR_TITLE"
   squash_merge_commit_message = "PR_BODY"
   merge_commit_title          = "MERGE_MESSAGE" #"PR_TITLE"
-  merge_commit_message        = "PR_TITLE" #"PR_BODY"
+  merge_commit_message        = "PR_TITLE"      #"PR_BODY"
   delete_branch_on_merge      = true
   auto_init                   = true
   archive_on_destroy          = each.value.archive_enabled

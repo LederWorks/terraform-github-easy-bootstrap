@@ -138,29 +138,29 @@ variable "repos" {
       description = optional(string)
     })), {})
 
-# $$$$$$$$\                                $$\            $$\                         
-# \__$$  __|                               $$ |           $$ |                        
-#    $$ | $$$$$$\  $$$$$$\$$$$\   $$$$$$\  $$ | $$$$$$\ $$$$$$\    $$$$$$\   $$$$$$$\ 
-#    $$ |$$  __$$\ $$  _$$  _$$\ $$  __$$\ $$ | \____$$\\_$$  _|  $$  __$$\ $$  _____|
-#    $$ |$$$$$$$$ |$$ / $$ / $$ |$$ /  $$ |$$ | $$$$$$$ | $$ |    $$$$$$$$ |\$$$$$$\  
-#    $$ |$$   ____|$$ | $$ | $$ |$$ |  $$ |$$ |$$  __$$ | $$ |$$\ $$   ____| \____$$\ 
-#    $$ |\$$$$$$$\ $$ | $$ | $$ |$$$$$$$  |$$ |\$$$$$$$ | \$$$$  |\$$$$$$$\ $$$$$$$  |
-#    \__| \_______|\__| \__| \__|$$  ____/ \__| \_______|  \____/  \_______|\_______/ 
-#                                $$ |                                                 
-#                                $$ |                                                 
-#                                \__|                                                 
+    # $$$$$$$$\                                $$\            $$\                         
+    # \__$$  __|                               $$ |           $$ |                        
+    #    $$ | $$$$$$\  $$$$$$\$$$$\   $$$$$$\  $$ | $$$$$$\ $$$$$$\    $$$$$$\   $$$$$$$\ 
+    #    $$ |$$  __$$\ $$  _$$  _$$\ $$  __$$\ $$ | \____$$\\_$$  _|  $$  __$$\ $$  _____|
+    #    $$ |$$$$$$$$ |$$ / $$ / $$ |$$ /  $$ |$$ | $$$$$$$ | $$ |    $$$$$$$$ |\$$$$$$\  
+    #    $$ |$$   ____|$$ | $$ | $$ |$$ |  $$ |$$ |$$  __$$ | $$ |$$\ $$   ____| \____$$\ 
+    #    $$ |\$$$$$$$\ $$ | $$ | $$ |$$$$$$$  |$$ |\$$$$$$$ | \$$$$  |\$$$$$$$\ $$$$$$$  |
+    #    \__| \_______|\__| \__| \__|$$  ____/ \__| \_______|  \____/  \_______|\_______/ 
+    #                                $$ |                                                 
+    #                                $$ |                                                 
+    #                                \__|                                                 
 
     ### PR Template
     pr_template = optional(object({
       enabled = bool
-    }), {
+      }), {
       enabled = true
     })
 
     ### Support Template
     support = optional(object({
       enabled = bool
-    }), {
+      }), {
       enabled = true
     })
 
@@ -200,11 +200,38 @@ variable "repos" {
       enabled = true
     })
 
-    ### Examples - Deploys the examples/%EXAMPLE%/auth.tf files configured for the repository
+    ### Examples - Deploys the following content to examples/%EXAMPLE%/ path for the repository
     examples = optional(map(object({
-      name = string
-      #### Providers for examples
+      #### General
+      name        = string
+      description = optional(string)
+
+      #### Files
+      #auth.tf
+      auth_enabled      = optional(bool, true) # Manage the auth.tf file configuration for the example
+      auth_docs_enabled = optional(bool, true) # Configure the auth.tf documentation for the example
+      #context.tf
+      context_deployed     = optional(bool, false) # Deploy the context.tf sample file for the example
+      context_docs_enabled = optional(bool, false) # Configure the context.tf documentation for the example
+      #data.tf
+      data_deployed     = optional(bool, false) # Deploy the data.tf sample file for the example
+      data_docs_enabled = optional(bool, false) # Configure the data.tf documentation for the example
+      #locals.tf
+      locals_deployed     = optional(bool, true) # Deploy the locals.tf sample file for the example
+      locals_docs_enabled = optional(bool, true) # Configure the locals.tf documentation for the example
+      #main.tf
+      main_deployed     = optional(bool, true) # Deploy the main.tf sample file for the example
+      main_docs_enabled = optional(bool, true) # Configure the main.tf documentation for the example
+      #outputs.tf
+      outputs_deployed     = optional(bool, true) # Deploy the outputs.tf sample file for the example
+      outputs_docs_enabled = optional(bool, true) # Configure the outputs.tf documentation for the example
+      #variables.tf
+      variables_deployed     = optional(bool, false) # Deploy the variables.tf sample file for the example
+      variables_docs_enabled = optional(bool, false) # Configure the variables.tf documentation for the example
+
+      #### Providers for auth.tf
       providers = optional(object({
+        #azurerm
         azurerm = optional(object({
           enabled = bool # We use enabled to determine if the provider is to be bootstrapped, as all attributes are optional.
           source  = optional(string, "hashicorp/azurerm")
@@ -215,20 +242,30 @@ variable "repos" {
             }))
           }))
           storage_use_azuread = optional(bool, true)
-        }))
+          }), {
+          enabled = true
+        })
+
+        #github
         github = optional(object({
           enabled = bool
           source  = optional(string, "integrations/github")
           version = optional(string, "6.2.1")
-        }))
+          }), {
+          enabled = false
+        })
+
+        #oci
         oci = optional(object({
           enabled = bool
           source  = optional(string, "oracle/oci")
           version = optional(string, "5.38.0")
-        }))
+          }), {
+          enabled = false
+        })
       }))
 
-      #### Backends for examples - We do not enable as default any backends, as there are only one can be configured, and each needs custom input anyway for each examples.
+      #### Backends for auth.tf - We do not enable as default any backends, as there are only one can be configured, and each needs custom input anyway for each examples.
       backends = optional(map(object({
         azurerm = optional(object({
           resource_group_name         = optional(string, "rgrp-pde3-it-terratest") # Can be passed via -backend-config="resource_group_name=<resource group name>" in the init command.

@@ -1,0 +1,14 @@
+#This file is deployed by the Github Bootstrap workflow at init time as sample configuration.
+#The terraform-github-easy-bootstrap module does not manage this file further, you can do your own configuration.
+
+#Example Azure Resource Group
+module "rgrp" {
+  source               = "git::https://ADOS-OTPHU-01@dev.azure.com/ADOS-OTPHU-01/OTPHU-COE-TEMPLATESPEC/_git/terraform-azurerm-rg?ref=v1.2.0"
+  context         = module.context
+  resource_name_suffix = "redvuk01"
+}
+
+# Storage Account with Blob Containers
+module "stac01" {
+  // source                       = "git::https://ADOS-OTPHU-01@dev.azure.com/ADOS-OTPHU-01/OTPHU-COE-TEMPLATESPEC/_git/terraform-azurerm-storageaccount?ref=v1.3.0"
+  source               = "../.."
