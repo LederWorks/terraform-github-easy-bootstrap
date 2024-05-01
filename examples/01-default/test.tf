@@ -97,19 +97,30 @@ module "github_bootstrap" {
       }
     }
 
-    /* violet = {
+    #Let's add some load
+    violet = {
       type   = "block"
       suffix = "violet"
-    } */
+    }
 
-    /* brown = {
+    brown = {
       type   = "wrapper"
       suffix = "brown"
-    } */
+    }
 
-    /* orange = {
+    orange = {
       type   = "accelerator"
       suffix = "orange"
-    } */
+    }
+
+    green = {
+      type   = "tool"
+      suffix = "green"
+    }
+
+    black = {
+      type   = "context"
+      suffix = "black"
+    }
   }
 }

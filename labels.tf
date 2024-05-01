@@ -10,7 +10,7 @@ locals {
   flattened_labels = flatten([
     for repo_key, labels in local.labels : [
       for label_name, label in labels : {
-        repo_name         = local.repo_names[repo_key]
+        repo_name         = local.repo_names[repo_key] # This is the same as repository_id. Funnily this makes create_before_destroy operations to not function properly, as we should add a random element to the repository name, which we are not intended to do.
         label_name        = label_name
         label_color       = label.color
         label_description = label.description
