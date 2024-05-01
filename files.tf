@@ -141,7 +141,7 @@ locals {
           } : {},
 
           #context.tf
-          example.context_enabled ? {
+          example.context_deployed ? {
             "${repo_key}-${example_key}-context" = {
               repository     = local.repo_names[repo_key]
               file           = "examples/${example.name}/context.tf"
@@ -149,6 +149,7 @@ locals {
                 # Variables for context.tf template here
               })
               commit_message = "Add context.tf to example/${example.name}"
+              overwrite      = false
             }
           } : {},
 
