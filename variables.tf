@@ -301,7 +301,12 @@ variable "repos" {
           profile = optional(string, "default")
         })) */
       })))
-    })), {})
+    })), {
+      default = {
+        name        = "01-default"
+        description = "This is the default example."
+      }
+    })
 
 
   }))
