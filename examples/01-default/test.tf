@@ -120,12 +120,29 @@ module "github_bootstrap" {
       }
     }
 
-    #Let's add some load
+    #Customize Examples
     violet = {
       type   = "block"
       suffix = "violet"
+      examples = {
+        everest = {
+          name = "01-everest"
+          description = "Everest is the highest mountain in the world"
+        }
+
+        kaytoo = {
+          name = "02-kaytoo"
+          description = "K2 is the second highest mountain in the world"
+        }
+
+        kangchenjunga = {
+          name = "03-kangchenjunga"
+          description = "Kangchenjunga is the third highest mountain in the world"
+        }
+      }
     }
 
+    #Let's add some load
     brown = {
       type   = "wrapper"
       suffix = "brown"
