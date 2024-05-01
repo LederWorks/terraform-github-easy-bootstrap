@@ -62,7 +62,7 @@
 
   %{ if example.outputs_deployed and example.outputs_docs_enabled %}
 
-  Outputs Example: ${example.name}
+  ### Outputs Example: ${example.name}
 
   ```hcl
   {{ include "examples/${example.name}/outputs.tf" }}
