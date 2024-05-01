@@ -2,7 +2,11 @@
 
 ## v0.3.0 [current]
 FEATURES:
-- Added logic to create content from template files
+- Added logic to create content from template files via the new files submodule
+- Content generated dynamically, using the highly opinionated configurations.
+
+BUG FIXES:
+- Fixed wrong key generation for labels, secrets and vars
 
 ## v0.2.0
 FEATURES:

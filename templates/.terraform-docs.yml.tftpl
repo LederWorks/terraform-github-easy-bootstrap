@@ -20,11 +20,11 @@ content: |-
   {{ .Header }}
 
 %{ if requirements_enabled ~}
-{{ .Requirements }}
+  {{ .Requirements }}
 %{ endif ~}
 
 %{ if providers_enabled ~}
-{{ .Providers }}
+  {{ .Providers }}
 %{ endif ~}
 
   ## Examples
@@ -35,15 +35,15 @@ content: |-
   ```
 
 %{ if resources_enabled ~}
-{{ .Resources }}
+  {{ .Resources }}
 %{ endif ~}
 
 %{ if inputs_enabled ~}
-{{ .Inputs }}
+  {{ .Inputs }}
 %{ endif ~}
 
 %{ if outputs_enabled ~}
-{{ .Outputs }}
+  {{ .Outputs }}
 %{ endif ~}
 
   {{ .Footer }}
