@@ -1,0 +1,10 @@
+## Examples
+
+%{ for example_key, example in examples ~}
+  ### Example %{ example_key }
+  %{ if example.description != null }${example.description}%{ endif }
+
+  ```hcl
+  {{ include "examples/${example.name}/main.tf" }}
+  ```
+%{ endfor ~}

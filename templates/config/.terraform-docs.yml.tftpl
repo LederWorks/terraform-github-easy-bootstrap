@@ -1,5 +1,6 @@
 #This file is managed by the Github Bootstrap workflow. Any modifications to this file may be overwritten.
 #To make changes, please modify the terraform-github-easy-bootstrap module.
+
 formatter: ${output_format}
 
 version: ""
@@ -28,12 +29,7 @@ content: |-
   {{ .Providers }}
 %{ endif ~}
 
-  ## Examples
-
-  ### Example 1
-  ```hcl
-  {{ include "examples/01-default/test.tf" }}
-  ```
+  ${examples_section} # Placeholder for the examples section
 
 %{ if resources_enabled ~}
   {{ .Resources }}

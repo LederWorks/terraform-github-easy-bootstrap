@@ -28,6 +28,18 @@ locals {
     }
   } : {} */
 
+  # Generate the content for the examples section
+  examples_section = templatefile("${path.module}/templates/config/examples.tftpl", {
+    examples = flatten([
+      for repo_key, repo in var.repos : [
+        for example_key, example in repo.examples : {
+          name        = example.name
+          description = example.description
+        }
+      ]
+    ])
+  })
+
   files = var.repos != {} ? {
     for repo_key, repo in var.repos : repo_key => merge(
       #### PR Template ####
@@ -378,6 +390,10 @@ locals {
       ])...
     )
   } : {}
+}
+
+output "examples_section" {
+  value = local.examples_section
 }
 
 #Files Module
