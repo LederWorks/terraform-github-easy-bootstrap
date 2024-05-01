@@ -145,7 +145,7 @@ module "github_bootstrap" {
     }
 
     #Let's add some load
-    brown = {
+    /* brown = {
       type   = "wrapper"
       suffix = "brown"
     }
@@ -163,7 +163,7 @@ module "github_bootstrap" {
     black = {
       type   = "context"
       suffix = "black"
-    }
+    } */
   }
 }
 
