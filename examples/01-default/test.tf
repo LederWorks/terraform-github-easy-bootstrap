@@ -108,7 +108,7 @@ module "github_bootstrap" {
     }
 
     #Do not deploy release content for Purple
-    purple = {
+    /* purple = {
       type   = "brick"
       suffix = "purple"
       documentation = {
@@ -118,7 +118,7 @@ module "github_bootstrap" {
       release = {
         enabled = false
       }
-    }
+    } */
 
     #Customize Examples
     violet = {

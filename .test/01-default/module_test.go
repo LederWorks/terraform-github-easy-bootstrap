@@ -20,9 +20,9 @@ func TestTerraform(t *testing.T) {
 		BackendConfig: map[string]interface{}{
 			"tenant_id":            os.Getenv("ARM_TENANT_ID"),
 			"subscription_id":      os.Getenv("ARM_SUBSCRIPTION_ID"),
-			"resource_group_name":  "rgrp-pde3-it-terratest", // os.Getenv("AZURERM_BACKEND_RGRP"),
-			"storage_account_name": "saccpde3itterratest001", // os.Getenv("AZURERM_BACKEND_SACC"),
-			"container_name":       "terratest-generic",      // os.Getenv("AZURERM_BACKEND_CONTAINER"),
+			"resource_group_name":  "rgrp-pde3-it-terratest",
+			"storage_account_name": "saccpde3itterratest001",
+			"container_name":       "terratest-generic",
 			"key":                  "easy-context.choco.tfstate",
 			"snapshot":             "true",
 			"use_azuread_auth":     "true",

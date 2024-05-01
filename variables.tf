@@ -13,6 +13,7 @@ variable "organization" {
   description = "(Required) The name of the organization to create the repositories in."
   default     = "LederWorks"
 }
+
 #Provider
 variable "terraform_provider" {
   type        = string
@@ -46,7 +47,7 @@ variable "hive" {
 
 variable "terraform_version" {
   type        = string
-  description = "(Required) The version of Terraform to be used in the repositories workflows."
+  description = "(Optional) The version of Terraform to be used in the repositories workflows."
   default     = "1.8.2"
 }
 
@@ -131,6 +132,12 @@ variable "labels" {
 #                     $$ |                          
 #                     $$ |                          
 #                     \__|                          
+
+variable "repo_purpose" {
+  type = string
+  default = "module"
+  description = "Purpose of the repositories, such as module, infra, etc."
+}
 
 #Repositories
 variable "repos" {
