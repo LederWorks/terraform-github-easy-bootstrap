@@ -239,6 +239,7 @@ locals {
                 # backend_azurerm = local.dynamic_backend_azurerm[repo_key].backend_azurerm
               })
               commit_message = "Update examples/${example.name}/auth.tf"
+              overwrite      = false
             }
           } : {},
 
