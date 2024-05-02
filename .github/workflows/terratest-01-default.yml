@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'examples/01-default/**'
+      - '**.tf'
 
 jobs:
   build:
