@@ -10,7 +10,7 @@ This module has been mainly designed and developed to bootstrap terraform module
 
 ## How to Use This Modul
 - Ensure Github credentials are [in place](https://registry.terraform.io/providers/integrations/github/latest/docs#authentication)
-- _Some_ role or equivalent is required!
+- Admin role or equivalent is required!
 - Create a Terraform configuration that pulls in this module and specifies values for the required variables.
 
 ## Requirements
@@ -40,21 +40,21 @@ module "github_bootstrap" {
   #### Common Variables
   terraform_provider = "mastiff"
   brand              = "ezpz"
-  hive = "rainbow"
+  hive               = "rainbow"
 
   #### Members
   contributors = local.all_members
-  approvers = ["Dilergore"]
-  admins = ["Ledermayer"]
+  approvers    = ["Dilergore"]
+  admins       = ["Ledermayer"]
 
-  #### Inputs
+  #### Set Inputs
   variables = {
     one = "pici"
     dog = "tej"
   }
 
   secrets = {
-    my   = "verysecret"
+    my  = "verysecret"
     not = "yoursecret"
   }
 
@@ -72,10 +72,11 @@ module "github_bootstrap" {
   }
 
   repos = {
+    #All customization options with Pink
     pink = {
       #Common
-      type   = "engine"
-      suffix = "pink"
+      type        = "engine"
+      suffix      = "pink"
       description = "Mastiff Rainbow Engine Pink Module"
       url         = null
 
@@ -110,25 +111,97 @@ module "github_bootstrap" {
           description = "green"
         }
       }
+
+      #Documentation
+      documentation = {
+        #General
+        enabled       = true
+        output_file   = "USAGE.md"
+        output_format = "markdown table"
+
+        #Content
+        about = "This is a pink engine module"
+        # inputs_enabled    = false #Defaults to true
+        # outputs_enabled   = false #Defaults to true
+        # providers_enabled = false #Defaults to true
+        required_enabled = false #Defaults to true
+        # resources_enabled = false #Defaults to true
+
+        #Config
+        # anchor_enabled      = false #Defaults to true
+        # default_enabled     = false #Defaults to true
+        # description_enabled = false #Defaults to true
+        # escape_enabled      = false #Defaults to true
+        hide_empty_enabled = true #Defaults to false
+        # html_enabled        = false #Defaults to true
+        indent = 4 #Defaults to 2
+        # lockfile_enabled    = true  #Defaults to false
+        required_enabled = false #Defaults to true
+        # sensitive_enabled   = false #Defaults to true
+        # type_enabled        = false #Defaults to true
+      }
     }
-    purple = {
+
+    #Do not deploy release content for Purple
+    /* purple = {
       type   = "brick"
       suffix = "purple"
-    }
+      documentation = {
+        enabled = true
+        about   = "This is a purple brick module"
+      }
+      release = {
+        enabled = false
+      }
+    } */
+
+    #Customize Examples
     violet = {
       type   = "block"
       suffix = "violet"
+      examples = {
+        everest = {
+          name = "01-everest"
+          description = "Everest is the highest mountain in the world"
+          context_deployed = true
+        }
+
+        kaytoo = {
+          name = "02-kaytoo"
+          description = "K2 is the second highest mountain in the world"
+        }
+
+        kangchenjunga = {
+          name = "03-kangchenjunga"
+          description = "Kangchenjunga is the third highest mountain in the world"
+          context_deployed = true
+        }
+      }
     }
-    brown = {
+
+    #Let's add some load
+    /* brown = {
       type   = "wrapper"
       suffix = "brown"
     }
+
     orange = {
       type   = "accelerator"
       suffix = "orange"
     }
+
+    green = {
+      type   = "tool"
+      suffix = "green"
+    }
+
+    black = {
+      type   = "context"
+      suffix = "black"
+    } */
   }
 }
+
 ```
 
 ## Resources
@@ -212,6 +285,22 @@ map(object({
 
 Default: `{}`
 
+### <a name="input_organization"></a> [organization](#input\_organization)
+
+Description: (Required) The name of the organization to create the repositories in.
+
+Type: `string`
+
+Default: `"LederWorks"`
+
+### <a name="input_repo_purpose"></a> [repo\_purpose](#input\_repo\_purpose)
+
+Description: Purpose of the repositories, such as module, infra, etc.
+
+Type: `string`
+
+Default: `"module"`
+
 ### <a name="input_repos"></a> [repos](#input\_repos)
 
 Description:   A map of repositories and associated configurations to be created. The repos object support the following:
@@ -240,25 +329,233 @@ Type:
 
 ```hcl
 map(object({
-    #Common
+    ### Common
     type        = string
     suffix      = string
     description = optional(string)
     url         = optional(string)
-    #General
+    ### General
     private_enabled     = optional(bool, false)
     issues_enabled      = optional(bool, true)
     discussions_enabled = optional(bool, false)
     projects_enabled    = optional(bool, false)
     wiki_enabled        = optional(bool, false)
     archive_enabled     = optional(bool, false)
-    #Custom Inputs
+    ### Custom Inputs
     custom_variables = optional(map(string), {})
     custom_secrets   = optional(map(string), {})
     custom_labels = optional(map(object({
       name        = string
       color       = string
       description = optional(string)
+    })), {})
+
+    # $$$$$$$$\                                $$\            $$\                         
+    # \__$$  __|                               $$ |           $$ |                        
+    #    $$ | $$$$$$\  $$$$$$\$$$$\   $$$$$$\  $$ | $$$$$$\ $$$$$$\    $$$$$$\   $$$$$$$\
+    #    $$ |$$  __$$\ $$  _$$  _$$\ $$  __$$\ $$ | \____$$\\_$$  _|  $$  __$$\ $$  _____|
+    #    $$ |$$$$$$$$ |$$ / $$ / $$ |$$ /  $$ |$$ | $$$$$$$ | $$ |    $$$$$$$$ |\$$$$$$\  
+    #    $$ |$$   ____|$$ | $$ | $$ |$$ |  $$ |$$ |$$  __$$ | $$ |$$\ $$   ____| \____$$\
+    #    $$ |\$$$$$$$\ $$ | $$ | $$ |$$$$$$$  |$$ |\$$$$$$$ | \$$$$  |\$$$$$$$\ $$$$$$$  |
+    #    \__| \_______|\__| \__| \__|$$  ____/ \__| \_______|  \____/  \_______|\_______/
+    #                                $$ |                                                 
+    #                                $$ |                                                 
+    #                                \__|                                                 
+
+    ### PR Template
+    pr_template = optional(object({
+      enabled = bool
+      }), {
+      enabled = true
+    })
+
+    ### Support Template
+    support = optional(object({
+      enabled = bool
+      }), {
+      enabled = true
+    })
+
+    ### Code of Conduct
+    code_of_conduct = optional(object({
+      enabled = bool
+      }), {
+      enabled = true
+    })
+
+    ### Code Owners
+    codeowners = optional(object({
+      enabled = bool
+      }), {
+      enabled = true
+    })
+
+    ### GitIgnore
+    gitignore = optional(object({
+      enabled = bool
+      }), {
+      enabled = true
+    })
+
+    ### GitAttributes
+    gitattributes = optional(object({
+      enabled = bool
+      }), {
+      enabled = true
+    })
+
+    ### Terraform-Docs
+    documentation = optional(object({
+      ### General
+      enabled       = bool
+      output_file   = optional(string, "README.md")
+      output_format = optional(string, "markdown document")
+      ### Content
+      about                = optional(string, "This is a Terraform module.")
+      inputs_enabled       = optional(bool, true)
+      outputs_enabled      = optional(bool, true)
+      providers_enabled    = optional(bool, true)
+      requirements_enabled = optional(bool, true)
+      resources_enabled    = optional(bool, true)
+      ### Config
+      anchor_enabled      = optional(bool, true)
+      default_enabled     = optional(bool, true)
+      description_enabled = optional(bool, true)
+      escape_enabled      = optional(bool, true)
+      hide_empty_enabled  = optional(bool, false)
+      html_enabled        = optional(bool, true)
+      indent              = optional(number, 2)
+      lockfile_enabled    = optional(bool, false)
+      required_enabled    = optional(bool, true)
+      sensitive_enabled   = optional(bool, true)
+      type_enabled        = optional(bool, true)
+      }), {
+      enabled = true
+    })
+
+    ### Semver + Release
+    release = optional(object({
+      enabled = bool
+      }), {
+      enabled = true
+    })
+
+    ### Examples - Deploys the following content to examples/%EXAMPLE%/ path for the repository
+    examples = optional(map(object({
+      #### General
+      name        = string
+      description = optional(string)
+
+      #### Files
+      #auth.tf
+      auth_enabled      = optional(bool, true)  # Manage the auth.tf file configuration for the example
+      auth_docs_enabled = optional(bool, false) # Configure the auth.tf documentation for the example
+      #context.tf
+      context_deployed     = optional(bool, false) # Deploy the context.tf sample file for the example
+      context_docs_enabled = optional(bool, false) # Configure the context.tf documentation for the example
+      #data.tf
+      data_deployed     = optional(bool, false) # Deploy the data.tf sample file for the example
+      data_docs_enabled = optional(bool, false) # Configure the data.tf documentation for the example
+      #dummy.tf
+      dummy_deployed = optional(bool, false) # Deploy the dummy.tf sample file for the example
+      #locals.tf
+      locals_deployed     = optional(bool, true)  # Deploy the locals.tf sample file for the example
+      locals_docs_enabled = optional(bool, false) # Configure the locals.tf documentation for the example
+      #main.tf
+      main_deployed     = optional(bool, true) # Deploy the main.tf sample file for the example
+      main_docs_enabled = optional(bool, true) # Configure the main.tf documentation for the example
+      #outputs.tf
+      outputs_deployed     = optional(bool, true)  # Deploy the outputs.tf sample file for the example
+      outputs_docs_enabled = optional(bool, false) # Configure the outputs.tf documentation for the example
+      #terratest.tf
+      terratest_enabled = optional(bool, true) # Manage the terratest-%EXAMPLE%.yml workflow file and the .test/%EXAMPLE% folder
+      terraform_version = optional(string)     # The version of Terraform to be used in the examples workflows.
+      #variables.tf
+      variables_deployed     = optional(bool, false) # Deploy the variables.tf sample file for the example
+      variables_docs_enabled = optional(bool, false) # Configure the variables.tf documentation for the example
+
+      #### Providers for auth.tf
+      providers = optional(object({
+        #azurerm
+        azurerm = optional(object({
+          enabled = bool # We use enabled to determine if the provider is to be bootstrapped, as all attributes are optional.
+          source  = optional(string, "hashicorp/azurerm")
+          version = optional(string, "3.100.0")
+          features = optional(object({
+            resource_group = optional(object({
+              prevent_deletion_if_contains_resources = optional(bool, false)
+            }))
+          }))
+          storage_use_azuread = optional(bool, true)
+          }), {
+          enabled = true
+        })
+
+        #github
+        github = optional(object({
+          enabled = bool
+          source  = optional(string, "integrations/github")
+          version = optional(string, "6.2.1")
+          }), {
+          enabled = false
+        })
+
+        #oci
+        oci = optional(object({
+          enabled = bool
+          source  = optional(string, "oracle/oci")
+          version = optional(string, "5.38.0")
+          }), {
+          enabled = false
+        })
+      }))
+
+      #### Backends for auth.tf
+      /* backend_azurerm = optional(object({
+        enabled                     = bool
+        resource_group_name         = optional(string, "rgrp-pde3-it-terratest") # Can be passed via -backend-config="resource_group_name=<resource group name>" in the init command.
+        storage_account_name        = optional(string, "saccpde3itterratest001") # Can be passed via -backend-config="storage_account_name=<storage account name>" in the init command.
+        container_name              = optional(string)                           # Can be passed via -backend-config="container_name=<container name>" in the init command.
+        key                         = optional(string)                         # Can be passed via -backend-config="key=<blob key name>" in the init command.
+        snapshot                    = optional(bool, true)                       # Can also be set via ARM_SNAPSHOT environment variable.
+        use_azuread_auth            = optional(bool, true)                       # Can also be set via ARM_USE_AZUREAD environment variable.
+        use_msi                     = optional(bool, false)                      # Can also be set via ARM_USE_MSI environment variable.
+        msi_endpoint                = optional(string)                           # Can also be set via ARM_MSI_ENDPOINT environment variable.
+        use_oidc                    = optional(bool, false)                      # Can also be set via ARM_USE_OIDC environment variable.
+        oidc_request_url            = optional(string)                           # Can also be set via ARM_OIDC_REQUEST_URL or ACTIONS_ID_TOKEN_REQUEST_URL environment variables.
+        oidc_request_token          = optional(string)                           # Can also be set via ARM_OIDC_REQUEST_TOKEN or ACTIONS_ID_TOKEN_REQUEST_TOKEN environment variables.
+        oidc_token                  = optional(string)                           # Can also be set via ARM_OIDC_TOKEN environment variable.
+        oidc_token_file_path        = optional(string)                           # Can also be set via ARM_OIDC_TOKEN_FILE_PATH environment variable.
+        environment                 = optional(string, "public")                 # Can also be set via ARM_ENVIRONMENT environment variable.
+        client_id                   = optional(string)                           # Can also be set via ARM_CLIENT_ID environment variable.
+        client_secret               = optional(string)                           # Can also be set via ARM_CLIENT_SECRET environment variable.
+        client_certificate_path     = optional(string)                           # Can also be set via ARM_CLIENT_CERTIFICATE_PATH environment variable.
+        client_certificate_password = optional(string)                           # Can also be set via ARM_CLIENT_CERTIFICATE_PASSWORD environment variable.
+        subscription_id             = optional(string)                           # Can also be set via ARM_SUBSCRIPTION_ID environment variable.
+        tenant_id                   = optional(string)                           # Can also be set via ARM_TENANT_ID environment variable.
+        }), {
+        enabled = true
+      }) */
+
+      /* backend_gcs = optional(object({
+        enabled     = bool
+        bucket      = optional(string, "pde3-it-terratest")
+        prefix      = optional(string, "terratest-google")
+        credentials = optional(string, "gcp-credentials.json")
+        }), {
+        enabled = false
+      }) */
+
+      /* backend_s3 = optional(object({
+        enabled = bool
+        bucket  = optional(string, "pde3-it-terratest")
+        key     = optional(string, "terratest-oci")
+        region  = optional(string, "us-west-2")
+        profile = optional(string, "default")
+        }), {
+        enabled = false
+      }) */
+
     })), {})
   }))
 ```
@@ -273,6 +570,14 @@ Type: `map(string)`
 
 Default: `{}`
 
+### <a name="input_terraform_version"></a> [terraform\_version](#input\_terraform\_version)
+
+Description: (Optional) The version of Terraform to be used in the repositories workflows.
+
+Type: `string`
+
+Default: `"1.8.2"`
+
 ### <a name="input_variables"></a> [variables](#input\_variables)
 
 Description: (Optional) A map(string) of action variables to be created for all hive repositories
@@ -285,9 +590,33 @@ Default: `{}`
 
 The following outputs are exported:
 
+### <a name="output_flattened_labels"></a> [flattened\_labels](#output\_flattened\_labels)
+
+Description: Flattened GitHub Issue Labels
+
+### <a name="output_flattened_secrets"></a> [flattened\_secrets](#output\_flattened\_secrets)
+
+Description: Flattened GitHub Actions Secrets
+
+### <a name="output_flattened_variables"></a> [flattened\_variables](#output\_flattened\_variables)
+
+Description: Flattened GitHub Actions Variables
+
+### <a name="output_labels"></a> [labels](#output\_labels)
+
+Description: Normalized GitHub Issue Labels
+
 ### <a name="output_repos"></a> [repos](#output\_repos)
 
 Description: Repository Configuration
+
+### <a name="output_secrets"></a> [secrets](#output\_secrets)
+
+Description: Normalized GitHub Actions Secrets
+
+### <a name="output_variables"></a> [variables](#output\_variables)
+
+Description: Normalized GitHub Actions Variables
 
 <!-- markdownlint-disable-file MD033 MD012 -->
 ## Contributing
