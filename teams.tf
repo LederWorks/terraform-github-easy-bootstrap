@@ -9,7 +9,7 @@
 
 #### Hive Contributors
 resource "github_team" "contributors" {
-  name                      = "${var.hive}-contributors"
+  name                      = "${var.terraform_provider}-${var.hive}-contributors"
   description               = "Contributors for the ${var.terraform_provider}-${var.hive} hive."
   privacy                   = "closed"
   create_default_maintainer = true
@@ -28,7 +28,7 @@ resource "github_team_members" "contributors" {
 
 #### Hive Approvers
 resource "github_team" "approvers" {
-  name                      = "${var.hive}-approvers"
+  name                      = "${var.terraform_provider}-${var.hive}-approvers"
   description               = "Approvers of the ${var.terraform_provider}-${var.hive} hive."
   privacy                   = "closed"
   create_default_maintainer = true
@@ -47,7 +47,7 @@ resource "github_team_members" "approvers" {
 
 #### Hive Admins
 resource "github_team" "admins" {
-  name                      = "${var.hive}-admins"
+  name                      = "${var.terraform_provider}-${var.hive}-admins"
   description               = "Admins of the ${var.terraform_provider}-${var.hive} hive."
   privacy                   = "closed"
   create_default_maintainer = true
