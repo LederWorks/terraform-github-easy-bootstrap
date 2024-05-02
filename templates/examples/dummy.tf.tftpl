@@ -1,0 +1,17 @@
+#This file is deployed by the Github Bootstrap workflow at init time as sample configuration.
+#The terraform-github-easy-bootstrap module does not manage this file further, you can do your own configuration.
+
+#Resource Group
+resource "azurerm_resource_group" "rgrp" {
+  name     = "${resource_group_name}"
+  location = "germanywestcentral"
+}
+output "resource_group_name" {
+  value = azurerm_resource_group.rgrp.name
+}
+
+#Subscription ID
+data "azurerm_client_config" "current" {}
+output "subscription_id" {
+  value = data.azurerm_client_config.current.subscription_id
+}

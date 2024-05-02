@@ -53,15 +53,15 @@ resource "github_repository" "repo" {
   allow_auto_merge            = false
   squash_merge_commit_title   = "PR_TITLE"
   squash_merge_commit_message = "PR_BODY"
-  merge_commit_title          = "PR_TITLE"
-  merge_commit_message        = "PR_BODY"
+  merge_commit_title          = "MERGE_MESSAGE" #"PR_TITLE"
+  merge_commit_message        = "PR_TITLE"      #"PR_BODY"
   delete_branch_on_merge      = true
   auto_init                   = true
   archive_on_destroy          = each.value.archive_enabled
 
   #Templates
-  gitignore_template = "Terraform"
-  license_template   = "mit"
+  # gitignore_template = "Terraform"
+  license_template = "mit"
 
   #Security
   security_and_analysis {

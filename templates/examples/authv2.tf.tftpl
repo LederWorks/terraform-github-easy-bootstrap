@@ -1,0 +1,58 @@
+# This file is managed by the Github Bootstrap workflow. Any modifications to this file may be overwritten.
+# To make changes, please modify the terraform-github-easy-bootstrap module.
+
+# Providers
+%{ for provider_name, provider in providers ~}
+%{ if provider.enabled ~}
+provider "${provider_name}" {
+  %{ if provider_name == "azurerm" ~}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = ${provider.features.resource_group.prevent_deletion_if_contains_resources}
+    }
+  }
+  storage_use_azuread = ${provider.storage_use_azuread}
+  %{ endif ~}
+  %{ if provider.version != null ~}
+  version = "${provider.version}"
+  %{ endif ~}
+  %{ if provider.source != null ~}
+  source = "${provider.source}"
+  %{ endif ~}
+}
+%{ endif ~}
+%{ endfor ~}
+
+# Versions
+terraform {
+  required_version = ">=1.6.0"
+  required_providers {
+    %{ for provider_name, provider in providers ~}
+    %{ if provider.enabled ~}
+    ${provider_name} = {
+      source  = "${provider.source}"
+      version = "${provider.version}"
+    }
+    %{ endif ~}
+    %{ endfor ~}
+  }
+}
+
+# Backend
+%{ if backend_azurerm.enabled ~}
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "${backend_azurerm.resource_group_name}"
+    storage_account_name = "${backend_azurerm.storage_account_name}"
+    container_name       = "${backend_azurerm.container_name}"
+    key                  = "${backend_azurerm.key}"
+    snapshot             = ${backend_azurerm.snapshot}
+    use_azuread_auth     = ${backend_azurerm.use_azuread_auth}
+    %{ for attribute_name, attribute_value in backend_azurerm ~}
+    %{ if attribute_name != "enabled" && attribute_value != null ~}
+    ${attribute_name} = "${attribute_value}"
+    %{ endif ~}
+    %{ endfor ~}
+  }
+}
+%{ endif ~}

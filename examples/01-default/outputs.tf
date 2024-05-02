@@ -26,3 +26,11 @@ output "flattened_secrets" {
 output "flattened_labels" {
   value = module.github_bootstrap.flattened_labels
 } */
+
+#Examples
+/* output "examples" {
+  value = module.github_bootstrap.examples
+} */
+/* output "examples_section" {
+  value = module.github_bootstrap.examples_section
+} */

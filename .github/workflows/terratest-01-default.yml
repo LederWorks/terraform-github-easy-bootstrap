@@ -1,7 +1,9 @@
 name: Terratest - terraform-github-easy-bootstrap
 
 on:
-  - pull_request
+  pull_request:
+    paths:
+      - 'examples/01-default/**'
 
 jobs:
   build:
@@ -26,7 +28,7 @@ jobs:
     - name: Install Terraform
       uses: hashicorp/setup-terraform@v3
       with:
-        terraform_version: 1.8.1
+        terraform_version: 1.8.2
         terraform_wrapper: false
 
     - name: Login to Azure CLI
@@ -40,5 +42,5 @@ jobs:
 
     - name: Clean up failed resources
       run: |
-        az group delete --name rgrp-tde3-it-terratest-network-nic --subscription ${{ secrets.ARM_SUBSCRIPTION_ID }} --yes
+        az group delete --name rgrp-tde3-ic-terratest-github-bootstrap --subscription ${{ secrets.ARM_SUBSCRIPTION_ID }} --yes
       if: failure()

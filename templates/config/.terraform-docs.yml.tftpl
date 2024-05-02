@@ -1,0 +1,84 @@
+#This file is deployed by the Github Bootstrap workflow at init time as sample configuration.
+#The terraform-github-easy-bootstrap module does not manage this file further, you can do your own configuration.
+
+formatter: ${output_format}
+
+version: ""
+header-from: .config/header.txt
+footer-from: .config/footer.txt
+
+
+sections:
+  show:
+    - header
+    - footer
+    ${inputs}
+    ${outputs}
+    ${providers}
+    ${requirements}
+    ${resources}
+
+content: |-
+  {{ .Header }}
+
+%{ if requirements_enabled ~}
+  {{ .Requirements }}
+%{ endif ~}
+
+%{ if providers_enabled ~}
+  {{ .Providers }}
+%{ endif ~}
+
+  ## Examples
+
+  ### Example 1
+  ```hcl
+  {{ include "examples/01-default/main.tf" }}
+  ```
+
+  ### Example 2
+  ```hcl
+  {{ include "examples/02-default/main.tf" }}
+  ```
+
+%{ if resources_enabled ~}
+  {{ .Resources }}
+%{ endif ~}
+
+%{ if inputs_enabled ~}
+  {{ .Inputs }}
+%{ endif ~}
+
+%{ if outputs_enabled ~}
+  {{ .Outputs }}
+%{ endif ~}
+
+  {{ .Footer }}
+
+output:
+  file: ""
+  mode: inject
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->
+
+output-values:
+  enabled: false
+
+sort:
+  enabled: true
+  by: required
+
+settings:
+  anchor: ${anchor}
+  default: ${default}
+  description: ${description}
+  escape: ${escape}
+  hide-empty: ${hide_empty}
+  html: ${html}
+  indent: ${indent}
+  lockfile: ${lockfile}
+  required: ${required}
+  sensitive: ${sensitive}
+  type: ${type}
