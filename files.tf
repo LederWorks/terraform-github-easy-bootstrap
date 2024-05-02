@@ -1,7 +1,7 @@
 #Orchestrated content files
 locals {
   # Generate the content for the examples section
-  examples = flatten([
+  /* examples = flatten([
       for repo_key, repo in var.repos : [
         for example_key, example in repo.examples : {
           name                   = example.name,
@@ -22,7 +22,7 @@ locals {
           variables_docs_enabled = example.variables_docs_enabled,
         }
       ]
-    ])
+    ]) */
 
   /* examples_section = templatefile("${path.module}/templates/config/examples.md.tftpl", {
     examples = flatten([
@@ -169,6 +169,7 @@ locals {
             type        = repo.documentation.type_enabled
           })
           commit_message = "Update .config/.terraform-docs.yml"
+          overwrite      = false
         }
       } : {},
 
@@ -404,9 +405,9 @@ locals {
   } : {}
 }
 
-output "examples" {
+/* output "examples" {
   value = local.examples
-}
+} */
 /* output "examples_section" {
   value = local.examples_section
 } */

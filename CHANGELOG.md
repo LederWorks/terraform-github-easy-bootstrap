@@ -5,11 +5,14 @@ FEATURES:
 - Added logic to create content from template files via the new files submodule
 - Content generated dynamically, using the highly opinionated configurations.
 - The following content is managed by the bootstrap
+  - GitAttributes and GitIgnore configuration
+  - Code of Conduct
+  - Code Owners
   - PR template
   - Support template
   - terraform-docs workflow and configuration
   - Semver and Release workflow and configuration
-  - Examples skeleton with configured auth.tf and documentation examples section - TBD
+  - Examples skeleton with sample configuration, terratest and worklow
 
 BUG FIXES:
 - Fixed wrong key generation for labels, secrets and vars
