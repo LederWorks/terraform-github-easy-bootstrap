@@ -28,6 +28,7 @@ locals {
     }
   } : {} */
 
+
   # Generate the content for the examples section
   examples_section = templatefile("${path.module}/templates/config/examples.tpl", {
     examples = flatten([
