@@ -1,7 +1,30 @@
 #Orchestrated content files
 locals {
   # Generate the content for the examples section
-  examples_section = templatefile("${path.module}/templates/config/examples.md.tftpl", {
+  examples = flatten([
+      for repo_key, repo in var.repos : [
+        for example_key, example in repo.examples : {
+          name                   = example.name,
+          description            = example.description,
+          auth_enabled           = example.auth_enabled,
+          auth_docs_enabled      = example.auth_docs_enabled,
+          context_deployed       = example.context_deployed,
+          context_docs_enabled   = example.context_docs_enabled,
+          data_deployed          = example.data_deployed,
+          data_docs_enabled      = example.data_docs_enabled,
+          locals_deployed        = example.locals_deployed,
+          locals_docs_enabled    = example.locals_docs_enabled,
+          main_deployed          = example.main_deployed,
+          main_docs_enabled      = example.main_docs_enabled,
+          outputs_deployed       = example.outputs_deployed,
+          outputs_docs_enabled   = example.outputs_docs_enabled,
+          variables_deployed     = example.variables_deployed,
+          variables_docs_enabled = example.variables_docs_enabled,
+        }
+      ]
+    ])
+
+  /* examples_section = templatefile("${path.module}/templates/config/examples.md.tftpl", {
     examples = flatten([
       for repo_key, repo in var.repos : [
         for example_key, example in repo.examples : {
@@ -24,7 +47,7 @@ locals {
         }
       ]
     ])
-  })
+  }) */
 
   files = var.repos != {} ? {
     for repo_key, repo in var.repos : repo_key => merge(
@@ -131,7 +154,7 @@ locals {
             resources            = repo.documentation.resources_enabled ? "- resources" : null
             resources_enabled    = repo.documentation.resources_enabled
             #Examples
-            examples_section = local.examples_section
+            #examples_section = local.examples_section
             #Config
             anchor      = repo.documentation.anchor_enabled
             default     = repo.documentation.default_enabled
@@ -380,9 +403,12 @@ locals {
   } : {}
 }
 
-output "examples_section" {
-  value = local.examples_section
+output "examples" {
+  value = local.examples
 }
+/* output "examples_section" {
+  value = local.examples_section
+} */
 
 #Files Module
 module "files" {

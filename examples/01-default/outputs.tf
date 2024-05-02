@@ -28,9 +28,9 @@ output "flattened_labels" {
 } */
 
 #Examples
-/* output "examples" {
+output "examples" {
   value = module.github_bootstrap.examples
-} */
-output "examples_section" {
-  value = module.github_bootstrap.examples_section
 }
+/* output "examples_section" {
+  value = module.github_bootstrap.examples_section
+} */
