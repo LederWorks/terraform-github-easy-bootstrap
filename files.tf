@@ -1,36 +1,7 @@
 #Orchestrated content files
 locals {
-  /* dynamic_backend_azurerm = var.repos != {} ? {
-    for repo_key, repo in var.repos : repo_key => {
-      backend_azurerm = {
-        enabled                     = repo.backend_azurerm.enabled
-        resource_group_name         = repo.backend_azurerm.resource_group_name
-        storage_account_name        = repo.backend_azurerm.storage_account_name
-        container_name              = "terratest-${var.terraform_provider}"
-        key                         = "${var.brand}-${repo.type}-${var.hive}-${repo.suffix}.${example.name}.tfstate"
-        snapshot                    = repo.backend_azurerm.snapshot
-        use_azuread_auth            = repo.backend_azurerm.use_azuread_auth
-        use_msi                     = repo.backend_azurerm.use_msi
-        msi_endpoint                = repo.backend_azurerm.msi_endpoint
-        use_oidc                    = repo.backend_azurerm.use_oidc
-        oidc_request_url            = repo.backend_azurerm.oidc_request_url
-        oidc_request_token          = repo.backend_azurerm.oidc_request_token
-        oidc_token                  = repo.backend_azurerm.oidc_token
-        oidc_token_file_path        = repo.backend_azurerm.oidc_token_file_path
-        environment                 = repo.backend_azurerm.environment
-        client_id                   = repo.backend_azurerm.client_id
-        client_secret               = repo.backend_azurerm.client_secret
-        client_certificate_path     = repo.backend_azurerm.client_certificate_path
-        client_certificate_password = repo.backend_azurerm.client_certificate_password
-        subscription_id             = repo.backend_azurerm.subscription_id
-        tenant_id                   = repo.backend_azurerm.tenant_id
-      }
-    }
-  } : {} */
-
-
   # Generate the content for the examples section
-  examples_section = templatefile("${path.module}/templates/config/examples.tpl", {
+  examples_section = templatefile("${path.module}/templates/config/examples.md.tftpl", {
     examples = flatten([
       for repo_key, repo in var.repos : [
         for example_key, example in repo.examples : {
@@ -160,6 +131,7 @@ locals {
             resources            = repo.documentation.resources_enabled ? "- resources" : null
             resources_enabled    = repo.documentation.resources_enabled
             #Examples
+            examples_section = local.examples_section
             #Config
             anchor      = repo.documentation.anchor_enabled
             default     = repo.documentation.default_enabled
